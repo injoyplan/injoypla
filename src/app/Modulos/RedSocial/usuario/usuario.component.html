@@ -1,0 +1,58 @@
+
+<app-header></app-header>
+<app-nav-bar [isActivePerfil]="true" [isActive]="false"></app-nav-bar>
+
+<div class="container ">
+    <div class="row align-items-left mb-4">
+      <div class="col">
+        <div class="row pb-3">
+            <div class="col-sm-6 form-group">
+              <label for="ac-fn">Nombre</label>
+              <input type="text" id="ac-fn" class="form-control form-control-lg" name="nombre" [(ngModel)]="cliente.nombre"
+                placeholder=" ejem. juan ">
+            </div>
+            <div class="col-sm-6 form-group">
+              <label for="ac-ln">Apellido</label>
+              <input type="text" id="ac-ln" class="form-control form-control-lg" name="apellido" [(ngModel)]="cliente.Apellido"
+                 placeholder="ejem.  saavedra ">
+            </div>
+        
+            <div class="col-sm-6 form-group">
+              <label for="ac-email">Correo Electronico</label>
+              <input type="email" id="ac-email" class="form-control form-control-lg" name="email" [(ngModel)]="cliente.email"
+                disabled="true" placeholder="juans0520@gmail.com ">
+            </div>
+            <div class="col-sm-6 form-group">
+              <label for="ac-phone">Celular</label>
+              <input type="text" id="ac-phone" class="form-control form-control-lg" name="telefono" [(ngModel)]="cliente.telefono"
+                 placeholder=" ejem. 999394322 ">
+            </div>
+            <div class="col-sm-6 form-group">
+              <label for="ac-country">Genero</label>
+              <select id="ac-country" class="custom-select custom-select-lg genero" name="genero" [(ngModel)]="cliente.genero"
+               >
+                <option value="" selected>Seleccionar</option>
+                <option value="M">Masculino</option>
+                <option value="F">Femenino</option>
+                <option value="NE">No Especificar</option>
+              </select>
+            </div>
+            <div class="col-sm-6 form-group">
+              <label for="ac-address">Nro Documento</label>
+              <input type="text" id="ac-address" class="form-control form-control-lg nroDocumento" name="NroDocumento" [(ngModel)]="cliente.NroDocumento"
+                value="" >
+            </div>
+            <div class="col-sm-6 form-group">
+              <label for="ac-zip">Fecha Nacimiento</label>
+              <input type="date" [min]="_fechaStrMinima" [max]="_fechaSrtMaxima" class="form-control form-control-lg" [(ngModel)]="cliente.f_nacimiento"
+                value="" name="f_nacimiento" >
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg" (click)="actualizarPerfil()">&nbsp;Guardar
+            Cambios&nbsp;</button>
+      </div>
+    
+    </div>
+  </div>
+
+<app-footer></app-footer>

@@ -1,0 +1,372 @@
+.course {
+  font-family: 'Quicksand', sans-serif;
+  background: #FFF;
+  border-radius: 4px;
+  box-shadow: 0px 5px 40px rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  overflow: hidden;
+  width: 100%;
+  border-radius: 16px;
+  margin-top: 30px;margin-bottom: 10px;
+}
+
+#evento img {
+  border-radius: 0px;
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.course:first-child {
+  margin-top:0px;margin-bottom: 0px;
+}
+.evento_FechaHora {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 25px;
+}
+
+.evento_TituloEvento {
+
+  font-family: 'Quicksand';
+    font-style: normal;
+    font-weight: 700;
+    font-size:  20px;
+    line-height: 28px;
+    display: flex;
+    align-items: center;
+    color: #212121;
+    width: 444px;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    max-width: 100%;
+
+}
+
+.course-date {
+  text-align: center;
+  text-align: -webkit-center;
+  background: #FFF;
+  color: #FFF;
+  float: left;
+  /* padding-left: 24px; */
+  padding-top: 40px;
+  width: 12%;
+  /* top: 70px;*/
+}
+
+.course-date h2 {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  display: flex;
+  align-items: flex-end;
+  text-align: center;
+  color: #212121;
+  align-content: space-around;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  flex-direction: column-reverse;
+
+}
+.course-date h4 {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  align-items: flex-end;
+  text-align: center;
+  color: #212121;
+  align-content: space-around;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  flex-direction: column-reverse;
+
+}
+
+.course-info {
+  background: #ED474A;
+  color: #FFF;
+  float: left;
+  width: 35%;
+}
+
+.course-progress {
+  float: left;
+  padding: 30px 30px 0px 30px;
+  position: relative;
+  width: 53%;
+}
+
+.course h2 {
+  letter-spacing: 1px;
+  margin: 10px 0px;
+}
+
+.course h6 {
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0px;
+}
+
+.course-info a {
+  color: #FFF;
+  display: inline-block;
+  font-size: 12px;
+  opacity: 0.8;
+  margin-top: 30px;
+  text-decoration: none;
+}
+
+.card-price-event {
+ /* position: absolute;
+  top: 80%;
+  left: 72%;
+  width: 150px;*/
+      /* position: unset; */
+    /* top: 80%; */
+    left: auto;
+    /* max-width: 150px; */
+    display: flex;
+    text-align: right;
+    align-items: baseline;
+    justify-content: flex-end;
+}
+
+.card-price {
+  /*font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  color: #212121;
+  display: flex;
+  align-items: center;
+  text-align: right;*/
+
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 38px;
+    /*display: flex;*/
+    align-items: center;
+    text-align: right;
+    color: #212121;
+}
+
+.card-evento {
+  color: #007FA4;
+  font-size: 1.3em;
+  text-align: right;
+}
+
+.card__price_filtro {
+ /* width: 80%;*/
+  text-align: right;
+  /* top: 38%; */
+  margin-top: -20px;
+  /* text-align: right; */
+  float: right;
+}
+
+.progress {
+  background: #DDD;
+  border-radius: 3px;
+  height: 5px;
+  width: 100%;
+}
+
+.progress-container {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  text-align: right;
+  width: 150px;
+}
+
+.fwb {
+  font-weight: bold;
+}
+
+.card-container {
+  display: block;
+  color: #007FA4;
+  font-size: 1.3em;
+  text-align: right;
+  margin-top: 0.5rem;
+}
+
+.card-text {
+  font-size: 10px;
+  opacity: 0.8;
+  letter-spacing: 1px;
+  color: #BC0000;
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+}
+.evento-no-result-title{
+  display: flow-root;
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  /* identical to box height, or 150% */
+  align-items: center;
+  text-align: center;
+
+  /* Text/Secondary */
+
+  color: #4A4A4A;
+
+}
+
+
+@media screen and (max-width: 740px) {
+
+  .course {
+    height: 26rem;
+    width: 100%;
+    border-radius: 16px;
+    margin-left: 0%;
+    margin-right: 0%;
+    padding-right: 0px;
+    padding-left: 0px;
+  }
+  .course:first-child {
+    margin-top: -20px;margin-bottom: 10px;
+  }
+
+  .course-date {
+    display: none !important;
+  }
+
+  .course-progress,
+  .course-info {
+    width: 100%;
+    height: 200px;
+    float: none;
+  }
+  .course-progress{
+    padding: 15px;
+  }
+  .course-info {
+    height: 200px;
+  }
+
+  .course-info h2 {
+    margin: 8px 0px;
+  }
+
+  .course-info a {
+    margin-top: 10px;
+  }
+
+  .course-progress h2 {
+    margin: 16px 0px;
+  }
+
+  .btn {
+    bottom: 30px;
+    left: 30px;
+  }
+  .evento_TituloEvento{
+    font-size: 20px;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    max-width: 100%;
+  }
+  .card-price-event{
+        /* left: 4%; */
+        position: absolute;
+        /* position: absolute; */
+        top: 75%;
+        /* left: 72%; */
+        width: 100%;
+        justify-content: flex-start;
+  }
+  .card__price_filtro_desde{
+    font-size: 10px;
+  }
+  .card__price_filtro{
+   /* width: 80%;
+    text-align: left;
+    margin-top: 0px;
+    float: left;*/
+    /* float: right;*/
+
+
+    text-align: left;
+    margin-top: 0px;
+    margin-right:38px ;
+    float: right;
+
+  }
+  .progress-container {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    text-align: right;
+    width: 150px;
+  }
+  .evento_SubTituloEvento{
+    left: 15px;
+    top: 72px;
+  }
+}
+.page-link{
+  text-decoration: none!important;
+}
+.page-link{
+  text-decoration: none!important;
+}
+
+
+.evento_SubTituloEvento{
+   /*position: absolute;*/
+  width: 455px;
+  height: 24px;
+  max-width: 455px;
+  left: 29px;
+  top: 88px;
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  /*display: flex;*/
+  align-items: center;
+  color: #212121;
+}
+
+
+.card__price_filtro_desde{
+  /*  width: 68px; */
+ /*  height: 16px; */
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 16px;
+  display: flex;
+  /* align-items: center; */
+  /* text-align: right; */
+  /* text-transform: uppercase; */
+  color: #212121;
+  flex-direction: column;
+}

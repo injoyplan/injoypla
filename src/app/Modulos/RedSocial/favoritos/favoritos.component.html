@@ -1,0 +1,76 @@
+
+<app-header></app-header>
+<app-nav-bar [isActivePerfil]=false [isActive]=true ></app-nav-bar>
+<div class="container ">
+  <div class="row align-items-left mb-4">
+    <ng-container *ngIf="eventos.length<=0">
+      <div style="width: 100%;    padding-bottom: 30px;">
+        <div class="contentFavorito">
+          <img src="https://res.cloudinary.com/do4rokki9/image/upload/v1644672060/InjoyPlan/event.png"
+            alt="blog" />
+        </div>
+
+        <p class="tituloNofavorito">Aún no tienes eventos favoritos</p>
+
+        <p style="
+            font-family: Open Sans;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 14px;
+            line-height: 24px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #212121;
+            justify-content: center;
+          ">
+          Favor de Seleccionar algunos para verlos aca 
+        </p>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="eventos.length>0" >
+      
+
+
+    <div class="card card_normal" *ngFor="let evento of eventos; let indice = index">   
+    
+      <a (click)="irPantallafavoritoShow(evento.evento._id)" style="text-decoration: none" >
+        <div class="card-header">
+          <img [ngSrc]="evento.evento.Imagenes[0].url" class="img-fluid" width="4000"
+          height="3000"   alt="rover">    
+        </div>
+        <div class="card-body">
+          <h4 class="tag-titulo">
+            {{evento.evento.titulo}}
+          </h4>
+          <p class="tag-lugar">
+            {{evento.evento.NombreLocal}}
+          </p>
+        </div>
+        <div class="card-footer" style="background-color: white;border-top: 0px solid #e5e8ed !important;">
+          <div class="user">
+            
+            
+          </div>
+        </div>
+      </a>
+     
+    </div>
+ <!--<span class="verFuentes">
+      <a
+      target = "_blank"
+      [href]="'https://' + evento.urlFuente"
+      style="text-decoration: none;color: #A3ABCC;"
+    >Ver fuente</a>
+    
+    
+      </span>-->   
+
+
+
+    </ng-container>
+  </div>
+</div>
+
+
+<app-footer></app-footer>

@@ -1,0 +1,49 @@
+<ng-container *ngIf="pantalla==1">
+  <ng-container *ngIf="!favoritos" >
+    
+    <div class="card__img-actions" (click)="guardarFavoritos(id_fecha,id_evento)">
+      <div class="hi-icon" >
+        <i class="cxi-heart"></i>
+      </div>
+    </div>
+  </ng-container>
+
+ <ng-container *ngIf="favoritos">
+    <div class="card__img-actions" (click)="EliminarFavoritos(id_fecha,id_evento)">
+      <div class="hi-icon" >
+        <i class="cxi-heart-filled"></i>
+      </div>
+    </div>
+  </ng-container>
+
+</ng-container>
+<ng-container *ngIf="pantalla==2">
+  <ng-container *ngIf="!favoritos">
+    <button type="reset" class="card-evento-heart ISDesktop"
+                  (click)="guardarFavoritos(id_fecha,id_evento)"
+                  style=" background-color: transparent;   border: none;">
+                  <i class="cxi-heart" style="cursor: pointer;"></i>
+                </button>
+    <div class="card__img-actions ISMobil" (click)="guardarFavoritos(id_fecha,id_evento)">
+      <div class="hi-icon" >
+        <i class="cxi-heart"></i>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="favoritos">
+    <button type="reset" class="card-evento-heart ISDesktop"
+      (click)="EliminarFavoritos(id_fecha,id_evento)"
+      style=" background-color: transparent;   border: none;">
+      <i class="cxi-heart-filled" style="cursor: pointer;"></i>
+    </button>
+    <div class="card__img-actions ISMobil" (click)="EliminarFavoritos(id_fecha,id_evento)">
+      <div class="hi-icon" >
+        <i class="cxi-heart-filled"></i>
+      </div>
+    </div>
+  </ng-container>
+
+</ng-container>
+
+

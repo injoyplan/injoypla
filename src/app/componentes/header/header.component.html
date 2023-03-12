@@ -1,0 +1,504 @@
+<header class="cs-header">
+
+  <!-- Navbar -->
+  <!-- Remove "navbar-sticky" class to make navigation bar scrollable with the page -->
+  <div class="navbar navbar-expand-lg navbar-light bg-light navbar-sticky" data-fixed-element>
+
+    <div class="container px-0 px-xl-3">
+      <a href="index.html" class="navbar-brand order-lg-1 mr-0 pr-lg-3 mr-lg-4">
+        <img src="assets/img/Logo.png" alt="Createx Logo" id="ImgInjoyplan_desktop">
+      </a>
+      <a href="index.html" class="navbar-brand order-lg-1 mr-0 pr-lg-3 mr-lg-4">
+        <img src="assets/img/logo_mobil.png" alt="Createx Logo" id="ImgInjoyplan_mobil">
+      </a>
+      <!-- Search desktop -->
+      <div class="input-group-overlay ml-4 d-lg-block d-none order-lg-3">
+
+        <div class="input-group-append-overlay">
+          <span class="input-group-text"><i class="cxi-search lead align-middle"></i></span>
+        </div>
+        <input class="form-control appended-form-control rounded-3 border-3" type="text"
+          [ngClass]="{'loading': isloading}" [spellcheck]="false" (ngModelChange)="searchText($event)" [(ngModel)]="src"
+          placeholder="Evento, equipo o artista" id="BusquedaInformacion">
+
+      </div>
+
+      <!-- Toolbar -->
+      <div class="d-flex align-items-center order-lg-3">
+        <ul class="nav nav-tools flex-nowrap">
+          <ng-container *ngIf="cliente == undefined">
+            <a class="nav-tool pr-lg-0" style="padding-top: 5px;" (click)="openCart()">
+              <i class="cxi-heart nav-tool-icon" id="corazon"></i>
+            </a>
+            <a class="nav-tool pr-lg-0 searchMobil" (click)="openSearch()">
+              <i class="cxi-search nav-tool-icon" style="color: #007FA4;font-size: 30px;margin-top: 3px;"></i>
+            </a>
+          </ng-container>
+          <ng-container *ngIf="cliente">
+            <a class="nav-tool pr-lg-0" style="padding-top: 5px;" (click)="openCart()">
+              <i class="cxi-heart nav-tool-icon" id="corazon"></i>
+            </a>
+            <a class="nav-tool pr-lg-0 searchMobil" (click)="openSearch()">
+              <i class="cxi-search nav-tool-icon"></i>
+            </a>
+          </ng-container>
+          <ng-container *ngIf="cliente == undefined">
+            <li class="nav-item align-self-center mb-0">
+              <a class="nav-tool pr-lg-0" data-toggle="offcanvas" data-target="cart" data-bs-toggle="modal" data-bs-target="#formLogin">
+                <i class="fa fa-user nav-tool-icon " style="color: #007FA4;font-size: 30px;"> <label class="ml-2"
+                    style="font-family: 'Quicksand !important';cursor: pointer;color: #007FA4;"></label></i>
+              </a>
+            </li>
+          </ng-container>
+          <ng-container *ngIf="cliente">
+            <div id="avatar-Dropdows">
+              <li class="dropdown">
+                <a (click)="openLogin()" data-toggle="dropdown" class="dropdown-toggle user-action"
+                  style="text-decoration: none;color: #444444;">
+                  <img [src]="imgUrl" class="avatar" alt="Avatar">
+                  <label id="nombreCliente">{{cliente}}</label><b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" id="dropMenu">
+                  <li><a  [routerLink]="['/cuenta/perfil/'+idUsuario]" style="cursor: pointer;" ><i class="fa fa-user"></i> Perfil</a></li>
+                  <li><a  [routerLink]="['/cuenta/favoritos/'+idUsuario] " style="cursor: pointer;" routerLinkActive="active" [attr.routerLinkActiveOptions]="{exact: true}"
+                      [attr.routerLinkActiveOptions]="{exact: true}"><i class="fa fa-heart"></i>Favoritos</a></li>
+                  <li class="divider"></li>
+                  <li><a  (click)="logout()" style="cursor: pointer;"><i class="fa fa-power-off"></i> Logout</a></li>
+                </ul>
+          
+              </li>
+            </div>
+          </ng-container>
+        </ul>
+      </div>
+      <!-- Navbar collapse -->
+      <nav class="collapse navbar-collapse order-lg-2" id="navbarCollapse">
+        <!-- Search mobile -->
+        <div class="input-group-overlay form-group mb-0 d-lg-none d-block">
+          <input type="text" class="form-control prepended-form-control rounded-3 border-3"
+            [ngClass]="{'loading': isloading}" [spellcheck]="false" (ngModelChange)="search($event)" [(ngModel)]="src"
+            placeholder="Search for products...">
+          <div class="input-group-prepend-overlay">
+            <span class="input-group-text">
+              <i class="cxi-search font-size-lg align-middle mt-n1"></i>
+            </span>
+          </div>
+        </div>
+
+      </nav>
+    </div>
+  </div>
+</header>
+
+<div class="ps-panel--sidebar" id="modalCarrito">
+  <div class="ps-panel__header">
+    <div class="ps-cart--mini">
+      <h1 style="font-size: 2rem;">Favoritos</h1>
+    </div>
+    <a class="ps-panel__close" style="cursor: pointer;display: flex;" (click)="openCart()"><svg
+        xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-x-lg"
+        viewBox="0 0 16 16">
+        <path
+          d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+      </svg></a>
+  </div>
+  <div class="ps-panel__content">
+    <ng-container *ngIf="cliente == undefined">
+      <div style="width: 100%;    padding-bottom: 30px;">
+        <div class="contentFavorito">
+          <img src="https://res.cloudinary.com/do4rokki9/image/upload/v1644672060/InjoyPlan/event.png" alt="blog" />
+        </div>
+
+        <p class="tituloNofavorito">Aún no tienes eventos favoritos -</p>
+
+        <p style="
+            font-family: Open Sans;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 14px;
+            line-height: 24px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #212121;
+            justify-content: center;
+          ">
+          Inicia sesión para verlos aquí
+        </p>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="cliente">
+      <div *ngIf="eventos.length>0">
+        <div *ngFor="let evento of eventos">
+          <div class="icons delete" style="cursor: pointer;" (click)="EliminarFavoritos(evento._id)">
+            X
+          </div>
+          <a style="width: 100%;text-decoration: none;"
+            [attr.routerLink]="['/show-eventos/'+evento.evento._id+'/'+evento._id] ">
+
+            <a style="width: 100%;text-decoration: none;">
+              <div class="search__content_favorito" style="width: 100%; font-size: 14px; display: inline-flex">
+                <img [src]="evento.evento.Imagenes[0].url" alt="blog" style="width: 80px; height: 80px" />
+                <div style="width: 70%">
+                  <p class="TitleDate">
+                    {{ evento.fecha.FechaInicio | formatDateDia }} {{ evento.fecha.FechaInicio | date:'MMM' }} -
+                    {{evento.fecha.HoraInicio}} - {{evento.fecha.HoraFin}}
+                  </p>
+                  <h3 class="Title">
+                    {{evento.evento.titulo}}
+                  </h3>
+                  <p style="
+                      font-size: 12px;
+                      line-height: 20px;
+                      font-family: 'Open Sans';
+                      font-weight: 400;
+                      color: #212121;
+                    ">
+                    {{evento.evento.NombreLocal}}
+                  </p>
+                </div>
+              </div>
+            </a>
+          </a>
+
+          <hr style="border: 1px solid #EDEFF5; margin: 6px 0px 15px 0px;">
+        </div>
+      </div>
+      <div *ngIf="eventos.length<=0">
+        <div style="width: 100%;    padding-bottom: 30px;">
+          <div class="contentFavorito">
+            <img src="https://res.cloudinary.com/do4rokki9/image/upload/v1644672060/InjoyPlan/event.png" alt="blog" />
+          </div>
+
+          <p class="tituloNofavorito">Aún no tienes eventos favoritos</p>
+
+          <p style="
+              font-family: Open Sans;
+              font-style: normal;
+              font-weight: normal;
+              font-size: 14px;
+              line-height: 24px;
+              display: flex;
+              align-items: center;
+              text-align: center;
+              color: #212121;
+              justify-content: center;
+            ">
+            Inicia sesión para verlos aquí
+          </p>
+        </div>
+      </div>
+
+
+    </ng-container>
+  </div>
+</div>
+<div class="ps-panel--sidebar" id="modalSearchMobil">
+  <div class="ps-panel__header">
+    <a class="ps-panel__close" style="cursor: pointer;" (click)="openSearch()"><i class="cxi-cross"
+        style="color: red;"></i></a>
+    <div class="input-group-overlay">
+      <div class="input-group-append-overlay">
+        <span class="input-group-text"><i class="cxi-search lead align-middle"></i></span>
+      </div>
+      <input class="form-control appended-form-control rounded-3 border-3" type="text"
+        [ngClass]="{'loading': isloading}" [spellcheck]="false" (ngModelChange)="search($event)" [(ngModel)]="src"
+        placeholder="Evento, equipo o artistas sss" id="BusquedaInformacion">
+
+    </div>
+
+  </div>
+  <div class="ps-panel__content">
+    <ng-container *ngIf="data.length>=1">
+
+      <div *ngFor="let item of data">
+
+        <!--a class="ps-product__title" [routerLink]="['/show-eventos/'+evento.evento._id+'/'+evento._id] ">-->
+        <a style="width: 100%;text-decoration: none;" [attr.routerLink]="['/show/'+item.fecha[0]._id+'/'+item._id] ">
+          <div class="search__content_favorito" style="width: 100%; font-size: 14px; display: inline-flex">
+            <img [src]="item.Imagenes[0].url" alt="blog" style="width: 80px; height: 80px" />
+            <div style="width: 70%">
+              <p class="TitleDate">
+
+                {{ item.fecha[0].FechaInicio | formatDateDia }} {{ item.fecha[0].FechaInicio | date:'MMM' }} -
+                {{item.fecha[0].HoraInicio}} - {{item.fecha[0].HoraFin}}
+
+              </p>
+              <h3 class="Title">
+                {{item.titulo}}
+              </h3>
+              <p style="
+                  font-size: 12px;
+                  line-height: 20px;
+                  font-family: 'Open Sans';
+                  font-weight: 400;
+                  color: #212121;
+                ">
+                {{item.NombreLocal}}
+              </p>
+            </div>
+          </div>
+        </a>
+        <hr style="border: 1px solid #EDEFF5; margin: 6px 0px 15px 0px;">
+      </div>
+    </ng-container>
+    <ng-container *ngIf="data.length<=0">
+      <div style="width: 100%;    padding-bottom: 30px;">
+        <div class="contentFavorito">
+          <img src="https://res.cloudinary.com/do4rokki9/image/upload/v1644672060/InjoyPlan/event.png" alt="blog" />
+        </div>
+
+        <p class="tituloNofavorito">No has realizado una busqueda</p>
+
+        <p style="
+            font-family: Open Sans;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 14px;
+            line-height: 24px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #212121;
+            justify-content: center;
+          ">
+          Favor de escribir minimo tres letras
+        </p>
+      </div>
+    </ng-container>
+
+  </div>
+</div>
+<div class="result-list " [ngClass]="{'result-list-mobil': searchOpen}" ID="modalSearchDesktop">
+  <div style="    display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: space-around;
+  width: 100%;
+  border-bottom: 1px solid #E8E8E8;
+  color: #000;">
+    <h2 class="search__title" style="width: 90%;">Eventos</h2>
+    <a class="ps-panel__close" style="cursor: pointer;font-size: 30px;color: #999;line-height: 24px;"
+      (click)="CloseSearch()"><i class="icon-cross"></i></a>
+  </div>
+  <ng-container *ngIf="isloading">
+    <div style="    text-align: center;    margin-top: 10px;">
+      <div class="spinner-grow text-primary" role="status" style="color: #861F21!important;">
+        <span class="visually-hidden"
+          style="margin-left: 38px;margin-top: 5px;    color: #861F21!important;">Cargando...</span>
+      </div>
+
+
+    </div>
+
+  </ng-container>
+  <ng-container *ngIf="!isloading">
+    <ul class="search__results">
+      <li *ngFor="let item of dataDesktop">
+        <a [attr.routerLink]="['/show/'+item.fecha[0]._id +'/'+item._id]" routerLinkActive="active"
+          routerLinkActiveOptions="{exact: true}" style="width: 100%">
+
+          <div class="search__content">
+            <img [src]="item.Imagenes[0].url" alt="blog" style="width: 80px; height: 80px" />
+            <div style="width: 70%">
+              <span class="search_content_title">
+                {{item.titulo}}
+              </span>
+
+              <span class="search_content_subtitle">
+                {{item.NombreLocal}}
+              </span>
+            </div>
+          </div>
+          <div class="search__date">
+            <p style="font-size: 14px">
+              {{ item.fecha[0].FechaInicio | formatDateDia }} {{ item.fecha[0].FechaInicio | date:'MMM' }} <br>
+              {{item.fecha[0].HoraInicio}} - {{item.fecha[0].HoraFin}}
+            </p>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </ng-container>
+
+  <hr style="width: 95%;
+            height: 1px;
+            border: 1px solid #EDEFF5;
+            flex: none;
+            order: 1;
+            margin-top: 16px;
+            flex-grow: 0;">
+  <div class="search__footer">
+    <a href="#" style="text-decoration: none;" class="color-secondary">Ver todos los resultados para
+      <strong>{{dataDesktop.length}} </strong></a>
+  </div>
+</div>
+
+<div class="modal fade" id="formLogin" tabindex="-1" aria-labelledby="formLoginLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-body">
+        <ng-container *ngIf="PantallaLogin">
+
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="text-center my-2">
+            <img src="assets/img/Logo.png" alt="Createx Logo" style="width: 172px;">
+          </div>
+          <div class="mb-3">
+            <label class="mb-2 text-muted" for="email">Email</label>
+            <input id="email" type="email" class="form-control" [(ngModel)]="Loginusuario.email" name="email" value=""
+              required autofocus>
+            <div class="invalid-feedback" *ngIf="emailIncorrecto">
+              {{mensajeEmail}}
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="mb-2 w-100">
+              <label class="text-muted" for="password">Password</label>
+              <a class="float-end" (click)="olividarContrasena()">
+                ¿Olvidaste tu contraseña?
+              </a>
+            </div>
+            <input id="password" [(ngModel)]="Loginusuario.password" type="password" class="form-control"
+              name="password" required>
+            <div class="invalid-feedback" *ngIf="PasswordCorrecto">
+              {{mensajePassword}}
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center">
+            <button type="submit" class="btn btn-primary ms-auto" (click)="login()">
+              <div class="loader" *ngIf="loading">Ingresando...</div> <b *ngIf="!loading">Ingresar</b>
+            </button>
+          </div>
+          <div class="card-footer py-3 border-0">
+            <div class="text-center">
+              ¿No tienes una cuenta? <a (click)="registroCliente()" class="text-dark">Create uno</a>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="PantallaRegistro">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="text-center my-2">
+            <img src="assets/img/Logo.png" alt="Createx Logo" style="width: 172px;">
+          </div>
+          <form class="row g-1">
+            <div class="col-md-12">
+              <label for="inputEmail4" class="form-label">Nombre</label>
+              <input id="name" type="text" [(ngModel)]="Nuevocliente.nombre" class="form-control" name="name" value=""
+              required autofocus>
+              <div class="invalid-feedback" *ngIf="ErrorNuevoCliente.v_nombre">
+                Campo Vacio
+              </div>
+            </div>
+           
+            <div class="col-12">
+              <label for="inputAddress" class="form-label">Apellido</label>
+              <input id="name" type="text" [(ngModel)]="Nuevocliente.apellido" class="form-control" name="name" value=""   required autofocus>
+              <div class="invalid-feedback" *ngIf="ErrorNuevoCliente.v_apellido">
+                Campo Vacio
+              </div>
+            </div>
+            <div class="col-12">
+              <label for="inputAddress2" class="form-label">Email</label>
+              <input id="email" type="email" [(ngModel)]="Nuevocliente.email" class="form-control" name="email" value=""
+              required>
+              <div class="invalid-feedback" *ngIf="ErrorNuevoCliente.v_email">
+                Campo Vacio
+              </div>
+            </div>
+            <div class="col-md-12">
+              <label for="inputCity" class="form-label">Password</label>
+              <input [(ngModel)]="Nuevocliente.password" 
+                autocomplete="off" type="password" class="form-control" name="password" required>
+                <div class="invalid-feedback" *ngIf="ErrorNuevoCliente.v_password">
+                  Campo Vacio
+                </div>
+            </div>               
+            <div class="col-md-6">
+              <label for="inputCity" class="form-label">Fecha Nacimiento</label>
+              <input placeholder="05/12/1989" [(ngModel)]="Nuevocliente.f_nacimiento" [max]="_fechaSrtMaxima"
+                autocomplete="off" type="date" class="form-control" name="password" required>
+                <div class="invalid-feedback" *ngIf="ErrorNuevoCliente.v_fechaNacimiento">
+                  Campo Vacio
+                </div>
+            </div>
+         
+            <div class="col-md-6">
+              <label for="inputCity" class="form-label">Genero</label>
+                <select id="docType" [(ngModel)]="Nuevocliente.genero" required="required" name="genero"
+                class="form-select px-1">
+                  <option value="-1">Seleccionar</option>
+                  <option value="M">Masculino</option>
+                  <option value="F">Femenino</option>
+                  <option value="NE">No Especificar</option>
+                 </select>
+                <div class="invalid-feedback" *ngIf="ErrorNuevoCliente.v_genero">
+                  Campo Vacio
+                </div>
+            </div>            
+          
+            <div class="d-flex align-items-center mt-4">
+              <div class="form-check">
+                <input type="checkbox" [(ngModel)]="Nuevocliente.terminoCondiciones" name="remember" id="remember"
+                  class="form-check-input">
+                <span for="remember" class="form-check-label">He leído y acepto los <a style="cursor: pointer;color: red;"      [attr.routerLink]="['/Terminos-Condiciones'] " routerLinkActive="active"
+                    [attr.routerLinkActiveOptions]="{exact: true}" target="_blank"><span> Términos y
+                      Condiciones</span></a>.</span>
+              </div>
+
+            </div>
+            <div class="d-flex align-items-center mt-2">
+              <div class="form-check">
+                <input type="checkbox" [(ngModel)]="Nuevocliente.politicaPrivacidad" name="remember" id="remember"
+                  class="form-check-input">
+                <span for="remember" class="form-check-label">  ¿Usted ha leído y acepta los términos y condiciones para el tratamiento de sus datos
+                  personales contenidos en la<a
+                    [attr.routerLink]="['/Terminos-Condiciones'] " routerLinkActive="active" style="cursor: pointer;color: red;"
+                    [attr.routerLinkActiveOptions]="{exact: true}" target="_blank"><span> Política de Privacidad
+                      Web?</span></a>.</span>
+              </div>
+
+            </div>
+
+            <div class="d-flex align-items-center">
+              <button type="submit" class="btn btn-primary ms-auto" (click)="registrarCuenta()">
+                <div class="loader" *ngIf="loadingRegistro">Registrando...</div> <b *ngIf="!loadingRegistro">Registrar</b>
+              </button>
+            </div>
+            <div class="card-footer py-3 border-0">
+              <div class="text-center">
+                ¿Ya tienes cuenta? <a (click)="ingresarCuenta()" class="text-dark">Ingresa</a>
+              </div>
+            </div>
+          </form>
+
+        </ng-container>
+        <ng-container *ngIf="PantallaRecordarContrasena">
+
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="text-center my-2">
+            <img src="assets/img/Logo.png" alt="Createx Logo" style="width: 172px;">
+          </div>
+          <div class="mb-3">
+            <label class="mb-2 text-muted" for="email">E-Mail</label>
+            <input id="email" type="email" class="form-control" [(ngModel)]="Loginusuario.email" name="email" value=""
+              required autofocus>
+          </div>
+          <div class="d-flex align-items-center">
+            <button type="submit" class="btn btn-primary ms-auto" (click)="enviarLink()">
+              <div class="loader" *ngIf="loadingRecordar">Enviando...</div> <b *ngIf="!loadingRecordar"> Enviar link</b>
+            </button>
+          </div>
+          <div class="card-footer py-3 border-0">
+            <div class="text-center">
+              ¿Ya tienes cuenta? <a (click)="ingresarCuenta()" class="text-dark">Ingresa</a>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

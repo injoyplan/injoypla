@@ -1,0 +1,69 @@
+<aside class="blog__e">
+  <div class="card-event">
+    <div>
+      <input type="hidden" id="idEvento" [(ngModel)]="idevento">
+      <h3 class="subTitulosShowEventos">Fecha y hora</h3>
+      <p>
+        {{ (fecha.FechaInicio ) | FormatDateTime}} · {{fecha.HoraInicio}} - {{fecha.HoraFin}}
+      </p>
+    </div>
+    <div style="display: flex; flex-direction: row; justify-content: flex-start; align-items: center; flex-wrap: wrap;">
+      <h3 class="subTitulosShowEventos">Otras fechas disponibles</h3>
+
+      <div style="display: flex;">
+        <div class="date-square" style="margin-right: 10px;"
+          *ngFor="let eventoFecha of ModelfechaEvento let indice = index">
+
+          <ng-container *ngIf="indice<=4">
+            <div (click)="buscarfecha(eventoFecha)" class="date-square__item t-uppercase" style="cursor: pointer;">
+              {{ (eventoFecha.FechaInicio ) | FormatDateTimeShor}}<br />
+            </div>
+          </ng-container>
+
+
+        </div>
+      </div>
+      <br>
+      <div *ngIf="ModelfechaEvento.length>=5" data-toggle="modal" data-target="#exampleModal" style="
+            color: #bc0000;
+            font-weight: 600;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;    cursor: pointer;
+          " class="t-uppercase card-event__more">
+
+        Ver Todas
+      </div>
+    </div>
+
+
+    <div>
+      <h3 class="subTitulosShowEventos">Lugar del evento</h3>
+
+
+      <div style="
+            color: #bc0000;
+            font-weight: 600;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;    cursor: pointer;
+          " class="t-uppercase card-event__more" data-bs-toggle="modal" data-bs-target="#mapaModal">
+        Ver en el Mapa
+      </div>
+
+    </div>
+    <ng-container>
+      <div>
+
+        <h3 style="    font-family: 'Quicksand';"> Entradas desde</h3>
+
+        <p class="t-big">
+          {{ModelfechaEvento[0].precioxfechas[0].Precio | formatMoney }}
+        </p>
+      </div>
+      <div>
+        <h3>Consigue tus entradas aquí</h3>
+
+        
+      </div>
+    </ng-container>
+  </div>
+</aside>
