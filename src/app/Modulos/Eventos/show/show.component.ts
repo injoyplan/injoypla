@@ -5,6 +5,7 @@ import { UtilsService } from '../../../shared/utilitario/util.service';
 import { AuthService } from '../../../shared/Service/Usuario.service';
 import { EventoService } from '../../../shared/Service/Eventos.service';
 import {CookieService} from 'ngx-cookie-service';
+import { StorageService } from 'src/app/shared/Service/storage.service';
 
 declare var iziToast: any;
 declare var jQuery: any;
@@ -33,6 +34,8 @@ export class ShowComponent {
   public isMobileLayout = false;
   public isMobilModal=false;
   public user_data: any = null;
+  public user_favoritos: any = null;
+  public esFavorito =  false;
   zoom = 12;
   maxZoom = 15;
   minZoom = 8;
@@ -41,10 +44,11 @@ export class ShowComponent {
     draggable: false
   };
   markerPositions: google.maps.LatLngLiteral[] = [];
-  constructor(private rest: RestService,    private _router:Router, private cookieService: CookieService,    private util: UtilsService,private _EventoService: EventoService,private _clienteService: AuthService,    private _route: ActivatedRoute) {
+  constructor(private rest: RestService,    private _router:Router, private cookieService: CookieService, private storageService: StorageService,    private util: UtilsService,private _EventoService: EventoService,private _clienteService: AuthService,    private _route: ActivatedRoute) {
     //console.log('1');
 
     this.leerDistrito();
+    this.user_favoritos= this.storageService.getFavorito();
     this._route.params.subscribe(
       params => {
         this.idevento = params['evento'];
@@ -78,13 +82,11 @@ export class ShowComponent {
   search_Evento(){
     this._EventoService.consultar_evento_seleccionado(this.idevento, this.idfechaEvento).then(
       (response: any) => {
-        console.log('search_Evento');
-        console.log(response);
         this.fecha =  response.data._evento[0];
         this.evento =  response.data._evento[0].evento;
         this.ModelfechaEvento =  response.data._fecha;
         this.lista_plataformas =  response.data._entradas;
-          this.nombreDistrit = this.Distrito.filter(item => item.codigo == this.fecha.evento.Distrito)[0].nombre;
+        this.nombreDistrit = this.Distrito.filter(item => item.codigo == this.fecha.evento.Distrito)[0].nombre;
         this.LugarEvento = "" + this.fecha.evento.direccion + " " + this.fecha.evento.Numero + ", " + this.nombreDistrit + " ,Lima, Perú"
         var datos = { lat: parseFloat(this.fecha.evento.latitud_longitud.split(',')[0]), lng: parseFloat(this.fecha.evento.latitud_longitud.split(',')[1]) }
         if (this.fecha.evento.latitud_longitud != null) this.markerPositions.push(datos);
@@ -92,7 +94,7 @@ export class ShowComponent {
           lat: parseFloat(this.fecha.evento.latitud_longitud.split(',')[0]),
           lng: parseFloat(this.fecha.evento.latitud_longitud.split(',')[1]),
         }
-        //this.search_Fecha_evento();
+        this.validarSiEsFavorito(this.idevento);
       },
       error => {
         if (error.status==403) {
@@ -104,6 +106,10 @@ export class ShowComponent {
 
       }
     );
+  }
+  validarSiEsFavorito(idevento: any) {
+   var  incluyeVeinte = this.user_favoritos.includes(idevento);
+   this.esFavorito =incluyeVeinte; 
   }
   buscarfecha(eventoFecha:any){
     this.fecha =  this.ModelfechaEvento.filter(item => item._id == eventoFecha._id)[0];

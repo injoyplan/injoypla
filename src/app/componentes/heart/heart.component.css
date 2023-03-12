@@ -84,8 +84,8 @@
     z-index: 100
   }
   .card__img-actions {
-    top: -12rem;
-    right: -1rem;
+    top: 1rem;
+    right: 1rem;
     font-size: 1.3rem;
     cursor: pointer
   }
@@ -158,8 +158,8 @@
     z-index: 100
   }
   .card__img-actions {
-    top: -12rem;
-    right: -1rem;
+    top: 1rem;
+    right: 1rem;
     font-size: 1.3rem;
     cursor: pointer
   }

@@ -223,8 +223,6 @@ export class AuthService {
     this.cookieService.delete('_wizard_dashboard', '/');
     //this.utili.openSnackBar('Sesión finalizada', 'success');
     this.cleanSession();
-    console.log('logout');
-
     this.router.navigateByUrl('/');
   }
   private get localtoken(): string {

@@ -62,14 +62,18 @@ export class HeartComponent {
       }
   }
   EliminarFavoritos(fechaId:any,Eventi:any){
-    var idFavorito = fechaId;
+    var idFecha = fechaId;
+    var idEvento = Eventi;
+    var idUsuario = this.user_data.sub;    
     if (!this.user_data) {
       this.utils.openSnackBar('Ups! Inicia sesión para agregarlo a tus favoritos', 'warning');
     } else {
-      this.rest.delete('/eliminar_favoritos/'+idFavorito).then((response: any) => {
+      this.rest.delete('/eliminar_favoritos/'+idFecha+'/'+idEvento+'/'+idUsuario).then((response: any) => {
         if (response.estado == 1) {
           this.activado= false;
-
+          this.favoritos= false;
+          this.utils.openSnackBar('muy triste!  Evento se retiro de tus favoritos' , 'success');
+          this.verFavoritosUsuario(idUsuario);
         } else {
           this.utils.openSnackBar('Ups! Error al Eliminar en Favoritos', 'error');
         }

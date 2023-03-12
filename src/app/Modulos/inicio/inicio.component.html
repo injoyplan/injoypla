@@ -81,7 +81,7 @@
     </h2>
   </section>
   <section class="container section " style="display: flex;justify-content: flex-start;flex-wrap: wrap;">
-    <app-card *ngFor="let evento of lista_eventos_Destacados; let indice = index" [evento]="evento"></app-card>
+    <app-card *ngFor="let evento of lista_eventos_Destacados; let indice = index"  [imagenS]="evento.evento[0].Imagenes[0].url" [evento]="evento"  [user_data]="this.user_data" [pantalla]="1"></app-card>
   </section>
 </ng-container>
 
@@ -125,7 +125,7 @@ justify-content: space-between;">
         VER MÁS EVENTOS
       </button>
 
-    </div>|
+    </div>
   </ng-container>
 
 

@@ -29,7 +29,7 @@
       </span>
 
       <span  class="buttonCopiarFavoritos" >
-        <button type="reset"  class="buttonCopiarFavoritos"
+        <button type="reset"  class="buttonCopiarFavoritos" *ngIf="!esFavorito"
           (click)="guardarFavoritos(fecha._id,evento._id)"
           style=" background-color: transparent;   border: none;">
           <i class="cxi-heart" style="cursor: pointer;"></i>
@@ -37,7 +37,7 @@
         </button>
 
         <button type="reset" class="buttonCopiarFavoritos"
-          (click)="EliminarFavoritos(fecha.favoritos)"
+          (click)="EliminarFavoritos(fecha.favoritos)"  *ngIf="esFavorito"
           style=" background-color: transparent;   border: none;">
           <i class="cxi-heart-filled" style="cursor: pointer;"></i>
           Favorito
@@ -58,7 +58,7 @@
         </div>
 
         <a
-          [href]="evento.urlFuente"
+          [href]="'https://' +evento.urlFuente"
           style="
             font-family: Open Sans;
             font-style: normal;
@@ -121,7 +121,7 @@
         <div style="display: flex; flex-direction: row; justify-content: flex-start; align-items: center; flex-wrap: wrap;">
           <h3 class="subTitulosShowEventos">Otras fechas disponibles</h3>
 
-          <div style="display: flex;">
+          <div style="display: flex;         flex-direction: row;          align-items: center;          justify-content: flex-start;          align-content: flex-start;          flex-wrap: wrap;">
             <div class="date-square" style="margin-right: 10px;" *ngFor="let eventoFecha of ModelfechaEvento let indice = index"  >
 
               <ng-container *ngIf="indice<=4" >
@@ -135,7 +135,7 @@
           </div>
           <br>
           <div *ngIf="ModelfechaEvento.length>=5"
-            data-toggle="modal"  data-target="#exampleModal"
+            data-bs-toggle="modal" data-bs-target="#listaPrecios"
             style="
               color: #bc0000;
               font-weight: 600;
@@ -160,7 +160,7 @@
               text-transform: uppercase;    cursor: pointer;
             "
             class="t-uppercase card-event__more"
-            data-bs-toggle="modal" data-bs-target="#mapaModal"
+            data-target="cart" data-bs-toggle="modal" data-bs-target="#mapaDeUbicacion"
           >
             Ver en el Mapa
           </div>
@@ -263,7 +263,7 @@
 
           <h3 class="subTitulosShowEventos">Otras fechas disponibles</h3>
 
-          <div style="display: flex;">
+          <div style="display: flex;         flex-direction: row;          align-items: center;          justify-content: flex-start;          align-content: flex-start;          flex-wrap: wrap;">
             <div class="date-square" style="margin-right: 10px;" *ngFor="let EventoFecha of ModelfechaEvento let indice = index"  >
 
               <ng-container *ngIf="indice<=4" >
@@ -276,8 +276,8 @@
             </div>
           </div>
           <br>
-          <div *ngIf="ListFecha.length>=5"
-            data-toggle="modal" data-target="#exampleModal"
+          <div *ngIf="ModelfechaEvento.length>=5"
+            data-bs-toggle="modal" data-bs-target="#listaPrecios"
             style="
               color: #bc0000;
               font-weight: 600;
@@ -318,6 +318,7 @@
         <div>
           <h3 class="subTitulosShowEventos">Consigue tus entradas aquí</h3>
           <div  *ngFor="let entradas of lista_plataformas; let indice = index"  >
+          
             <a
             target = "_blank"
             [href]="'https://' + entradas.urlWebLugar"
@@ -328,10 +329,10 @@
           align-items: flex-start;
           justify-content: space-evenly;
           align-content: stretch;" >
-            <img [src]="entradas.PlataformaVenta" width="20"  style="margin-right: 7px; margin-top: 2px;"/>
+            <img [src]="entradas.plataforma.iconos" width="20"  style="margin-right: 7px; margin-top: 2px;"/>
 
             <h3 style="color: white; width: 134%">
-              {{entradas.NombrePlataforma}}
+              {{entradas.nombrePlataformaVenta}}
             </h3>
           </span>
           </a>
@@ -367,12 +368,36 @@
   </section>
 
 </div>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="mapaDeUbicacion" tabindex="-1" role="dialog" aria-labelledby="mapaDeUbicacion" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="height:auto;border-radius: 4px;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="mapaDeUbicacion">Mapa de Ubicacion</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+          <google-map height="500px"    [center]="center"       width="auto"  >
+            <map-marker *ngFor="let markerPosition of markerPositions"
+            [position]="markerPosition"
+            ></map-marker>
+          </google-map>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="listaPrecios" tabindex="-1" role="dialog" aria-labelledby="listaPrecios" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content ISDesktopModal"  >
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Calendario del evento</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -387,7 +412,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let Fecha of ListFecha let indice = index">
+              <tr *ngFor="let Fecha of ModelfechaEvento let indice = index">
                 <td style="padding-bottom: 1.9rem;">
                   <span style="font-family: 'Open Sans'; font-style: normal; font-weight: 700;font-size: 12px;line-height: 20px;display: flex; align-items: center; color: #212121;"> {{Fecha.FechaInicio | FormatDateTime }}</span>
 
@@ -403,35 +428,10 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cerrar</button>
       </div>
     </div>
   </div>
-</div>
-
-<div class="modal fade" id="mapaModal" tabindex="-1" role="dialog" aria-labelledby="mapaDeUbicacion" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" style="height:auto;border-radius: 4px;">
-      <div class="modal-header">
-        <h5 class="modal-title" id="mapaDeUbicacion">Mapa de Ubicacion</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="table-responsive">
-          <google-map height="500px"    [center]="center"       width="auto"  >
-            <map-marker *ngFor="let markerPosition of markerPositions"
-            [position]="markerPosition"
-            ></map-marker>
-          </google-map>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
+</div>  
 
 <app-footer></app-footer>
