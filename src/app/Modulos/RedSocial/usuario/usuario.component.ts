@@ -24,40 +24,43 @@ export class UsuarioComponent {
     private util: UtilsService,
     private elem: ElementRef,
     private route: ActivatedRoute,private _clienteService: AuthService) {
-    console.log('home');    
+    //console.log('home');    
   }
   ngOnInit(): void {
     this.user_data= this._clienteService.getCurrentUser();
+    //console.log(this.user_data);
     if (this.user_data) {
       this.ObtenerUsuario();
     }
   }
   ObtenerUsuario() {
-    this._clienteService.obtener_cliente_guest(this.user_data.sub).then(
+    //console.log(this.user_data.token);
+    this._clienteService.obtener_cliente_guest(this.user_data.token).then(
       (response: any) => {
-        //console.log('Response+++++++++++++++++++++');
-        //console.log(response);
-        if (response.estado==1) {
-          this.cliente =  response.data[0];
+        if (response.ok) {
+          this.cliente =  response.data;
         } else {
           this.utils.openSnackBar('Ups! No hay Datos del', 'error');
         }
-
-
       },
       error => {
-        this.utils.openSnackBar('Ups! Error en el sistema', 'error');
-        console.log(error);
+        if (error.message=="Invalid Token...") {
+          this.router.navigate(['/']);
+        } else {
+          this.utils.openSnackBar(error.message, 'error');
+        }
+       
+       
       }
     );
   }
   actualizarPerfil() {
-    this._clienteService.actualizar_cliente_guest(this.user_data.sub,this.cliente).then(
+    this._clienteService.actualizar_cliente_guest(this.cliente).then(
       (response: any) => {
-        //console.log('Response+++++++++++++++++++++');
-        //console.log(response);
-        if (response.estado==1) {
-          this.cliente =  response.data[0];
+        ////console.log('Response+++++++++++++++++++++');
+        ////console.log(response);
+        if (response.ok) {
+          this.cliente =  response.data;
           this.utils.openSnackBar('Upa! se actualizo tu información', 'success');
         } else {
           this.utils.openSnackBar('Ups! no se registraron tus datos', 'error');
@@ -67,7 +70,7 @@ export class UsuarioComponent {
       },
       error => {
         this.utils.openSnackBar('Ups! Error en el sistemma', 'error');
-        //console.log(error);
+        ////console.log(error);
       }
     );
   }

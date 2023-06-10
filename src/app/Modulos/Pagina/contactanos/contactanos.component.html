@@ -1,0 +1,44 @@
+<app-header></app-header>
+<div>
+  <div class="banner-icon">
+  <div class="banner-icon__content">
+    <img src="https://res.cloudinary.com/do4rokki9/image/upload/v1663350217/InjoyPlan/contactanos.png" alt="Ilustración" style="position: relative; top: 50px;width: 250px;height: 200px;">
+    <h2>Contáctanos</h2>
+  </div>
+</div>
+  <main class="container">
+  <section class="section">
+    <h2 class="section__title color-black section__title--sm">Déjanos un mensaje y pronto nos comunicaremos contigo.</h2>
+    <div class="mb-3">
+      <label class="form-label" for="nombre-completo">* Nombre completo</label>
+      <input class="form-control" type="text"  name="apellido" id="nombre-completo" data-format="card" placeholder="Nombre Completo">
+    </div>
+    <div class="mb-3">
+      <label class="form-label" for="correo-contacto">* Correo de contacto</label>
+      <input class="form-control" type="text"   name="apellido"   id="correo-contacto" data-format="card" placeholder="correo@gmail.com">
+    </div>
+    <div class="mb-3">
+      <label class="form-label" for="Telefono">* Teléfono</label>
+      <input class="form-control" type="text"  name="apellido"  id="Telefono" data-format="card" placeholder="XXXXXXXXXX">
+    </div>
+    <!-- Format: Date -->
+    <div class="mb-3">
+      <label class="form-label" for="format-date">* Motivo del mensaje</label>
+      <select class="form-control"  name="apellido"  id="select-input">
+          <option selected value="-1" disabled>Seleccionar</option>
+          <option  value="Consulta" >Consulta</option>
+          <option  value="Sugerencia" >Sugerencia</option>
+          <option  value="Reclamo" >Reclamo</option>
+      </select>
+    </div>
+
+    <!-- Format: Date long -->
+    <div class="mb-3">
+      <label class="form-label" for="format-date-long">* Descripción</label>
+      <textarea class="form-control"  name="apellido"  type="text" id="format-date-long" data-format="date-long" placeholder="yyyy-mm-dd"></textarea>
+    </div>
+    <button type="button" class="btn btn-danger rounded-pill" (click)="enviarCorreo()">Enviar Información</button>
+  </section>
+</main>
+</div>
+<app-footer></app-footer>

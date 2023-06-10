@@ -229,22 +229,22 @@ export class UtilsService {
   };
 
   GetDepartament(){
-    //console.log('GetDepartament---------------------------------------------->');
+    ////console.log('GetDepartament---------------------------------------------->');
     var datos =  ubigeoPeru.reniec;
     datos = datos.filter((elemento: { provincia: string; distrito: string; })=>elemento.provincia =="00" && elemento.distrito =="00");
-    //console.log(datos);
+    ////console.log(datos);
   }
   GetProvincia(Deparatmento: any){
-    //console.log('GetProvincia---------------------------------------------->');
+    ////console.log('GetProvincia---------------------------------------------->');
     var datos =  ubigeoPeru.reniec;
     datos = datos.filter((elemento: { departamento: any; distrito: string; })=>elemento.departamento ==Deparatmento && elemento.distrito =="00").sort();
-    //console.log(datos);
+    ////console.log(datos);
   }
   GetDistrito(Departamento: any,Provincia: any){
-    //console.log('GetDistrito---------------------------------------------->');
+    ////console.log('GetDistrito---------------------------------------------->');
     var datos =  ubigeoPeru.reniec;
     datos = datos.filter((elemento: { departamento: any; provincia: any; })=>elemento.departamento ==Departamento && elemento.provincia ==Provincia).sort();
-    console.log(datos);
+    //console.log(datos);
     return datos;
   }
 }

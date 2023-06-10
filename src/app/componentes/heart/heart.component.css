@@ -283,7 +283,12 @@
     font-size: 1.3em;
     text-align: right;
   }
-
+  .ISDesktop {
+    display: block ;
+  }
+  .ISMobil {
+      display: none;
+  }
 }
 
 
@@ -349,7 +354,12 @@
     font-size: 1.3em;
     text-align: right;
   }
-
+  .ISDesktop {
+    display: block ;
+  }
+  .ISMobil {
+      display: none;
+  }
 }
 
 /**********
@@ -418,7 +428,12 @@
     font-size: 1.3em;
     text-align: right;
   }
-
+  .ISDesktop {
+    display: block ;
+  }
+  .ISMobil {
+      display: none;
+  }
 }
 @media only screen and (min-device-width: 1024px) and (max-device-width: 1024px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
    .card__img-actions,
@@ -480,7 +495,12 @@
     font-size: 1.3em;
     text-align: right;
   }
-
+  .ISDesktop {
+    display: block ;
+  }
+  .ISMobil {
+      display: none;
+  }
 }
 @media only screen and (min-device-width: 768px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
 
@@ -542,7 +562,12 @@
     font-size: 1.3em;
     text-align: right;
   }
-
+  .ISDesktop {
+    display: block ;
+  }
+  .ISMobil {
+      display: none;
+  }
 }
 
 /* Desktops and laptops ----------- */
@@ -711,6 +736,7 @@
     justify-items: center;
     justify-content: space-between;
     align-items: start;
+    margin-left: 81%;
   }
 
   .section__title {
@@ -722,6 +748,12 @@
     color: #007FA4;
     font-size: 1.3em;
     text-align: right;
+  }
+  .ISDesktop {
+    display: block ;
+  }
+  .ISMobil {
+      display: none;
   }
 
 }

@@ -1,4 +1,14 @@
-<app-header></app-header>
+<app-header ></app-header>
+<div style="height: 128px;background: #007FA4;">
+
+
+  <input placeholder="Ingresa tu búsqueda" name="focus" required  [(ngModel)]="filter_busqueda" (ngModelChange)="Filtro_eventos(1)" class="buscarEvento"  type="text" />
+  <button class="close-icon" type="reset" (click)="eliminarDatos()"></button>
+  <button type="button" id="btnBuscarDesktop" class="btn btn-outline-primary " style="margin-left: 10px;border: 3px solid #FFFFFF; border-radius: 30px;color:#FFFFFF;width: 150px;" (click)="Filtro_eventos(1)" >Buscar</button>
+  <button type="reset" id="btnBuscarMobil" class="card-evento-he1art ISDesktop" style="margin-left: 10px;color: #FFFFFF;background-color: transparent;border: none;font-size: 30px;" (click)="Filtro_eventos(1)" >
+      <i class="cxi-search" style="cursor: pointer;"></i>
+    </button>
+</div>
 <section class="container pt-3 pb-5 pb-md-6 mb-2 mb-lg-0 mt-5">
   <!-- Toolbar + pagination -->
   <div class="row mb-4 pb-2">
@@ -15,7 +25,7 @@
             font-weight: 400;
             font-size: 16px;
             line-height: 24px;
-            color: #212121;"> {{eventos.length}} resultados</h3>
+            color: #212121;"> {{eventos.length}} resultados </h3>
           </div>
         <!--  <div class="col-md-6 d-none d-lg-block" >
             <h3 style="float: right;font-size: 20px;"><i class="fa fa-map mt-n1 align-middle" style="margin-right: 3px;" aria-hidden="true"></i> ver mapa</h3>
@@ -105,7 +115,7 @@
                                   <li class="filter-item">
                                     <div class="form-check">
                                       <input type="radio" (change)="Filtro_eventos(1)"
-                                         name="groupModo"
+                                         name="groupModo-0"
                                         class="form-check-input" id="groupModo-0" value="0"
                                         [(ngModel)]="filter_modo_eventos">
                                       <label for="groupModo-0" class="form-check-label">
@@ -127,7 +137,7 @@
                                   <li class="filter-item">
                                     <div class="form-check">
                                       <input type="radio" (change)="Filtro_eventos(1)"
-                                         name="groupModo"
+                                         name="groupModo-2"
                                         class="form-check-input" id="groupModo-2" value="2"
                                         [(ngModel)]="filter_modo_eventos">
                                       <label for="groupModo-2" class="form-check-label">
@@ -160,7 +170,6 @@
             </div>
             <div class="collapse show" id="category" aria-labelledby="category-panel">
               <div class="cs-widget-data-list cs-filter">
-
                 <div class="accordion-collapse collapse show" id="sidebarAccordionCollapse-1"
                   aria-labelledby="sidebarAccordionHeading-1" data-bs-parent="#sidebarAccordion">
                   <div class="accordion-body pt-0">
@@ -181,8 +190,8 @@
                                   <li class="filter-item">
                                     <div class="form-check">
                                       <input type="radio" (change)="Filtro_eventos(2)"
-                                       name="groupCategoria"
-                                        class="form-check-input" id="groupCategoria-0" value="0"
+                                       name="groupCategoria-2"
+                                        class="form-check-input" id="groupCategoria-2" value="0"
                                         [(ngModel)]="filter_modo_categoria">
                                       <label for="groupCategoria-2" class="form-check-label">
                                         <span class="filter-item-text">Todos</span>
@@ -192,10 +201,9 @@
                                   <li class="filter-item">
                                     <div class="form-check">
                                       <input type="radio" (change)="Filtro_eventos(2)" class="form-check-input"
-                                         name="groupCategoria"
-                                        id="groupCategoria-630832a4c6ae463861cdd0a0" value="630832a4c6ae463861cdd0a0"
+                                         name="groupCategoria-1"  id="groupCategoria-1" value="1"
                                         [(ngModel)]="filter_modo_categoria">
-                                      <label for="groupCategoria-630832a4c6ae463861cdd0a0" class="form-check-label">
+                                      <label for="groupCategoria-1" class="form-check-label">
                                         <span class="filter-item-text">Musica</span>
                                       </label>
                                     </div>
@@ -203,10 +211,10 @@
                                   <li class="filter-item">
                                     <div class="form-check">
                                       <input type="radio" (change)="Filtro_eventos(2)" class="form-check-input"
-                                         name="groupCategoria"
-                                        id="groupCategoria-63083349c6ae463861cdd0a2" value="63083349c6ae463861cdd0a2"
+                                         name="groupCategoria-3"
+                                        id="groupCategoria-3" value="3"
                                         [(ngModel)]="filter_modo_categoria">
-                                      <label for="groupCategoria-63083349c6ae463861cdd0a2" class="form-check-label">
+                                      <label for="groupCategoria-3" class="form-check-label">
                                         <span class="filter-item-text">Cultura</span>
                                       </label>
                                     </div>
@@ -214,10 +222,10 @@
                                   <li class="filter-item">
                                     <div class="form-check">
                                       <input type="radio" (change)="Filtro_eventos(2)" class="form-check-input"
-                                        name="groupCategoria"
-                                        id="groupCategoria-63083352c6ae463861cdd0a3" value="63083352c6ae463861cdd0a3"
+                                        name="groupCategoria-4"
+                                        id="groupCategoria-4" value="4"
                                         [(ngModel)]="filter_modo_categoria">
-                                      <label for="groupCategoria-63083352c6ae463861cdd0a3" class="form-check-label">
+                                      <label for="groupCategoria-4" class="form-check-label">
                                         <span class="filter-item-text">Teatro</span>
                                       </label>
                                     </div>
@@ -225,10 +233,10 @@
                                   <li class="filter-item">
                                     <div class="form-check">
                                       <input type="radio" (change)="Filtro_eventos(2)" class="form-check-input"
-                                         name="groupCategoria"
-                                        id="groupCategoria-630832bac6ae463861cdd0a1" value="630832bac6ae463861cdd0a1"
+                                         name="groupCategoria-2"
+                                        id="groupCategoria-2" value="2"
                                         [(ngModel)]="filter_modo_categoria">
-                                      <label for="groupCategoria-630832bac6ae463861cdd0a1" class="form-check-label">
+                                      <label for="groupCategoria-2" class="form-check-label">
                                         <span class="filter-item-text">Entretenimiento</span>
                                       </label>
                                     </div>
@@ -264,6 +272,7 @@
                   data-simplebar-auto-hide="false">
                   <li class="cs-filter-item">
                     <div class="position-relative mb-3">
+
                       <input class="form-control form-control-sm " type="date"
                         (change)="Filtro_eventos(3)" [(ngModel)]="filter_modo_fecha" placeholder="Search the material" [min]="_fechaStrMinima">
                       <i class="ci-search fs-sm position-absolute top-50 end-0 translate-middle-y me-3 zindex-5"></i>
@@ -274,12 +283,12 @@
               </div>
             </div>
           </div>
-          <!-- Fecha -->
+          <!-- Desde -->
           <div class="card border-bottom">
             <div class="card-header pt-0 pb-3" id="Fecha-panel">
               <h6 class="accordion-heading">
                 <a href="#Fecha" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="Fecha">
-                  Desde
+                  Hora desde
                   <span class="accordion-indicator"></span>
                 </a>
               </h6>
@@ -379,39 +388,42 @@
 
 
         <!-- Item -->
-  
+
         <ng-container *ngIf="eventos.length>=1">
-          <div class="course"
-            *ngFor="let evento of eventos">
-          
-            <a class="ps-product__title" [routerLink]="['/show/'+evento._id+'/'+evento.evento[0]._id] ">
+
+          <div class="course" *ngFor="let evento of eventos">
+
+            <a class="ps-product__title" [routerLink]="['/show/'+evento.evento+'/'+evento.idfecha] ">
               <div class="course-date">
 
                 <h2>{{ evento.FechaInicio | formatDateDia}} </h2>
                 <h4>{{ evento.FechaInicio | FormatDateMes }}</h4>
               </div>
+
               <div class="course-info" id="evento">
-                <img [src]="evento.evento[0].Imagenes[0].url" alt="Imágen x" class="card__img-top img-fluid"
+                <img [src]="evento.url" alt="Imágen x" class="card__img-top img-fluid"
                   style="border-radius: 0px;">
               </div>
             </a>
             <div class="course-progress">
+
               <div class="progress-container" style="z-index: 1000;">
-                <app-heart [id_fecha]="evento._id" [pantalla]="2"  [id_evento]="evento.evento[0]._id" [user_data]="user_data"   [favoritos]="evento.activado"   ></app-heart>
+                <app-heart [id_fecha]="evento.idfecha" [pantalla]="2"  [id_evento]="evento.evento" [user_data]="user_data"   [favoritos]="evento.favorito"   ></app-heart>
 
               </div>
-              <a class="ps-product__title" [routerLink]="['/show/'+evento._id+'/'+evento.evento[0]._id]"
+              <a class="ps-product__title" [routerLink]="['/show/'+evento.ideventos+'/'+evento.idfecha]"
                 style="text-decoration: none;">
                 <h6 class="evento_FechaHora">
                   {{ evento.FechaInicio | formatDateDia }} {{ evento.FechaInicio | FormatDateMes }}
-                  {{evento.HoraInicio}} - {{evento.HoraFin}}</h6>
-                <h3 class="mt-2 evento_TituloEvento">{{evento.evento[0].titulo}}</h3>
-                <h5 class="mt-2 evento_SubTituloEvento"> {{evento.evento[0].NombreLocal}}</h5>
+                  {{evento.HoraInicio}} - {{evento.HoraFinal}}</h6>
+                <h3 class="mt-2 evento_TituloEvento">{{evento.titulo}}</h3>
+                <h5 class="mt-2 evento_SubTituloEvento"> {{evento.NombreLocal}}</h5>
                 <div class="card-price-event">
                   <div class="card__price_filtro">
-                    <span class="card__price_filtro_desde">DESDE</span>
+                    <span class="card__price_filtro_desde" *ngIf="evento.Monto!=0">DESDE</span>
 
-                    <span class="card-price">{{evento.precioxfechas[0].Precio | formatMoney}}</span>
+                    <span class="card-price" *ngIf="evento.Monto!=0">{{evento.Monto | formatMoney}}</span>
+                    <span class="card-price" *ngIf="evento.Monto==0">¡Gratis!</span>
                   </div>
                  <!--<div class="card-text">
                     Visto 0 <span class="fwb">veces</span>

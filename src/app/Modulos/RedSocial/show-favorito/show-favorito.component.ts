@@ -36,8 +36,8 @@ export class ShowFavoritoComponent {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    console.log('---------------------- ------------------------------------------------------------',this.idevento);
-    console.log('----------------------------------------------------------------------------------');
+    //console.log('---------------------- ------------------------------------------------------------',this.idevento);
+    //console.log('----------------------------------------------------------------------------------');
     this.search_Evento();
   }
   leerDistrito(){
@@ -57,15 +57,12 @@ export class ShowFavoritoComponent {
     
     this._EventoService.consultar_evento_favoritos(this.idevento).then(
       (response: any) => {
-        console.log('search_Evento');
-        console.log(response);
-       
         this.evento =  response.data._evento[0];
         this.fecha =  response.data._Fechas;
         this.Entradas =  response.data._Entradas;
         this.nombreDistrito = this.Distrito.filter(item => item.codigo == this.evento.Distrito)[0].nombre;
         this.LugarEvento = "" + this.evento.direccion + " " + this.evento.Numero + ", " + this.nombreDistrito + " ,Lima, Perú"
-        console.log(this.LugarEvento);
+        //console.log(this.LugarEvento);
         var datos = { lat: parseFloat(this.evento.latitud_longitud.split(',')[0]), lng: parseFloat(this.evento.latitud_longitud.split(',')[1]) }
         if (this.evento.latitud_longitud != null) this.markerPositions.push(datos);
         this.center = {

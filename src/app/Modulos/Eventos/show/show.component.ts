@@ -22,12 +22,12 @@ export class ShowComponent {
   public idfechaEvento: any;
   public slug: any;
   public evento: any = {};
-  public fecha: any = {};
+  public fecha: any = [];
   public Distrito: any =[];
   public LugarEvento: any;
   public nombreDistrit: any = "";
   public ListFecha: any =[];
-  public lista_plataformas: any=[];
+  public lista_plataformas: any = [];
   public ModelfechaEvento: any=[];
   public lat: any = "";
   public lng: any = "";
@@ -45,8 +45,7 @@ export class ShowComponent {
   };
   markerPositions: google.maps.LatLngLiteral[] = [];
   constructor(private rest: RestService,    private _router:Router, private cookieService: CookieService, private storageService: StorageService,    private util: UtilsService,private _EventoService: EventoService,private _clienteService: AuthService,    private _route: ActivatedRoute) {
-    //console.log('1');
-
+    ////console.log('1');
     this.leerDistrito();
     this.user_favoritos= this.storageService.getFavorito();
     this._route.params.subscribe(
@@ -55,7 +54,6 @@ export class ShowComponent {
         this.idfechaEvento = params['fecha'];
       }
     );
-
   }
   leerDistrito(){
     var datos =   this.util.GetDistrito(14,"01");
@@ -71,30 +69,31 @@ export class ShowComponent {
     });
   }
   ngOnInit(): void {
-
-    console.log('init');
     this.user_data= this._clienteService.getCurrentUser();
     this.search_Evento();
-
-    //this.listar_fechas_del_evento_seleccionado();
-
   }
   search_Evento(){
     this._EventoService.consultar_evento_seleccionado(this.idevento, this.idfechaEvento).then(
       (response: any) => {
-        this.fecha =  response.data._evento[0];
+        this.evento =  response.data[0];
+        this.fecha =  response.dataFecha;
+        this.lista_plataformas =  response.dataPlataformaVenta;
+
+        this.nombreDistrit = this.Distrito.filter(item => item.codigo == this.evento.Distrito)[0].nombre;
+        var datos = { lat: parseFloat(this.evento.latitud_longitud.split(',')[0]), lng: parseFloat(this.evento.latitud_longitud.split(',')[1]) }
+        this.LugarEvento = "" + this.evento.direccion + " " + this.evento.Numero + ", " + this.nombreDistrit + " ,Lima, Perú"
+        if (this.evento.latitud_longitud != null) this.markerPositions.push(datos);
+        this.center = {
+          lat: parseFloat(this.evento.latitud_longitud.split(',')[0]),
+          lng: parseFloat(this.evento.latitud_longitud.split(',')[1]),
+        }
+        this.validarSiEsFavorito(this.evento.evento_id);
+        /*this.fecha =  response.data._evento[0];
         this.evento =  response.data._evento[0].evento;
         this.ModelfechaEvento =  response.data._fecha;
         this.lista_plataformas =  response.data._entradas;
-        this.nombreDistrit = this.Distrito.filter(item => item.codigo == this.fecha.evento.Distrito)[0].nombre;
-        this.LugarEvento = "" + this.fecha.evento.direccion + " " + this.fecha.evento.Numero + ", " + this.nombreDistrit + " ,Lima, Perú"
-        var datos = { lat: parseFloat(this.fecha.evento.latitud_longitud.split(',')[0]), lng: parseFloat(this.fecha.evento.latitud_longitud.split(',')[1]) }
-        if (this.fecha.evento.latitud_longitud != null) this.markerPositions.push(datos);
-        this.center = {
-          lat: parseFloat(this.fecha.evento.latitud_longitud.split(',')[0]),
-          lng: parseFloat(this.fecha.evento.latitud_longitud.split(',')[1]),
-        }
-        this.validarSiEsFavorito(this.idevento);
+
+      */
       },
       error => {
         if (error.status==403) {
@@ -108,39 +107,49 @@ export class ShowComponent {
     );
   }
   validarSiEsFavorito(idevento: any) {
-   var  incluyeVeinte = this.user_favoritos.includes(idevento);
-   this.esFavorito =incluyeVeinte; 
+    if (this.user_favoritos.length>0){
+      var  incluyeVeinte = this.user_favoritos.includes(idevento);
+      this.esFavorito =incluyeVeinte;
+    } else  {
+      this.esFavorito =false;
+    }
+
   }
   buscarfecha(eventoFecha:any){
-    this.fecha =  this.ModelfechaEvento.filter(item => item._id == eventoFecha._id)[0];
+
+    var resultadoFiltro =  this.fecha.filter(item => item.fecha_id == eventoFecha.fecha_id)[0];
+
+    this.evento.FechaInicio =resultadoFiltro.FechaInicio;
+    this.evento.HoraFinal =resultadoFiltro.HoraFinal;
+    this.evento.HoraInicio =resultadoFiltro.HoraInicio;
   }
 
   listar_fechas_del_evento_seleccionado(){
     this._EventoService.listar_fechas_disponibles_del_evento_seleccionado(this.idevento).then(
       (response: any) => {
         if (response.message == 'OK') {
-          //console.log('Listar Fechas');
+          ////console.log('Listar Fechas');
           this.ListFecha = response.data.sort(function(o1:any,o2:any){
             var c = new Date(o1.FechaInicio);
             var d = new Date(o2.FechaInicio);
             return c > d ? 1 : -1;
           });
-          //console.log('resultado');
-          //console.log(this.ListFecha);
+          ////console.log('resultado');
+          ////console.log(this.ListFecha);
         }
       },
       error => {
-        //console.log(error);
+        ////console.log(error);
         this.util.openSnackBar('Ups! No se ha encontrado Plataforma para este evento', 'error');
       });
   }
   listarPlataformas() {
     this._EventoService.consultar_plataforma_seleccionado(this.idevento).then(
       (response: any) => {
-        //console.log('listarPlataformas');
-        //console.log(response);
+        ////console.log('listarPlataformas');
+        ////console.log(response);
         response.data.forEach((e:any) => {
-          //console.log(e);
+          ////console.log(e);
           var datos = {
             'NombrePlataforma':  e.plataforma.nombrePlataforma,
             'urlWebLugar': e.urlWebLugar,
@@ -159,19 +168,19 @@ export class ShowComponent {
           return this.lista_plataformas;
       },
       error => {
-        //console.log(error);
+        ////console.log(error);
         this.util.openSnackBar('Ups! No se ha encontrado Plataforma para este evento', 'error');
       });
 
    /* this.evento.Entradas.forEach((e:any) => {
-      //console.log(e);
-      //console.log('-------------------------TTTTTTTTTTT--------------------------------------');
+      ////console.log(e);
+      ////console.log('-------------------------TTTTTTTTTTT--------------------------------------');
 
 
     });*/
   }
   search_Fecha_evento(){
-    //console.log(this.idfechaEvento);
+    ////console.log(this.idfechaEvento);
     this._EventoService.consultar_fecha_evento_seleccionado(this.idfechaEvento).then(
       (response: any) => {
 
@@ -185,7 +194,7 @@ export class ShowComponent {
         this.listarPlataformas();
       },
       error => {
-        //console.log(error);
+        ////console.log(error);
         this.util.openSnackBar('Ups! No se ha encontrado Plataforma para este evento', 'error');
       })
   }
@@ -203,12 +212,12 @@ export class ShowComponent {
 
       this._EventoService.registrar_cliente_favorito(cliente).then(
         (response: any) => {
-          //console.log(response);
-          this.util.openSnackBar('Upaa!  Evento agregado a tus favoritos, gracias' , 'success');
+          ////console.log(response);
+          this.util.openSnackBar('¡Hurra, este evento se agregó a tus favoritos!' , 'success');
           this.search_Evento();
         },
         error => {
-          //console.log(error);
+          ////console.log(error);
           if (error.status==403) {
             this.util.openSnackBar('Ups! Su Sesion se ha terminado', 'error');
             this._clienteService.logout();
@@ -221,29 +230,34 @@ export class ShowComponent {
     }
 
   }
-  copiarAlPortapapeles(idfecha,idevento){
-    
-    this._EventoService.generar_url_copia(idfecha,idevento).then(
+  copiarAlPortapapeles(idevento,idfecha){
+
+    this._EventoService.generar_url_copia(idevento,idfecha).then(
       (response: any) => {
-        console.log(response);
-        const el = document.createElement("textarea");
-        // PASO 2
-        el.value = response.data;
-        el.setAttribute("readonly", "");
-        // PASO 3
-        el.style.position = "absolute";
-        el.style.left = "-9999px";
-        document.body.appendChild(el);
-        // PASO 4
-        el.select();
-        // PASO 5
-        document.execCommand("copy");
-        // PASO 6
-        document.body.removeChild(el);
-        this.util.openSnackBar('Upaa! se copio en portapapeles' , 'success');
+        //console.log(response);
+        if (response.succes) {
+          const el = document.createElement("textarea");
+          // PASO 2
+          el.value = response.short_url;
+          el.setAttribute("readonly", "");
+          // PASO 3
+          el.style.position = "absolute";
+          el.style.left = "-9999px";
+          document.body.appendChild(el);
+          // PASO 4
+          el.select();
+          // PASO 5
+          document.execCommand("copy");
+          // PASO 6
+          document.body.removeChild(el);
+          this.util.openSnackBar('Upaa! se copio en portapapeles' , 'success');
+        } else {
+          this.util.openSnackBar(response.message , 'Error');
+        }
+
       },
       error => {
-        //console.log(error);
+        ////console.log(error);
         if (error.status==403) {
           this.util.openSnackBar('Ups! Su Sesion se ha terminado', 'error');
           this._clienteService.logout();
@@ -254,16 +268,17 @@ export class ShowComponent {
       })
 
 
-   
+
   }
-  EliminarFavoritos(Idfavorito){
-    //console.log('idFavorito');
-    //console.log(Idfavorito);
-    var idFavorito = Idfavorito;
+  EliminarFavoritos(id_evento:any,id_fecha:any){
+    ////console.log('idFavorito');
+    ////console.log(Idfavorito);
+    var id_evento= id_evento;
+    var id_fecha= id_fecha;
     if (!this.user_data) {
       this.util.openSnackBar('Ups! Inicia sesión para agregarlo a tus favoritos', 'warning');
     } else {
-      this.rest.delete('/eliminar_favoritos/'+idFavorito).then((response: any) => {
+      this.rest.delete('usuario/eliminar_favoritos/'+id_evento+"/"+id_fecha).then((response: any) => {
         if (response.estado == 1) {
           this.search_Evento();
           this.util.openSnackBar('ohhh!  Evento eliminado de tus favoritos, gracias' , 'success');
@@ -281,6 +296,5 @@ export class ShowComponent {
 
       });
     }
-
   }
 }

@@ -1,0 +1,200 @@
+<app-header></app-header>
+<div class="banner-icon">
+  <div class="banner-icon__content">
+    <img src="../../../../assets/img/Preguntas_buscaAqui.png" alt="Ilustración" />
+    <form action="#">
+      <h2>¿Preguntas? Busca aquí</h2>
+     <!--<div class="form-control--icon-wrapper">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Escribe tu pregunta"
+        />
+        <button type="submit">
+          <i class="fa fa-search"></i>
+        </button>
+      </div>-->
+    </form>
+  </div>
+</div>
+<div>
+  <main class="container">
+    <div class="questions">
+      <div class="questions__categories">
+        <h3 class="t-uppercase">Categorías</h3>
+        <ul>
+          <li>
+            <a href="#" class="active" (click)="categoriaPreguntas(0)">Todas</a>
+          </li>
+          <li>
+            <a href="#" (click)="categoriaPreguntas(1)">Compras</a>
+          </li>
+          <li>
+            <a href="#"  (click)="categoriaPreguntas(2)">Servicios</a>
+          </li>
+          <li>
+            <a href="#"  (click)="categoriaPreguntas(3)">Compartir</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="questions__answers">
+
+        <div class="accordion" id="accordionPanelsStayOpenExample">
+          <div class="accordion-item PreguntaFrecuente">
+            <h2 class="accordion-header" id="panelsStayOpen-headingOne" style="color: #007FA4;">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                ¿Usar Injoyplan tiene algún costo?
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+              <div class="accordion-body">
+                 ¡Por supuesto que no! Los servicios de Injoyplan son totalmente
+                  gratuitos.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item PreguntaFrecuente">
+            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                ¿Injoyplan organiza los eventos que se encuentran en su sitio
+                web?
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+              <div class="accordion-body">
+                En Injoyplan no nos dedicamos a organizar eventos. Nuestra finalidad es brindarte la mayor cantidad de actividades relacionada a tus intereses y a ayudarte en caso quieras difundir algún evento en nuestra plataforma para que llegue a más personas.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item PreguntaFrecuente">
+            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                ¿En dónde encuentro la información de los eventos que se
+                muestran el sitio web?
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+              <div class="accordion-body">
+                Ya sea en la página principal o al utilizar el buscador, al seleccionar el evento te mostraremos el detalle de su contenido, como la hora, fecha, lugar, descripción, entre otros datos importantes que necesites
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item PreguntaFrecuente">
+            <h2 class="accordion-header" id="panelsStayOpen-headingFour">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
+                ¿En dónde compro las entradas de los eventos?
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
+              <div class="accordion-body">
+                En el detalle de cada evento te mostraremos, dentro de lo posible y de ser el caso, los lugares en donde podrás adquirir las entradas o la manera de cómo participar. En Injoyplan no vendemos las entradas de los eventos.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item PreguntaFrecuente">
+            <h2 class="accordion-header" id="panelsStayOpen-headingFive">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">
+                ¿Puedo crearme una cuenta personal para uso del sitio web?
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFive">
+              <div class="accordion-body">
+                Por el momento no se cuenta con esa opción, por lo que todo será medio de consulta; aun así, estamos trabajando en ello para otorgarte un mejor servicio
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item PreguntaFrecuente">
+            <h2 class="accordion-header" id="panelsStayOpen-headingSix">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false" aria-controls="panelsStayOpen-collapseSix">
+                ¿Cómo puedo registrar y compartir algún evento en Injoyplan?
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingSix">
+              <div class="accordion-body">
+                Si deseas que tu evento o actividad aparezca en Injoyplan, contáctanos a través de nuestro correo electrónico o redes sociales para que nos envíes la información y podamos compartirlo sin costo alguno.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item PreguntaFrecuente">
+            <h2 class="accordion-header" id="panelsStayOpen-headingTwelve">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwelve" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwelve">
+                ¿Puedo guardar los eventos que me interesan?
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseTwelve" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwelve">
+              <div class="accordion-body">
+                Por el momento esta opción no está disponible.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item PreguntaFrecuente">
+            <h2 class="accordion-header" id="panelsStayOpen-headingSeven">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSeven" aria-expanded="false" aria-controls="panelsStayOpen-collapseSeven">
+                ¿Puedo compartir los eventos?
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseSeven" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingSeven">
+              <div class="accordion-body">
+                Sí, sí podrás compartir todos los eventos que quieras. Al momento de compartir, se copiará el enlace del evento y podrás colocarlo en otras redes o compartirlo con tus amigos. Con ello ayudaras a llegar a más personas con los mismos intereses y a fomentar una cultura más rica en actividades.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item PreguntaFrecuente">
+            <h2 class="accordion-header" id="panelsStayOpen-headingEight">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseEight" aria-expanded="false" aria-controls="panelsStayOpen-collapseEight">
+                ¿Qué pasa si algún evento se modifica o cancela?
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseEight" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingEight">
+              <div class="accordion-body">
+                Al no ser nosotros los organizadores, no podremos evitar que ello suceda, sin embargo, en Injoyplan trataremos en la medida de lo posible de informarte sobre alguna modificación, contratiempo y/o cancelación de algún evento o actividad.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item PreguntaFrecuente">
+            <h2 class="accordion-header" id="panelsStayOpen-headingNine">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseNine" aria-expanded="false" aria-controls="panelsStayOpen-collapseNine">
+                ¿En qué ciudades de Perú puedo buscar?
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseNine" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingNine">
+              <div class="accordion-body">
+                Hemos empezado en la ciudad de Lima, incluyendo también eventos que se llevan a cabo de forma online; en un futuro iremos añadiendo más ciudades.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item PreguntaFrecuente">
+            <h2 class="accordion-header" id="panelsStayOpen-headingTen">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTen" aria-expanded="false" aria-controls="panelsStayOpen-collapseTen">
+                ¿Dónde puedo contactarlos?
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseTen" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTen">
+              <div class="accordion-body">
+                Puedes contactarnos a través de nuestro correo electrónico: contacto@injoyplan.com, o en nuestra redes sociales de Facebook: www.facebook.com/injoyplan o Instagram: www.instagram.com/injoyplan.
+                ¡También nos puedes seguir
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item PreguntaFrecuente">
+            <h2 class="accordion-header" id="panelsStayOpen-headingEleven">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseEleven" aria-expanded="false" aria-controls="panelsStayOpen-collapseEleven">
+                ¿Cuáles son las condiciones generales del servicio y uso de la
+                web?
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseEleven" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingEleven">
+              <div class="accordion-body">
+                Puedes contactarnos a través de nuestro correo electrónico: contacto@injoyplan.com, o en nuestra redes sociales de Facebook: www.facebook.com/injoyplan o Instagram: www.instagram.com/injoyplan.
+                ¡También nos puedes seguir!
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<app-footer></app-footer>
+

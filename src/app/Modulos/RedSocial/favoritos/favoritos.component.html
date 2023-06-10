@@ -29,28 +29,41 @@
       </div>
     </ng-container>
     <ng-container *ngIf="eventos.length>0" >
-      
+
 
 
     <div class="card card_normal" *ngFor="let evento of eventos; let indice = index">   
-    
-      <a (click)="irPantallafavoritoShow(evento.evento._id)" style="text-decoration: none" >
+      <div class="card__img-actions"  (click)="EliminarFavoritos(evento.id_evento,evento.fecha_id)">
+        <div class="hi-icon" >
+          <i class="cxi-cross"></i>
+        </div>
+      </div>
+      <a [routerLink]="['/show/'+evento.evento+'/'+evento.idfecha ]" style="text-decoration: none" >
         <div class="card-header">
-          <img [ngSrc]="evento.evento.Imagenes[0].url" class="img-fluid" width="4000"
+          <img [src]="evento.url" class="img-fluid" width="4000"
           height="3000"   alt="rover">    
         </div>
+        
         <div class="card-body">
+          <span class="tag-fecha-hora">
+            {{ evento.FechaInicio | formatDateDia }} {{ evento.FechaInicio | date:'MMM':'+0200' :'es'}}
+           
+    
+    
+          </span>
           <h4 class="tag-titulo">
-            {{evento.evento.titulo}}
+            {{evento.titulo}}
           </h4>
           <p class="tag-lugar">
-            {{evento.evento.NombreLocal}}
+            {{evento.NombreLocal}}
           </p>
         </div>
         <div class="card-footer" style="background-color: white;border-top: 0px solid #e5e8ed !important;">
           <div class="user">
-            
-            
+            <div class="user-info" >
+              <small>Desde </small>
+              <h5 class="tag-monto">{{evento.Monto | formatMoney}}</h5>
+            </div>     
           </div>
         </div>
       </a>

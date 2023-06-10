@@ -18,7 +18,7 @@ export class formatdaterestadiapipe implements PipeTransform {
     let resta = end.getTime()-now.getTime() ;
 
     var datos =  Math.round(resta/ (1000*60*60*21));
-    var mensaje = (datos.toString().toUpperCase() =="-1") ?  "Hoy es el dia" : "Dentro de "+ datos.toString().toUpperCase()+ " días";
+    var mensaje = (datos.toString().toUpperCase() =="-1" ||  datos.toString().toUpperCase() =="0") ?  "Hoy es el dia" : "Dentro de "+ datos.toString().toUpperCase()+ " días";
     return  mensaje.toString().toUpperCase();
   }
 

@@ -592,7 +592,8 @@
 
 
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
-
+  .ISDesktop{display:none}
+  .ISMobil{display:block}
   #nombreCliente {
 
     display: none;
@@ -625,6 +626,8 @@
 }
 
 @media only screen and (min-width : 321px) {
+  .ISDesktop{display:none}
+  .ISMobil{display:block}
   #ImgInjoyplan_desktop {
     width: 164px;
     position: absolute;
@@ -651,6 +654,8 @@
 }
 
 @media only screen and (max-width : 320px) {
+  .ISDesktop{display:none}
+  .ISMobil{display:block}
   .dropdown-menu {
     left: -118px;
     display: none;
@@ -682,6 +687,8 @@
 }
 
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+  .ISDesktop{display:block}
+  .ISMobil{display:none}
   #ImgInjoyplan_desktop {
     width: 172px;
     position: absolute;
@@ -718,7 +725,8 @@
     display: none;
 
   }
-
+  .ISDesktop{display:block}
+  .ISMobil{display:none}
   #BusquedaInformacion {
     padding-right: 0;
     margin-left: 12rem;
@@ -753,7 +761,8 @@
     margin-left: 12rem;
     width: 75%
   }
-
+  .ISDesktop{display:block}
+  .ISMobil{display:none}
   .ps-panel--sidebar .ps-panel__close {
     font-size: 40px;
   }
@@ -791,7 +800,8 @@
     margin-left: 12rem;
     width: 75%
   }
-
+  .ISDesktop{display:block}
+  .ISMobil{display:none}
   .ps-panel--sidebar .ps-panel__close {
     font-size: 40px;
   }

@@ -1,4 +1,4 @@
-<header class="cs-header">
+<header class="cs-header" style="margin-bottom: 20px;">
 
   <!-- Navbar -->
   <!-- Remove "navbar-sticky" class to make navigation bar scrollable with the page -->
@@ -13,7 +13,6 @@
       </a>
       <!-- Search desktop -->
       <div class="input-group-overlay ml-4 d-lg-block d-none order-lg-3">
-
         <div class="input-group-append-overlay">
           <span class="input-group-text"><i class="cxi-search lead align-middle"></i></span>
         </div>
@@ -23,7 +22,7 @@
 
       </div>
 
-      <!-- Toolbar -->
+      <!-- Login -->
       <div class="d-flex align-items-center order-lg-3">
         <ul class="nav nav-tools flex-nowrap">
           <ng-container *ngIf="cliente == undefined">
@@ -59,8 +58,8 @@
                   <label id="nombreCliente">{{cliente}}</label><b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu" id="dropMenu">
-                  <li><a  [routerLink]="['/cuenta/perfil/'+idUsuario]" style="cursor: pointer;" ><i class="fa fa-user"></i> Perfil</a></li>
-                  <li><a  [routerLink]="['/cuenta/favoritos/'+idUsuario] " style="cursor: pointer;" routerLinkActive="active" [attr.routerLinkActiveOptions]="{exact: true}"
+                  <li><a  [routerLink]="['/cuenta/perfil']" style="cursor: pointer;" ><i class="fa fa-user"></i> Perfil</a></li>
+                  <li><a  [routerLink]="['/cuenta/favoritos'] " style="cursor: pointer;" routerLinkActive="active" [attr.routerLinkActiveOptions]="{exact: true}"
                       [attr.routerLinkActiveOptions]="{exact: true}"><i class="fa fa-heart"></i>Favoritos</a></li>
                   <li class="divider"></li>
                   <li><a  (click)="logout()" style="cursor: pointer;"><i class="fa fa-power-off"></i> Logout</a></li>
@@ -71,12 +70,13 @@
           </ng-container>
         </ul>
       </div>
-      <!-- Navbar collapse -->
+       <!-- FIN Login -->
+      <!-- Navbar collapse -->  
       <nav class="collapse navbar-collapse order-lg-2" id="navbarCollapse">
         <!-- Search mobile -->
         <div class="input-group-overlay form-group mb-0 d-lg-none d-block">
           <input type="text" class="form-control prepended-form-control rounded-3 border-3"
-            [ngClass]="{'loading': isloading}" [spellcheck]="false" (ngModelChange)="search($event)" [(ngModel)]="src"
+            [ngClass]="{'loading': isloading}" [spellcheck]="false" (ngModelChange)="searchText($event)" [(ngModel)]="src"
             placeholder="Search for products...">
           <div class="input-group-prepend-overlay">
             <span class="input-group-text">
@@ -89,7 +89,7 @@
     </div>
   </div>
 </header>
-
+ <!--eventos Favoritos-->
 <div class="ps-panel--sidebar" id="modalCarrito">
   <div class="ps-panel__header">
     <div class="ps-cart--mini">
@@ -102,6 +102,7 @@
           d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
       </svg></a>
   </div>
+   <!--eventos Favoritos-->
   <div class="ps-panel__content">
     <ng-container *ngIf="cliente == undefined">
       <div style="width: 100%;    padding-bottom: 30px;">
@@ -127,25 +128,29 @@
         </p>
       </div>
     </ng-container>
+
+   
     <ng-container *ngIf="cliente">
       <div *ngIf="eventos.length>0">
         <div *ngFor="let evento of eventos">
-          <div class="icons delete" style="cursor: pointer;" (click)="EliminarFavoritos(evento._id)">
+           
+          <div class="icons delete" style="cursor: pointer;" (click)="EliminarFavoritos(evento.evento,evento.idfecha)">
             X
           </div>
-          <a style="width: 100%;text-decoration: none;"
-            [attr.routerLink]="['/show-eventos/'+evento.evento._id+'/'+evento._id] ">
-
+          <a style="width: 100%;text-decoration: none;"  [routerLink]="['/show/'+evento.evento+'/'+evento.idfecha ]">
+           
             <a style="width: 100%;text-decoration: none;">
               <div class="search__content_favorito" style="width: 100%; font-size: 14px; display: inline-flex">
-                <img [src]="evento.evento.Imagenes[0].url" alt="blog" style="width: 80px; height: 80px" />
+                <img [src]="evento.url" alt="blog" style="width: 80px; height: 80px" />
                 <div style="width: 70%">
+
+                
                   <p class="TitleDate">
-                    {{ evento.fecha.FechaInicio | formatDateDia }} {{ evento.fecha.FechaInicio | date:'MMM' }} -
-                    {{evento.fecha.HoraInicio}} - {{evento.fecha.HoraFin}}
+                    {{ evento.FechaInicio | formatDateDia }} {{ evento.FechaInicio | date:'MMMM' }} 
+                   
                   </p>
                   <h3 class="Title">
-                    {{evento.evento.titulo}}
+                    {{evento.titulo}}
                   </h3>
                   <p style="
                       font-size: 12px;
@@ -154,14 +159,17 @@
                       font-weight: 400;
                       color: #212121;
                     ">
-                    {{evento.evento.NombreLocal}}
+                    {{evento.NombreLocal}}
                   </p>
                 </div>
               </div>
             </a>
           </a>
 
-          <hr style="border: 1px solid #EDEFF5; margin: 6px 0px 15px 0px;">
+          <hr style="border: 1px solid #bfbfbf;
+          margin: 6px 0px 15px 0px;
+          height: 1px;
+          background-color: #bfbfbf;">
         </div>
       </div>
       <div *ngIf="eventos.length<=0">
@@ -203,38 +211,35 @@
       </div>
       <input class="form-control appended-form-control rounded-3 border-3" type="text"
         [ngClass]="{'loading': isloading}" [spellcheck]="false" (ngModelChange)="search($event)" [(ngModel)]="src"
-        placeholder="Evento, equipo o artistas sss" id="BusquedaInformacion">
+        placeholder="Evento, equipo o artistas" id="BusquedaInformacion">
 
     </div>
 
   </div>
   <div class="ps-panel__content">
-    <ng-container *ngIf="data.length>=1">
+    <ng-container *ngIf="dataDesktop.length>=1">
 
-      <div *ngFor="let item of data">
-
-        <!--a class="ps-product__title" [routerLink]="['/show-eventos/'+evento.evento._id+'/'+evento._id] ">-->
-        <a style="width: 100%;text-decoration: none;" [attr.routerLink]="['/show/'+item.fecha[0]._id+'/'+item._id] ">
+      <div *ngFor="let item of dataDesktop">     
+        <a style="width: 100%;text-decoration: none;"  [routerLink]="['/show/'+item.ideventos +'/'+item.idfecha]" routerLinkActive="active"  routerLinkActiveOptions="{exact: true}">
           <div class="search__content_favorito" style="width: 100%; font-size: 14px; display: inline-flex">
-            <img [src]="item.Imagenes[0].url" alt="blog" style="width: 80px; height: 80px" />
+            <img [src]="item.url" alt="blog" style="width: 80px; height: 80px" />
             <div style="width: 70%">
               <p class="TitleDate">
-
-                {{ item.fecha[0].FechaInicio | formatDateDia }} {{ item.fecha[0].FechaInicio | date:'MMM' }} -
-                {{item.fecha[0].HoraInicio}} - {{item.fecha[0].HoraFin}}
-
+                {{ item.FechaInicio | formatDateDia }} {{ item.FechaInicio | date:'MMM' }} <br>
+                {{item.HoraInicio}} - {{item.HoraFinal}}
+            
               </p>
               <h3 class="Title">
-                {{item.titulo}}
+              {{item.titulo}}
               </h3>
               <p style="
-                  font-size: 12px;
-                  line-height: 20px;
-                  font-family: 'Open Sans';
-                  font-weight: 400;
-                  color: #212121;
-                ">
-                {{item.NombreLocal}}
+                font-size: 12px;
+                line-height: 20px;
+                font-family: 'Open Sans';
+                font-weight: 400;
+                color: #212121;
+              ">
+              {{item.NombreLocal}}
               </p>
             </div>
           </div>
@@ -242,7 +247,7 @@
         <hr style="border: 1px solid #EDEFF5; margin: 6px 0px 15px 0px;">
       </div>
     </ng-container>
-    <ng-container *ngIf="data.length<=0">
+    <ng-container *ngIf="dataDesktop.length<=0">
       <div style="width: 100%;    padding-bottom: 30px;">
         <div class="contentFavorito">
           <img src="https://res.cloudinary.com/do4rokki9/image/upload/v1644672060/InjoyPlan/event.png" alt="blog" />
@@ -295,12 +300,12 @@
   </ng-container>
   <ng-container *ngIf="!isloading">
     <ul class="search__results">
-      <li *ngFor="let item of dataDesktop">
-        <a [attr.routerLink]="['/show/'+item.fecha[0]._id +'/'+item._id]" routerLinkActive="active"
+      <li *ngFor="let item of dataDesktop.slice(0, 10);">       
+        <a [routerLink]="['/show/'+item.ideventos +'/'+item.idfecha]" routerLinkActive="active"
           routerLinkActiveOptions="{exact: true}" style="width: 100%">
 
           <div class="search__content">
-            <img [src]="item.Imagenes[0].url" alt="blog" style="width: 80px; height: 80px" />
+            <img [src]="item.url" alt="blog" style="width: 20%; height: 20%" />
             <div style="width: 70%">
               <span class="search_content_title">
                 {{item.titulo}}
@@ -313,8 +318,8 @@
           </div>
           <div class="search__date">
             <p style="font-size: 14px">
-              {{ item.fecha[0].FechaInicio | formatDateDia }} {{ item.fecha[0].FechaInicio | date:'MMM' }} <br>
-              {{item.fecha[0].HoraInicio}} - {{item.fecha[0].HoraFin}}
+              {{ item.FechaInicio | formatDateDia }} {{ item.FechaInicio | date:'MMM' }} <br>
+              {{item.HoraInicio}} - {{item.HoraFinal}}
             </p>
           </div>
         </a>
@@ -330,8 +335,8 @@
             margin-top: 16px;
             flex-grow: 0;">
   <div class="search__footer">
-    <a href="#" style="text-decoration: none;" class="color-secondary">Ver todos los resultados para
-      <strong>{{dataDesktop.length}} </strong></a>
+    <a [routerLink]="['/search-eventos/Todos']" style="text-decoration: none;" class="color-secondary">Ver todos los resultados para
+      <strong>{{dataDesktop.slice(0, 10).length}} </strong></a>
   </div>
 </div>
 
@@ -356,7 +361,7 @@
           </div>
           <div class="mb-3">
             <div class="mb-2 w-100">
-              <label class="text-muted" for="password">Password</label>
+              <label class="text-muted" for="password">Contraseña</label>
               <a class="float-end" (click)="olividarContrasena()">
                 ¿Olvidaste tu contraseña?
               </a>
@@ -375,7 +380,7 @@
           </div>
           <div class="card-footer py-3 border-0">
             <div class="text-center">
-              ¿No tienes una cuenta? <a (click)="registroCliente()" class="text-dark">Create uno</a>
+              ¿Todavía no tienes cuenta?<a (click)="registroCliente()" class="text-dark">Créate una</a>
             </div>
           </div>
         </ng-container>
@@ -410,7 +415,7 @@
               </div>
             </div>
             <div class="col-md-12">
-              <label for="inputCity" class="form-label">Password</label>
+              <label for="inputCity" class="form-label">Contraseña</label>
               <input [(ngModel)]="Nuevocliente.password" 
                 autocomplete="off" type="password" class="form-control" name="password" required>
                 <div class="invalid-feedback" *ngIf="ErrorNuevoCliente.v_password">
@@ -427,7 +432,7 @@
             </div>
          
             <div class="col-md-6">
-              <label for="inputCity" class="form-label">Genero</label>
+              <label for="inputCity" class="form-label">Sexo</label>
                 <select id="docType" [(ngModel)]="Nuevocliente.genero" required="required" name="genero"
                 class="form-select px-1">
                   <option value="-1">Seleccionar</option>
@@ -444,25 +449,17 @@
               <div class="form-check">
                 <input type="checkbox" [(ngModel)]="Nuevocliente.terminoCondiciones" name="remember" id="remember"
                   class="form-check-input">
-                <span for="remember" class="form-check-label">He leído y acepto los <a style="cursor: pointer;color: red;"      [attr.routerLink]="['/Terminos-Condiciones'] " routerLinkActive="active"
-                    [attr.routerLinkActiveOptions]="{exact: true}" target="_blank"><span> Términos y
-                      Condiciones</span></a>.</span>
+                <span for="remember" class="form-check-label">He leído y acepto los 
+                  <a style="cursor: pointer;color: red;"      [routerLink]="['Terminos-Condiciones'] " routerLinkActive="active"
+                    [attr.routerLinkActiveOptions]="{exact: true}" target="_blank"><span> Términos y Condiciones,
+                      <a
+                  [routerLink]="['Politica-Privacidad'] " routerLinkActive="active" style="cursor: pointer;color: red;"
+                    [attr.routerLinkActiveOptions]="{exact: true}" target="_blank"><span> la Política de Privacidad y Política de Cookies</span></a> </span></a>.</span>
+                <div class="invalid-feedback" *ngIf="ErrorNuevoCliente.v_politicaPrivacidad">
+                   Es obligatorio  Términos y Condiciones,la Política de Privacidad y Política de Cookies
+                </div>                      
               </div>
-
-            </div>
-            <div class="d-flex align-items-center mt-2">
-              <div class="form-check">
-                <input type="checkbox" [(ngModel)]="Nuevocliente.politicaPrivacidad" name="remember" id="remember"
-                  class="form-check-input">
-                <span for="remember" class="form-check-label">  ¿Usted ha leído y acepta los términos y condiciones para el tratamiento de sus datos
-                  personales contenidos en la<a
-                    [attr.routerLink]="['/Terminos-Condiciones'] " routerLinkActive="active" style="cursor: pointer;color: red;"
-                    [attr.routerLinkActiveOptions]="{exact: true}" target="_blank"><span> Política de Privacidad
-                      Web?</span></a>.</span>
-              </div>
-
-            </div>
-
+            </div> 
             <div class="d-flex align-items-center">
               <button type="submit" class="btn btn-primary ms-auto" (click)="registrarCuenta()">
                 <div class="loader" *ngIf="loadingRegistro">Registrando...</div> <b *ngIf="!loadingRegistro">Registrar</b>
@@ -470,7 +467,7 @@
             </div>
             <div class="card-footer py-3 border-0">
               <div class="text-center">
-                ¿Ya tienes cuenta? <a (click)="ingresarCuenta()" class="text-dark">Ingresa</a>
+                ¿Ya tienes cuenta? <a (click)="ingresarCuenta()" class="text-dark">Inicia sesión</a>
               </div>
             </div>
           </form>

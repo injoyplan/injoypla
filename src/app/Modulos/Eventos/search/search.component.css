@@ -370,3 +370,302 @@
   color: #212121;
   flex-direction: column;
 }
+
+
+
+/**/
+.buscarEvento::placeholder{
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+  /* or 140% */
+
+  display: flex;
+  align-items: center;
+
+  color: rgba(255, 255, 255, 0.64);
+}
+.buscarEvento {
+  outline: 0;
+  /* border-width: 0 0 2px; */
+  /* border-color: blue; */
+  background-color: #007FA4;
+  border-top: 1px solid #007FA4;
+  border-left: 1px solid #007FA4;
+  border-bottom: 1px solid white;
+  /* height: 0px; */
+  left: 154px;
+  top: 84px;
+  border-right: 1px solid #007FA4;
+  margin-top: 40px;
+    margin-left: 16%;
+    color: white;
+}
+
+
+.close-icon {
+	border:1px solid transparent;
+	background-color: transparent;
+	display: inline-block;
+	vertical-align: middle;
+  outline: 0;
+  cursor: pointer;
+}
+.close-icon:after {
+  content: "X";
+  display: block;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  background-color: #FA9595;
+  z-index: 1;
+  bottom: 0;
+  margin: 6%;
+  padding: 0px;
+  border-radius: 50%;
+  text-align: center;
+  color: white;
+  font-weight: normal;
+  font-size: 12px;
+  box-shadow: 0 0 2px #E50F0F;
+  cursor: pointer;
+}
+.buscarEvento:not(:valid) ~ .close-icon {
+  display: none;
+}
+
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+  #btnBuscarDesktop{
+    display: none ;
+  }
+  #btnBuscarMobil{
+    display: inline-block;
+  }
+  .buscarEvento {
+    width: 63%;
+  }
+  .buscarEvento:focus {
+    width: 70%;
+  }
+  .close-icon:after{
+    right: 162px;
+    top: 12%;
+  }
+}
+@media only screen and (min-device-width : 1025px) and (max-device-width : 1280px) {
+  #btnBuscarDesktop{
+    display: none ;
+  }
+  #btnBuscarMobil{
+    display: inline-block;
+  }
+  .buscarEvento {
+    width: 63%;
+  }
+  .buscarEvento:focus {
+    width: 63%;
+  }
+  .close-icon:after{
+    right: 189px;
+    top: 8%;
+  }
+}
+
+@media only screen and (min-device-width : 1281px) and (max-device-width : 1920px) {
+  #btnBuscarDesktop{
+    display: none ;
+  }
+  #btnBuscarMobil{
+    display: inline-block;
+  }
+  .buscarEvento {
+    width: 63%;
+  }
+  .buscarEvento:focus {
+    width: 63%;
+  }
+  .close-icon:after{
+    right: 290px;
+    top: 1%;
+  }
+}
+
+@media only screen and (min-device-width : 1921px) and (max-device-width : 2400px) {
+  #btnBuscarDesktop{
+    display: none ;
+  }
+  #btnBuscarMobil{
+    display: inline-block;
+  }
+  .buscarEvento {
+    width: 63%;
+  }
+  .buscarEvento:focus {
+    width: 63%;
+  }
+  .close-icon:after{
+    right: 199px;
+    top: 12%;
+  }
+}
+
+@media only screen and (min-device-width : 2401px) and (max-device-width : 3440px) {
+  #btnBuscarDesktop{
+    display: none ;
+  }
+  #btnBuscarMobil{
+    display: inline-block;
+  }
+  .buscarEvento {
+    width: 63%;
+  }
+  .buscarEvento:focus {
+    width: 63%;
+  }
+  .close-icon:after{
+    right: 288px;
+    top: 12%;
+  }
+}
+
+@media only screen and (min-device-width : 1024px) and (max-device-width : 1200px) {
+  #btnBuscarDesktop{
+    display: none ;
+  }
+  #btnBuscarMobil{
+    display: inline-block;
+  }
+  .buscarEvento {
+    width: 63%;
+  }
+  .buscarEvento:focus {
+    width: 63%;
+  }
+  .close-icon:after{
+    right: 288px;
+    top: 12%;
+  }
+}
+
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+  #btnBuscarDesktop{
+    display: inline-block;
+  }
+  #btnBuscarMobil{
+    display: none;
+  }
+  .buscarEvento {
+    width: 63%;
+  }
+  .buscarEvento:focus {
+    width: 70%;
+  }
+  .close-icon:after{
+    right: 162px;
+    top: 11px;
+  }
+}
+
+/* Para 960px */
+@media only screen and (max-width: 980px) and (min-width: 821px) {
+  #btnBuscarDesktop{
+    display: inline-block; ;
+  }
+  #btnBuscarMobil{
+    display: none;
+  }
+  .buscarEvento {
+    width: 56%;
+  }
+  .buscarEvento:focus {
+    width: 56%;
+  }
+  .close-icon:after{
+    right: 162px;
+    top: 11px;
+  }
+}
+
+/* Para 800px */
+@media only screen and (max-width: 820px) and (min-width: 621px) {
+  #btnBuscarDesktop{
+    display: inline-block; ;
+  }
+  #btnBuscarMobil{
+    display: none;
+  }
+  .buscarEvento {
+    width: 56%;
+  }
+  .buscarEvento:focus {
+    width: 56%;
+  }
+  .close-icon:after{
+    right: 169px;
+    top: 13%;
+  }
+}
+
+/* Para 600px */
+@media only screen and (max-width: 620px) and (min-width: 501px) {
+  #btnBuscarDesktop{
+    display: none ;
+  }
+  #btnBuscarMobil{
+    display: inline-block;
+  }
+  .buscarEvento {
+    width: 59%;
+  }
+  .buscarEvento:focus {
+    width: 59%;
+  }
+
+  .close-icon:after{
+    right: 73px;
+    top: 95px;
+  }
+}
+
+/* Para 480px */
+@media only screen and (max-width: 500px) and (min-width: 341px) {
+  #btnBuscarDesktop{
+    display: none ;
+  }
+  #btnBuscarMobil{
+    display: inline-block;
+  }
+  .buscarEvento {
+    width: 59%;
+  }
+  .buscarEvento:focus {
+    width: 59%;
+  }
+
+  .close-icon:after{
+    right: 73px;
+    top: 95px;
+  }
+}
+
+/* Para 320px */
+@media only screen and (max-width: 340px) and (min-width: 5px)  {
+  #btnBuscarDesktop{
+    display: none ;
+  }
+  #btnBuscarMobil{
+    display: inline-block;
+  }
+  .buscarEvento {
+    width: 59%;
+  }
+  .buscarEvento:focus {
+    width: 59%;
+  }
+  .close-icon:after{
+    right: 73px;
+    top: 95px;
+  }
+}

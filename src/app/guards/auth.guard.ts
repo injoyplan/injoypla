@@ -14,35 +14,30 @@ export class AuthGuard implements CanActivate {
   }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
     
-    const dateExpire = this.storageService.getUser();
-    console.log(dateExpire)
-    
+    const dateExpire = this.storageService.getUser();   
     var exp = dateExpire.exp_time * 1000;
-    console.log(new Date(exp));
     var fechaExpiracion =  new Date(exp);
     var fechaActual =  new Date();
-    console.log(fechaExpiracion.toLocaleString())
-    console.log(fechaActual.toLocaleString())
     if(fechaActual.toLocaleString() == fechaExpiracion.toLocaleString()){
       this.storageService.clean();
     }
-    /*console.log('canActivate')                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+    /*//console.log('canActivate')                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
     this.user_data= this._AuthService.getCurrentUser();
-    console.log('canActivate',this.user_data)
+    //console.log('canActivate',this.user_data)
     if (this.user_data) {
-      console.log('existe data')
+      //console.log('existe data')
       if (!this._AuthService.validarToken()) {
-        console.log('-----------t-------------')
+        //console.log('-----------t-------------')
         this._router.navigate(['/login']);
 
       } else {
-        console.log('no token valido');
+        //console.log('no token valido');
         this._AuthService.logout();
       }
 
 
     } else {
-      console.log('-----------q-------------')
+      //console.log('-----------q-------------')
       this._AuthService.logout();
 
     }

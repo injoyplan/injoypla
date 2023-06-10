@@ -416,3 +416,767 @@ color: #A3ABCC;
    50% { opacity: 0.0; }
   100% { opacity: 1.0; }
 }
+
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width: 322px) and (max-device-width: 480px) {
+  .card__img-actions,
+  .card__img-views {
+    position: absolute;
+    font-size: 14px;
+    color: white;
+    z-index: 100
+  }
+  .card__img-actions {
+    top: -12rem;
+    right: -1rem;
+    font-size: 1.3rem;
+    cursor: pointer
+  }
+  .card__img-actions i:first-child {
+    margin-right: .5rem
+  }
+  .hi-icon:before {
+      font-family: 'ecoicon';
+      font-size: 48px;
+      line-height: 90px;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      display: block;
+      -webkit-font-smoothing: antialiased;
+  }
+  .hi-icon {
+    background: red;
+    display: inline-block;
+    font-size: 0px;
+    background: rgba(255, 255, 255, 0.72);
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    color: #fff;
+    align-content: space-around;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+  }
+  .hi-icon i:first-child {
+
+      color: #007FA4;
+      font-size: 27px;
+  }
+  .card-evento-heart{
+    position: absolute;
+    font-size: 14px;
+    color: white;
+    z-index: 100
+  }
+  .card-evento-heart i:first-child {
+    margin-right: .5rem
+  }
+  .ISDesktop {
+    display:  none ;
+  }
+  .ISMobil {
+      display: block;
+  }
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen and (min-width: 321px) {
+  .cards-start{
+    display: flex;justify-content: flex-start;flex-wrap: wrap;
+  }
+
+  .card__img-actions,
+  .card__img-views {
+    position: absolute;
+    font-size: 14px;
+    color: white;
+    z-index: 100
+  }
+  .card__img-actions {
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.3rem;
+    cursor: pointer
+  }
+  .card__img-actions i:first-child {
+    margin-right: .5rem
+  }
+  .hi-icon:before {
+      font-family: 'ecoicon';
+      font-size: 48px;
+      line-height: 90px;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      display: block;
+      -webkit-font-smoothing: antialiased;
+  }
+  .hi-icon {
+    background: red;
+    display: inline-block;
+    font-size: 0px;
+    background: rgba(255, 255, 255, 0.72);
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    color: #fff;
+    align-content: space-around;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+  }
+  .hi-icon i:first-child {
+
+      color: #007FA4;
+      font-size: 27px;
+  }
+
+
+  .card-evento-heart{
+    position: absolute;
+    font-size: 14px;
+    color: white;
+    z-index: 100
+  }
+  .card-evento-heart i:first-child {
+    margin-right: .5rem
+  }
+  .ISDesktop {
+    display:  none ;
+  }
+  .ISMobil {
+      display: block;
+  }
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width: 320px) {
+  .card__img-actions,
+  .card__img-views {
+    position: absolute;
+    font-size: 14px;
+    color: white;
+    z-index: 100
+  }
+  .card__img-actions {
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.3rem;
+    cursor: pointer
+  }
+  .card__img-actions i:first-child {
+    margin-right: .5rem
+  }
+  .hi-icon:before {
+      font-family: 'ecoicon';
+      font-size: 48px;
+      line-height: 90px;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      display: block;
+      -webkit-font-smoothing: antialiased;
+  }
+  .hi-icon {
+    background: red;
+    display: inline-block;
+    font-size: 0px;
+    background: rgba(255, 255, 255, 0.72);
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    color: #fff;
+    align-content: space-around;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+  }
+  .hi-icon i:first-child {
+
+      color: #007FA4;
+      font-size: 27px;
+  }
+
+  .card-evento-heart{
+    color: #007FA4;
+    font-size: 1.3em;
+    text-align: right;
+  }
+  .ISDesktop {
+    display:  none ;
+  }
+  .ISMobil {
+      display: block;
+  }
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .cards-start{
+    display: flex;justify-content: flex-start;flex-wrap: wrap;
+  }
+
+  .card__img-actions,
+  .card__img-views {
+    position: absolute;
+    font-size: 14px;
+    color: white;
+    z-index: 100
+  }
+  .card__img-actions {
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.3rem;
+    cursor: pointer
+  }
+  .card__img-actions i:first-child {
+    margin-right: .5rem
+  }
+  .hi-icon:before {
+      font-family: 'ecoicon';
+      font-size: 48px;
+      line-height: 90px;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      display: block;
+      -webkit-font-smoothing: antialiased;
+  }
+  .hi-icon {
+    background: red;
+    display: inline-block;
+    font-size: 0px;
+    background: rgba(255, 255, 255, 0.72);
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    color: #fff;
+    align-content: space-around;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+  }
+  .hi-icon i:first-child {
+
+      color: #007FA4;
+      font-size: 27px;
+  }
+
+
+  .card-evento-heart{
+    color: #007FA4;
+    font-size: 1.3em;
+    text-align: right;
+  }
+  .ISDesktop {
+    display: block ;
+  }
+  .ISMobil {
+      display: none;
+  }
+}
+
+
+/* iPads (portrait) ----------- */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+
+  .card__img-actions,
+  .card__img-views {
+    position: absolute;
+    font-size: 14px;
+    color: white;
+    z-index: 100
+  }
+  .card__img-actions {
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.3rem;
+    cursor: pointer
+  }
+  .card__img-actions i:first-child {
+    margin-right: .5rem
+  }
+  .hi-icon:before {
+      font-family: 'ecoicon';
+      font-size: 48px;
+      line-height: 90px;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      display: block;
+      -webkit-font-smoothing: antialiased;
+  }
+  .hi-icon {
+    background: red;
+    display: inline-block;
+    font-size: 0px;
+    background: rgba(255, 255, 255, 0.72);
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    color: #fff;
+    align-content: space-around;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+  }
+  .hi-icon i:first-child {
+
+      color: #007FA4;
+      font-size: 27px;
+  }
+
+  .card-evento-heart{
+    color: #007FA4;
+    font-size: 1.3em;
+    text-align: right;
+  }
+  .ISDesktop {
+    display: block ;
+  }
+  .ISMobil {
+      display: none;
+  }
+}
+
+/**********
+  iPad 3
+  **********/
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+  .cards-start{
+    display: flex;justify-content: flex-start;flex-wrap: wrap;
+  }
+  .card__img-actions,
+  .card__img-views {
+    position: absolute;
+    font-size: 14px;
+    color: white;
+    z-index: 100
+  }
+  .card__img-actions {
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.3rem;
+    cursor: pointer
+  }
+  .card__img-actions i:first-child {
+    margin-right: .5rem
+  }
+  .hi-icon:before {
+      font-family: 'ecoicon';
+      font-size: 48px;
+      line-height: 90px;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      display: block;
+      -webkit-font-smoothing: antialiased;
+  }
+  .hi-icon {
+    background: red;
+    display: inline-block;
+    font-size: 0px;
+    background: rgba(255, 255, 255, 0.72);
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    color: #fff;
+    align-content: space-around;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+  }
+  .hi-icon i:first-child {
+
+      color: #007FA4;
+      font-size: 27px;
+  }
+
+  .card-evento-heart{
+    color: #007FA4;
+    font-size: 1.3em;
+    text-align: right;
+  }
+  .ISDesktop {
+    display: block ;
+  }
+  .ISMobil {
+      display: none;
+  }
+}
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1024px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+   .card__img-actions,
+  .card__img-views {
+    position: absolute;
+    font-size: 14px;
+    color: white;
+    z-index: 100
+  }
+  .card__img-actions {
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.3rem;
+    cursor: pointer
+  }
+  .card__img-actions i:first-child {
+    margin-right: .5rem
+  }
+  .hi-icon:before {
+      font-family: 'ecoicon';
+      font-size: 48px;
+      line-height: 90px;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      display: block;
+      -webkit-font-smoothing: antialiased;
+  }
+  .hi-icon {
+    background: red;
+    display: inline-block;
+    font-size: 0px;
+    background: rgba(255, 255, 255, 0.72);
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    color: #fff;
+    align-content: space-around;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+  }
+  .hi-icon i:first-child {
+
+      color: #007FA4;
+      font-size: 27px;
+  }
+
+  .card-evento-heart{
+    color: #007FA4;
+    font-size: 1.3em;
+    text-align: right;
+  }
+  .ISDesktop {
+    display: block ;
+  }
+  .ISMobil {
+      display: none;
+  }
+}
+@media only screen and (min-device-width: 768px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+
+
+  .card__img-actions,
+  .card__img-views {
+    position: absolute;
+    font-size: 14px;
+    color: white;
+    z-index: 100
+  }
+  .card__img-actions {
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.3rem;
+    cursor: pointer
+  }
+  .card__img-actions i:first-child {
+    margin-right: .5rem
+  }
+  .hi-icon:before {
+      font-family: 'ecoicon';
+      font-size: 48px;
+      line-height: 90px;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      display: block;
+      -webkit-font-smoothing: antialiased;
+  }
+  .hi-icon {
+    background: red;
+    display: inline-block;
+    font-size: 0px;
+    background: rgba(255, 255, 255, 0.72);
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    color: #fff;
+    align-content: space-around;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+  }
+  .hi-icon i:first-child {
+      color: #007FA4;
+      font-size: 27px;
+  }
+
+  .card-evento-heart{
+    color: #007FA4;
+    font-size: 1.3em;
+    text-align: right;
+  }
+  .ISDesktop {
+    display: block ;
+  }
+  .ISMobil {
+      display: none;
+  }
+}
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-device-width: 1025px) and  (min-width: 1440px) {
+  .card__img-vivo-actions {
+    top: 1rem;
+    right: 12rem;
+    font-size: 1.3rem;
+    cursor: pointer
+  }
+  .card__img-vivo-actions,
+  .card__img-views {
+    position: absolute;
+    font-size: 14px;
+    color: white;
+    z-index: 100
+  }
+  .card__img-vivo-actions i:first-child {
+    margin-right: .5rem
+  }
+
+  .hi-icon-state:before {
+    font-family: 'ecoicon';
+    font-size: 48px;
+    line-height: 90px;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    display: block;
+    -webkit-font-smoothing: antialiased;
+  }
+  .hi-icon-state {
+    background: red;
+    display: inline-block;
+    font-size: 0px;
+    /* background: rgba(255, 0, 0, 0.72); */
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+    width: 80px;
+    height: 24px;
+    /* height: 44px; */
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    color: #fff;
+    justify-content: space-evenly;
+    align-items: stretch;
+    flex-direction: column;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    background: #BC0000;
+    border-radius: 4px;
+    text-align: center;
+    align-items: center;
+    align-content: stretch;
+  }
+  .hi-icon-state img {
+
+    color: white;
+  }
+
+  .hi-icon-state h1 {
+    font-size: 12px;
+    color: white;
+    margin-top: 3px;
+}
+
+
+
+
+  .cards-start{
+    display: flex;justify-content: flex-start;flex-wrap: wrap;
+  }
+  .card__img-actions,
+  .card__img-views {
+    position: absolute;
+    font-size: 14px;
+    color: white;
+    z-index: 100
+  }
+  .card__img-actions {
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.3rem;
+    cursor: pointer
+  }
+  .card__img-actions i:first-child {
+    margin-right: .5rem
+  }
+  .hi-icon:before {
+      font-family: 'ecoicon';
+      font-size: 48px;
+      line-height: 90px;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      display: block;
+      -webkit-font-smoothing: antialiased;
+  }
+  .hi-icon {
+    background: red;
+    display: inline-block;
+    font-size: 0px;
+    background: rgba(255, 255, 255, 0.72);
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    color: #fff;
+    align-content: space-around;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+  }
+  .hi-icon i:first-child {
+
+      color: #007FA4;
+      font-size: 27px;
+  }
+  .web {
+    width: 83%;
+    padding-right: 0px;
+    padding-left: 0px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4%;
+  }
+
+  .top-categories {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4%;
+  }
+
+  .top-categories__start {
+    margin-bottom: 0;
+    width: 100%
+  }
+
+  .top-categories__start a.more {
+    text-align: left
+  }
+
+  .top-categories__end {
+    display: block;
+    width: calc(100% - 40px)
+  }
+
+  .top-categories__end .top-categories__grid {
+    padding-bottom: 0;
+    display: grid;
+    align-content: space-evenly;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 40px;
+    row-gap: 25px;
+    justify-items: center;
+    justify-content: space-between;
+    align-items: start;
+    margin-left: 81%;
+  }
+
+  .section__title {
+    font-size: 32px;
+  }
+
+
+  .card-evento-heart{
+    color: #007FA4;
+    font-size: 1.3em;
+    text-align: right;
+  }
+  .ISDesktop {
+    display: block ;
+  }
+  .ISMobil {
+      display: none;
+  }
+
+}
+
+
+

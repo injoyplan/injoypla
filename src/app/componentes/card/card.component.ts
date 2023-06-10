@@ -55,17 +55,17 @@ export class CardComponent {
       }
       this._EventoService.registrar_cliente_favorito(cliente).then(
         (response: any) => {
-          //console.log(response);
-          this.utils.openSnackBar('Upaa!  Evento agregado a tus favoritos, gracias' , 'success');
+          ////console.log(response);
+          this.utils.openSnackBar('¡Hurra, este evento se agregó a tus favoritos!' , 'success');
 
         },
         error => {
-          //console.log(error);
+          ////console.log(error);
           if (error.status==403) {
             this.utils.openSnackBar('Ups! Su Sesion se ha terminado', 'error');
             this._clienteService.logout();
            } else {
-            this.utils.openSnackBar('Ups! No se ha Agregado el evento en tus favoritos', 'error');
+            this.utils.openSnackBar('Este evento se retiró de tus favoritos', 'error');
            }
 
         })
@@ -74,7 +74,7 @@ export class CardComponent {
         fecha: idfecha,
         usuario: this.user_data.sub
       }
-      //console.log(cliente);
+      ////console.log(cliente);
      */
     }
   }

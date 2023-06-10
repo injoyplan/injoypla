@@ -25,32 +25,28 @@ export class HeartComponent {
      private storageService: StorageService){
   
   }
-  guardarFavoritos(fechaId:any,Eventi:any){
-    console.log('guardarFavoritos')
-    console.log(fechaId)
-    console.log(Eventi)
-    var idEvento = idEvento ;
-    var idFecha = idFecha;
-    console.log(this.user_data.sub);
+  guardarFavoritos(idevento:any,idFecha:any){
+    var _idEvento = idevento ;
     if (!this.user_data) {
       this.utils.openSnackBar('Ups! Inicia sesión para agregarlo a tus favoritos', 'warning');
       this.activado= false;
     } else {
-      var cliente = {
-        evento: Eventi,
-        fecha: fechaId,
-        usuario: this.user_data.sub
+      var favoritos = {
+        evento: _idEvento,
+        idFecha:idFecha,
+        token: this.user_data.token
       }
-      this._EventoService.registrar_cliente_favorito(cliente).then(
+
+      this._EventoService.registrar_cliente_favorito(favoritos).then(
         (response: any) => {
-          //console.log(response);
-          this.utils.openSnackBar('Upaa!  Evento agregado a tus favoritos, gracias' , 'success');
-          this.favoritos= true;
-          this.verFavoritosUsuario(cliente.usuario);
+          ////console.log(response);
+          this.utils.openSnackBar('¡Hurra, este evento se agregó a tus favoritos!' , 'success');
+          this.favoritos.incluye= true;
+          this.verFavoritosUsuario(this.user_data.token);
         },
         error => {
           this.favoritos= false;
-          //console.log(error);
+          ////console.log(error);
           if (error.status==403) {
             this.utils.openSnackBar('Ups! Su Sesion se ha terminado', 'error');
             this._clienteService.logout();
@@ -61,40 +57,54 @@ export class HeartComponent {
         })
       }
   }
-  EliminarFavoritos(fechaId:any,Eventi:any){
-    var idFecha = fechaId;
-    var idEvento = Eventi;
+  EliminarFavoritos(id_evento:any,id_fecha:any){
+    var id_evento= id_evento;
+    var id_fecha= id_fecha;
     var idUsuario = this.user_data.sub;    
     if (!this.user_data) {
       this.utils.openSnackBar('Ups! Inicia sesión para agregarlo a tus favoritos', 'warning');
     } else {
-      this.rest.delete('/eliminar_favoritos/'+idFecha+'/'+idEvento+'/'+idUsuario).then((response: any) => {
-        if (response.estado == 1) {
+      this.rest.delete('usuario/eliminar_favoritos/'+id_evento+"/"+id_fecha).then((response: any) => {
+        if (response.ok) {
           this.activado= false;
-          this.favoritos= false;
-          this.utils.openSnackBar('muy triste!  Evento se retiro de tus favoritos' , 'success');
+          this.favoritos.incluye= false;
+          this.utils.openSnackBar('Este evento se retiró de tus favoritos' , 'success');
+
           this.verFavoritosUsuario(idUsuario);
         } else {
           this.utils.openSnackBar('Ups! Error al Eliminar en Favoritos', 'error');
         }
-
       }).catch((err) => {
         this.utils.openSnackBar('Ups! algo ocurrio al eliminar', 'error');
       });
     }
   }
-  verFavoritosUsuario(arg0: any) {   
-
+  verFavoritosUsuario(token:any) { 
+   
     this._clienteService.consultar_favoritos_guest(
-      arg0
+      token
     ).then(logged => {
+      
       var datos = JSON.stringify(logged);
       var informacion = JSON.parse(datos)
-      var favoritos:any=[];
+      var favoritos: any = [];
       informacion.data.forEach(element => {
-        favoritos.push(element.evento._id);
+        var Modelfavoritos = {
+          idEvento :element.ideventos,
+          idfecha :element.fecha,
+          idFavorito: element.idfavoritos
+        }
+        favoritos.push(Modelfavoritos);
       });
       this.storageService.saveFavoritos(favoritos);
+    }).catch((error) => {
+      //console.log(error);
+    });
+  }
+
+  consultarServicioExpress(){
+    this._clienteService.consultarServicioExpress().then(logged => {
+     console.log(logged);
     }).catch((error) => {
       console.log(error);
     });

@@ -1,10 +1,10 @@
-<app-header></app-header>
+<app-header (contactChange)="actualizarEvento($event)"></app-header>
 
 <section class="container-fluid web">
 
   <div class="top-categories__start">
     <div class="gallery">
-      <a class="gallery-item rounded" href="path-to-large-image"
+      <a class="gallery-item rounded" [routerLink]="['/']"
         data-sub-html="<h6 class='text-light'>Gallery image caption</h6>">
         <img
           src="https://res.cloudinary.com/do4rokki9/image/upload/v1644712221/InjoyPlan/32-20_sin_borde_-_fondo_celeste.png"
@@ -45,7 +45,7 @@
           </a>
         </div>
       </article>
-      <article class="categorie" [routerLink]="['/search-eventos//Teatro']" style="cursor: pointer;">
+      <article class="categorie" [routerLink]="['/search-eventos/Teatro']" style="cursor: pointer;">
         <div class="categorie__icon-container">
           <img src="https://res.cloudinary.com/do4rokki9/image/upload/v1618111005/InjoyPlan/Teatro.svg" alt="Icono"
             class="categorie__icon">
@@ -100,10 +100,13 @@
           'height': '392px'
       }"></ngx-skeleton-loader>
   </div>
-  <app-card *ngFor="let evento of lista_eventos; let indice = index" [evento]="evento" [user_data]="this.user_data"
-    [imagenS]="evento.evento[0].Imagenes[0].url"  [pantalla]="1">
+  <div  *ngFor="let evento of lista_eventos; let indice = index">
+    
+      <app-card  [evento]="evento" [user_data]="this.user_data" [pantalla]="1">
+    
+      </app-card> 
+  </div>
 
-  </app-card>
 </section>
 <section style="    display: flex;
 align-content: stretch;
@@ -121,7 +124,7 @@ justify-content: space-between;">
   </ng-container>
   <ng-container *ngIf="activoVerMasEventos">
     <div class="text-box" style="margin-top: 1%;margin-bottom: 64px;">
-      <button class="btn btn-white btn-animate btnEvento" (click)="verMas(8,0)">
+      <button class="btn btn-white btn-animate btnEvento" (click)="verMas(12,nroPagina)">
         VER MÁS EVENTOS
       </button>
 

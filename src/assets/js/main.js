@@ -310,7 +310,7 @@
     }
 
     function productLightboxs() {
-        // //console.log("Ligth Box");
+        // ////console.log("Ligth Box");
         // var product = $('.ps-product--detail');
         // if (product.length > 0) {
         //     $('.ps-product__gallery').lightGallery({

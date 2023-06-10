@@ -35,14 +35,11 @@ export class AsideComponent {
 
  }
  buscarFechas(){
-  console.log('***********************buscarFechas')
-  console.log(this.idevento)
+  //console.log('***********************buscarFechas')
 
   this._EventoService.consultar_evento_fecha_favoritos(this.idevento).then(
     (response: any) => {
-      console.log('consultar_evento_fecha_favoritos');
-      console.log(response);
-     
+      //console.log('consultar_evento_fecha_favoritos');     
       this.fecha =  response.data._evento[0];
       this.ModelfechaEvento =  response.data._fecha;
       //this.search_Fecha_evento();

@@ -13,9 +13,10 @@ export class RestService {
   location_zip = '';
   public lat: string = '';
   public lng: string = '';
+  public readonly url_v: string = environment.endpoint2;
   public readonly url: string = environment.endpoint;
   public readonly AH_url: string = environment.AH_url;
-  public readonly AH_token: string = environment.AH_token;
+  public readonly goo_su_token: string = environment.goo_su_token;
 
   // public readonly url: string = 'http://127.0.0.1:8000/api/1.0';
 
@@ -89,7 +90,7 @@ export class RestService {
     let _header = {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'CMS-Client-Token': this.AH_token
+      'x-goo-api-token': this.goo_su_token
     };
     if (ignoreLoading) {
       _header['ignoreLoadingBar'] = '';
@@ -117,7 +118,7 @@ export class RestService {
 
   private get localtoken(): string {
     const obj = this.cookieService.get('_currentUser');
-    console.log('token',JSON.parse(obj)['token'])
+    //console.log('token',JSON.parse(obj)['token'])
     if (obj && JSON.parse(obj)) {
 
       return JSON.parse(obj)['token'];
@@ -131,14 +132,19 @@ export class RestService {
   get(endpoint: string, params?: IUrlParams, ignoreLoading: any = false): Promise<object> {
     return this.check(this.http.get(this.getUrl(endpoint, params), {headers: this.getHeaders()}).toPromise());
   }
-
+  getOtroEndPoing(endpoint: string, params?: IUrlParams, ignoreLoading: any = false): Promise<object> {
+    return this.check(this.http.get(this.getUrl(endpoint, params), {headers: this.getHeaders2()}).toPromise());
+  }
 
   private check(requestPromise: Promise<object|any>): Promise<object|any> {
     return new Promise<object|any>((resolve, reject) => {
       requestPromise.then(response => {
+        console.log(response);
         return resolve(response );
       }).catch(((err: HttpErrorResponse | any) => {
+        console.log(err);
         switch (err.status) {
+
           case 401:
             // this.utils.openSnackBar(err.error.message, '');
             // this.router.navigateByUrl('/home');
@@ -153,7 +159,15 @@ export class RestService {
     });
   }
   post_sin_acceso(endpoint: string, body: object, params?: IUrlParams): Promise<object> {
+    return this.check(this.http.post(this.AH_getExterno(endpoint, params), body, {headers: this.getHeaders2()}).toPromise());
+  }
+  post_externo(endpoint: string, body: object, params?: IUrlParams): Promise<object> {
+    console.log('AH_post',endpoint);
     return this.check(this.http.post(this.getUrl(endpoint, params), body, {headers: this.getHeaders2()}).toPromise());
+  }
+  post_CopyURL(endpoint: string, body: object, params?: IUrlParams): Promise<object> {
+    console.log('AH_post',endpoint);
+    return this.check(this.http.post(this.AH_getUrl(endpoint, params), body, {headers: this.AH_getHeaders()}).toPromise());
   }
   post(endpoint: string, body: object, params?: IUrlParams): Promise<object> {
     return this.check(this.http.post(this.getUrl(endpoint, params), body, {headers: this.getHeaders()}).toPromise());
@@ -185,12 +199,18 @@ export class RestService {
   }
 
   public AH_getUrl(endpoint: string, params?: IUrlParams| any): string {
+    console.log('AH_url',endpoint);
     return this.AH_url
       + ''
       + (endpoint || '/')
       + this.parseParams(params);
   }
 
+  public AH_getExterno(endpoint: string, params?: IUrlParams| any): string {
+    return ''+
+       (endpoint || '/')
+      + this.parseParams(params);
+  }
   private parseParams(params: IUrlParams): string {
     let parsed = '';
     if (params) {
@@ -204,8 +224,9 @@ export class RestService {
 
 
 
-  AH_get(endpoint: string, params?: IUrlParams, ignoreLoading: any = false): Promise<object> {
-    return this.check(this.http.get(this.AH_getUrl(endpoint, params),
+  AH_post(endpoint: string, params?: IUrlParams, ignoreLoading: any = false): Promise<object> {
+    console.log('AH_post',endpoint);
+    return this.check(this.http.post(this.AH_getUrl(endpoint, params),
       { headers: this.AH_getHeaders(ignoreLoading) }).toPromise());
   }
 }

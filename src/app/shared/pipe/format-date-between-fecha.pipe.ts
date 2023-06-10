@@ -12,7 +12,7 @@ export class  FormatDateBetweenFechaPipe implements PipeTransform {
     var HoraInicio = new Date(value);
     var HoraFinal = new Date(value2);
     var enVivo =  HoraInicio<= now && HoraFinal> now;
-   // console.log(enVivo);
+   // //console.log(enVivo);
     return  enVivo; //Dia.toLocaleDateString("es-ES",{ day: "numeric" });
     //return null;
   }

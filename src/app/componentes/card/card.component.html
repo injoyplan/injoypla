@@ -1,7 +1,8 @@
 <div class="card card_normal">
   <ng-container *ngIf="pantalla==1">
-    <app-heart [id_fecha]="evento._id" [id_evento]="evento.evento[0]._id" [user_data]="user_data" [pantalla]="1"  [favoritos]="evento.activado"  ></app-heart>
-    <ng-container *ngIf="compararEntreFechas( evento.FechaInicio,evento.HoraInicio,evento.HoraFin)">
+   
+    <app-heart [id_fecha]="evento.idfecha" [id_evento]="evento.evento" [user_data]="user_data" [pantalla]="1"  [favoritos]="evento.favorito"  ></app-heart>
+    <ng-container *ngIf="compararEntreFechas( evento.FechaInicio,evento.HoraInicio,evento.HoraFinal)">
       <div class="card__img-vivo-actions parpadea" >
         <div class="hi-icon-state">
           <img src="../../../assets/img//ongoin.png">
@@ -10,43 +11,33 @@
       </div>
     </ng-container>
   </ng-container>
-  
-  
- 
-  <a [routerLink]="['/show/'+evento._id +'/'+evento.evento[0]._id]" style="text-decoration: none" >
+  <a [routerLink]="['/show/'+evento.evento+'/'+evento.idfecha ]" style="text-decoration: none" >
     <div class="card-header">
-      <img [ngSrc]="imagenS" class="img-fluid" width="4000"
-      height="3000"   alt="rover">
+     
+      <img [ngSrc]="evento.url" class="img-fluid" width="4000"      height="3000"   alt="rover">
 
     </div>
     <div class="card-body">
       <span class="tag-fecha-hora">
         {{ evento.FechaInicio | formatDateDia }} {{ evento.FechaInicio | date:'MMM':'+0200' :'es'}}
-        {{evento.HoraInicio}} - {{evento.HoraFin}}
+        {{evento.HoraInicio}} - {{evento.HoraFinal}}
 
 
       </span>
       <h4 class="tag-titulo">
-        {{evento.evento[0].titulo}}
+        {{evento.titulo}}
       </h4>
       <p class="tag-lugar">
-        {{evento.evento[0].NombreLocal}}
+        {{evento.NombreLocal}}
       </p>
     </div>
 
     <div class="card-footer" style="background-color: white;border-top: 0px solid #e5e8ed !important;">
       <div class="user">
-        <div class="user-info" *ngIf="evento.precioxfechas[0].Precio!= 0 ; else templateName">
-          <small>Desde</small>
-          <h5 class="tag-monto">{{evento.precioxfechas[0].Precio | formatMoney}}</h5>
-        </div>
-        <ng-template #templateName>
-          <div class="user-info" if>
-
-            <h5 class="tag-monto" style="margin-top: 15px;">¡Gratis!</h5>
-          </div>
-        </ng-template>
-
+        <div class="user-info" >
+          <small>Desde </small>
+          <h5 class="tag-monto">{{evento.Monto | formatMoney}}</h5>
+        </div>     
       </div>
     </div>
   </a>
@@ -55,7 +46,7 @@
 <span class="verFuentes">
   <a
   target = "_blank"
-  [href]="'https://' + evento.evento[0].urlFuente"
+  [href]="'https://' + evento.urlFuente"
   style="text-decoration: none;color: #A3ABCC;"
 >Ver fuente</a>
 
