@@ -12,6 +12,8 @@ import { UtilsService } from 'src/app/shared/utilitario/util.service';
 import { StorageService } from './../../shared/Service/storage.service';
 import { FechaEvento } from 'src/app/shared/model/FechaEvento.model';
 import { favorito } from 'src/app/shared/model/Favoritos.model';
+import { Subject, debounceTime } from 'rxjs';
+import { __values } from 'tslib';
 declare var iziToast: any;
 declare var $: any;
 @Component({
@@ -21,8 +23,14 @@ declare var $: any;
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   @Output() contactChange:EventEmitter<boolean> =new EventEmitter<boolean>();
+
+  private debouncer:Subject<string> = new Subject<string>();
+
+  @Output()
+  public onDebounce = new EventEmitter<string>();
+
 
   public id: any;
   public token = localStorage.getItem('token')
@@ -71,7 +79,7 @@ export class HeaderComponent {
     v_apellido: false,
     v_password: false,
     v_politicaPrivacidad: false,
-    v_terminoCondiciones: false,    
+    v_terminoCondiciones: false,
   }
 
   public _fechaSrtMaxima: any = "";
@@ -99,29 +107,39 @@ export class HeaderComponent {
   async ngOnInit(): Promise<void> {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
+    this.debouncer
+      .pipe(debounceTime(100))
+      .subscribe(value=>{
+        console.log(value);
+        this.onDebounce.emit(value);
+    });
     this.user_data= this._clienteService.getCurrentUser();
       if(this.user_data!=null){
-       
+
         this.validarSesion();
       }
-    
-  }
 
+  }
+  onKeyPress(searchTerm:string){
+    this.debouncer.next(searchTerm);
+  }
   validarSesion() {
+    console.log('validarSesion');
     this.rest.get('usuario/auth/' + this.user_data.token).then((response: any) => {
-    
+
       if(response.ok){
         this.isLoggedIn = response.ok;
-      } else {        
+      } else {
         localStorage.clear();
         sessionStorage.clear();
         // this._router.navigate(['/']);
         this._clienteService.logout();
         this.reloadPage();
       }
-      
-     
+
+
     }).catch((error: any) => {
+      console.log(error);
       if (error.status == 401) {
         this.util.openSnackBar('Ups! Su Sesion se ha terminado', 'error');
         this._clienteService.logout();
@@ -129,7 +147,7 @@ export class HeaderComponent {
         this.util.openSnackBar('Ups! No se ha Agregado el evento en tus favoritos', 'error');
       }
     });
-  }  
+  }
 
   openCart() {
     var clase = $('#modalCarrito').attr('class');
@@ -159,10 +177,10 @@ export class HeaderComponent {
     } else {
       this.rest.delete('usuario/eliminar_favoritos/'+id_evento+"/"+id_fecha).then((response: any) => {
         if (response.ok) {
-         
+
           this.verFavoritosUsuario(this.user_data.token,2);
-         
-         
+
+
         } else {
           this.util.openSnackBar('Ups! Error al Eliminar en Favoritos', 'error');
         }
@@ -198,6 +216,7 @@ export class HeaderComponent {
   }
   searchText(e: any) {
    try {
+    console.log('ssssssssssssssssssssssss------------------>')
     if (e == "") {
       this.searchOpen = false;
       this.isloading = true;
@@ -212,7 +231,7 @@ export class HeaderComponent {
           this.isloading = false;
         } if (response.message == 'NOK') {
           this.isloading = false;
-         
+
         }
       })
 
@@ -225,6 +244,7 @@ export class HeaderComponent {
 
   }
   search(value: any) {
+    console.log('ssssssssssssssssssssssssssssssssssssssss');
     this.isloading = true;
     if (value) {
       this.rest.getConsulta("eventos/listar_eventos_filtro_letras/" + value).then((response: any) => {
@@ -253,35 +273,42 @@ export class HeaderComponent {
 
 
   }
+  onLogin(event: any){
+    if(event.keyCode==13){
+      this.login() ;
+    }
+  }
   login() {
     try {
       this.loading = true;
-
       this._clienteService.login(
         {
           'email': this.Loginusuario.email,
           'password': this.Loginusuario.password
         }
       ).then(logged => {
-        //console.log('--------------->',logged);
-        this.storageService.saveUser(logged);
-        this.isLoginFailed = false;
-        this.isLoggedIn = true;
-        this.Loginusuario.email = "";
-        this.Loginusuario.password = "";
-        this.user_data= this._clienteService.getCurrentUser();
-        //console.log('--------------->',this.user_data);
-        this.verFavoritosUsuario(logged,1);
-      
+        if(logged){
+          this.storageService.saveUser(logged);
+          this.user_data= this._clienteService.getCurrentUser();
+          this.verFavoritosUsuario(logged,1);
+          this.loading = false;
+          this.Loginusuario.email = "";
+          this.Loginusuario.password = "";
+        } else {
+          this.util.openSnackBar('Ups! Usuario o contraseña incorrecta', 'error');
+          this.loading = false;
+          this.Loginusuario.email = "";
+          this.Loginusuario.password = "";
+        }
       }).catch((error) => {
         //console.log(error)
         this.loading = false;
         this.util.openSnackBar('Ups! ' + error.error.message, 'error');
-        this.isLoginFailed = false;
+
       });
     } catch (error) {
       this.loading = false;
-      this.util.openSnackBar('Ups! Error en el servidor', 'error');
+      this.util.openSnackBar('Ups!  ' + error, 'error');
     }
 
 
@@ -421,18 +448,15 @@ export class HeaderComponent {
       this.ErrorNuevoCliente.v_fechaNacimiento = true;
       return true;
     }
-    if (this.Nuevocliente.politicaPrivacidad == false) {
+    if (this.Nuevocliente.terminoCondiciones == false) {
       this.ErrorNuevoCliente.v_politicaPrivacidad = true;
       return true;
-    }    
-    if (this.Nuevocliente.terminoCondiciones == false) {
-      this.ErrorNuevoCliente.v_terminoCondiciones = true;
-      return true;
-    }    
+    }
     return false;
   }
   consultar_favoritos_guest() {
     debugger;
+    console.log('consultar_favoritos_guest');
     this.rest.get('usuario/consultarfavoritos/' + this.user_data.token).then((response: any) => {
       this.eventos = response.data;
     }).catch((error: any) => {
@@ -444,12 +468,12 @@ export class HeaderComponent {
       }
     });
   }
-  verFavoritosUsuario(arg0: any,tipo: any) {   
+  verFavoritosUsuario(arg0: any,tipo: any) {
     debugger;
     this._clienteService.consultar_favoritos_guest(
       arg0.token
-    ).then(logged => {  
-      
+    ).then(logged => {
+
       var datos = JSON.stringify(logged);
       var informacion = JSON.parse(datos)
       this.eventos = informacion.data;
@@ -463,7 +487,7 @@ export class HeaderComponent {
         favoritos.push(Modelfavoritos);
       });
       this.storageService.saveFavoritos(favoritos);
-      if(tipo==2){        
+      if(tipo==2){
         this.contactChange.emit(true);
       } else {
         this.reloadPage();
@@ -474,7 +498,7 @@ export class HeaderComponent {
       this.isLoginFailed = true;
     });
   }
-  
+
 }
 
 

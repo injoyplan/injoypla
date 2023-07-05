@@ -14,6 +14,7 @@ import * as moment from 'moment';
 })
 export class EventoService{
 
+
   public  waiting = false;
 
   _renderer2: Renderer2
@@ -31,6 +32,17 @@ export class EventoService{
   }
   constructor(private rest: RestService, private cookieService: CookieService, rendererFactory: RendererFactory2, private utils: UtilsService) {
     this._renderer2 = rendererFactory.createRenderer(null, null);
+  }
+
+  public activarDesactivarEventos(favoritos: { evento: number; estado: number; }) {
+    return new Promise<boolean>(((resolve, reject) => {
+      console.log('activarDesactivarEventos');
+      this.rest.put('eventos/DesactivarActivarMisEvento',favoritos).then(((response: any) => {
+        resolve(response);
+      }).bind(this)).catch((error) => {
+        reject(error.message);
+      });
+    }).bind(this));
   }
 
   public startCountdown(seconds){

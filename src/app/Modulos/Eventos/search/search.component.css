@@ -669,3 +669,19 @@
     top: 95px;
   }
 }
+.btnEvento {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 65px;
+  gap: 10px;
+  width: 276px;
+  height: 44px;
+  border: 2px solid #007FA4;
+  border-radius: 30px;
+  color: #007fa4;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}

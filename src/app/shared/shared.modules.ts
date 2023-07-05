@@ -9,17 +9,20 @@ import {FormatDateTimePipe} from './pipe/format-date-Time.pipe';
 import {FormatMoneyPipe} from './pipe/format-money.pipe';
 import {FormatDateTimeShorPipe} from './pipe/FormatDateTimeShor.pipe';
 import { FormatDateMesPipe } from "./pipe/Format-date-Mes.Pipe";
+
 //import {FormatDateBetweenFechaPipe} from './pipe/format-date-between-fecha.pipe';
 @NgModule({
   declarations: [
     FormatDateDiaPipe,
     formatdaterestadiapipe,
     FormatDateMesPipe,
-    FormatDateTimeShorPipe,FormatMoneyPipe,FormatDateTimePipe//,FormatDateBetweenFechaPipe
+    FormatDateTimeShorPipe,FormatMoneyPipe,FormatDateTimePipe
+ //,FormatDateBetweenFechaPipe
   ],
   imports: [
     CommonModule,
     RouterModule,FormsModule
+
   ],
   exports: [
     FormsModule,

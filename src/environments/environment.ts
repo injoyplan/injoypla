@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
-  //endpoint: 'https://squid-app-bfky7.ondigitalocean.app/api/',
-  endpoint: 'http://localhost:4201/api/',
+  endpoint: 'https://squid-app-bfky7.ondigitalocean.app/api/',
+  //endpoint: 'http://localhost:4201/api/',
   endpoint2:'',
-  endpointLocalImg: 'http://localhost:4200',
+  endpointLocalImg: 'http://localhost:4201/api/',
   AH_url: 'https://goo.su/api/links/create',
   goo_su_token: 'xGLjj9ZqbkwElpzhUEMPIGQsSzUSfZcN40F5uHFVg0X5nzrf9RkBwhkIlp3t',
   stripe_public_key: 'pk_test_Wj915HLpr6PpdvzQMuzq8idv',

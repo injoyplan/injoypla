@@ -1,0 +1,29 @@
+<nav id="injoyplan-new-nav" class="pd-top-lv2">
+  <ul class="nav border border-light">
+      <li>
+          <a class="link--text" [ngClass]="{'active': isActivePaso1}"  [routerLink]="['/cuenta/perfil']" routerLinkActive="active" [attr.routerLinkActiveOptions]="{exact: true}"  style="cursor: pointer;" >
+              <i class="cxi-search icon--sm"></i>
+              <span class="hide-tablet">Perfil</span>
+          </a>
+      </li>
+
+      <li>
+          <a class="link--text"  [ngClass]="{'active': isActivePaso2}"  [routerLink]="['/cuenta/favoritos']" routerLinkActive="active" [attr.routerLinkActiveOptions]="{exact: true}"  style="cursor: pointer;" >
+
+
+              <i class="fa fa-heart icon--sm"></i>
+              <span class="hide-tablet">Favoritos</span>
+              <span class="hide-tablet"></span>
+          </a>
+      </li>
+      <li>
+        <a class="link--text"  [ngClass]="{'active': isActivePaso3}"  [routerLink]="['/cuenta/mis-eventos']" routerLinkActive="active" [attr.routerLinkActiveOptions]="{exact: true}"  style="cursor: pointer;" >
+
+
+          <i class="far fa-calendar-alt fa-sm"></i>
+            <span class="hide-tablet">Mis Eventos</span>
+            <span class="hide-tablet"></span>
+        </a>
+    </li>
+  </ul>
+</nav>

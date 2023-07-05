@@ -1,6 +1,6 @@
 
 <app-header></app-header>
-<app-nav-bar [isActivePerfil]=false [isActive]=true ></app-nav-bar>
+<app-nav-bar [isActivePerfil]="false" [isActive]="true" [isActiveEventos]="false"></app-nav-bar>
 <div class="container ">
   <div class="row align-items-left mb-4">
     <ng-container *ngIf="eventos.length<=0">
@@ -24,7 +24,7 @@
             color: #212121;
             justify-content: center;
           ">
-          Favor de Seleccionar algunos para verlos aca 
+          Favor de Seleccionar algunos para verlos aca
         </p>
       </div>
     </ng-container>
@@ -32,7 +32,7 @@
 
 
 
-    <div class="card card_normal" *ngFor="let evento of eventos; let indice = index">   
+    <div class="card card_normal" *ngFor="let evento of eventos; let indice = index">
       <div class="card__img-actions"  (click)="EliminarFavoritos(evento.id_evento,evento.fecha_id)">
         <div class="hi-icon" >
           <i class="cxi-cross"></i>
@@ -41,15 +41,15 @@
       <a [routerLink]="['/show/'+evento.evento+'/'+evento.idfecha ]" style="text-decoration: none" >
         <div class="card-header">
           <img [src]="evento.url" class="img-fluid" width="4000"
-          height="3000"   alt="rover">    
+          height="3000"   alt="rover">
         </div>
-        
+
         <div class="card-body">
           <span class="tag-fecha-hora">
             {{ evento.FechaInicio | formatDateDia }} {{ evento.FechaInicio | date:'MMM':'+0200' :'es'}}
-           
-    
-    
+
+
+
           </span>
           <h4 class="tag-titulo">
             {{evento.titulo}}
@@ -63,11 +63,11 @@
             <div class="user-info" >
               <small>Desde </small>
               <h5 class="tag-monto">{{evento.Monto | formatMoney}}</h5>
-            </div>     
+            </div>
           </div>
         </div>
       </a>
-     
+
     </div>
  <!--<span class="verFuentes">
       <a
@@ -75,9 +75,9 @@
       [href]="'https://' + evento.urlFuente"
       style="text-decoration: none;color: #A3ABCC;"
     >Ver fuente</a>
-    
-    
-      </span>-->   
+
+
+      </span>-->
 
 
 

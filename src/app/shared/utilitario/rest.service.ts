@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UtilsService } from './util.service';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../../environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -207,7 +208,7 @@ export class RestService {
   }
 
   public AH_getExterno(endpoint: string, params?: IUrlParams| any): string {
-    return ''+
+    return this.url+ '' +
        (endpoint || '/')
       + this.parseParams(params);
   }
@@ -229,6 +230,7 @@ export class RestService {
     return this.check(this.http.post(this.AH_getUrl(endpoint, params),
       { headers: this.AH_getHeaders(ignoreLoading) }).toPromise());
   }
+
 }
 
 interface IUrlParams {

@@ -1,7 +1,7 @@
 
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import {EventEmitter, Injectable, Output, Inject,Component, Input, OnInit, ElementRef, Renderer2, RendererFactory2  } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import {RestService} from '../utilitario/rest.service';
 import {UserModel} from '../model/base.model';
 import * as moment from 'moment';
@@ -9,19 +9,34 @@ import {Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
 import { UtilsService } from '../utilitario/util.service';
 import ubigeoPeru from 'ubigeo-peru';
-import { tap, map, catchError } from 'rxjs/operators';
+import { from } from 'rxjs';
 import { Usuario } from '../model/usuario.model';
+import { CacheStore } from 'src/app/interfaces/cache-store.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
   public waiting: boolean | undefined;
   private _currentUser!: UserModel;
   public usuario :Usuario | undefined;
   public eventosFavoritos:any=[];
   _renderer2: Renderer2
   @Output() getLoggedInData: EventEmitter<any> = new EventEmitter();
+
+  public cacheStore:CacheStore={
+    byFiltro:{
+      evento: '',
+      categoria: '',
+      FechaDesde: '',
+      HoraDesde: '',
+      ubicacion: '',
+      page:12,
+      pageSize:1,
+      busqueda:''
+    }
+  };
 
   constructor( private rest: RestService,  private cookieService: CookieService,rendererFactory: RendererFactory2, private utili: UtilsService,private router: Router) {
     this._renderer2 = rendererFactory.createRenderer(null, null);
@@ -78,7 +93,7 @@ export class AuthService {
               this._currentUser['token'] = token;
               this._currentUser['exp_time'] = response.exp;
               this._currentUser['img_Perfil'] = response.imagenPerfil;
-              this.emitlogin(this._currentUser);  
+              this.emitlogin(this._currentUser);
               this.cookieService.set(
                 '_currentUser',
                 JSON.stringify(response.data),
@@ -114,31 +129,10 @@ export class AuthService {
         } else {
           resolve(error);
         }
-        
+
       });
     }));
-    
-  }
-  public consultarServicioExpress(): Promise<boolean>{
-      var data =  {
-        "client_id": "dll1mtvdcu4rowoglpdcvbdby84czn6o.app.com",
-        "client_secret": "qbyant7fa9r2xkxnydmw4onbbwbhv59a"
-      }
-    return new Promise<boolean>(((resolve, reject) => {
-      this.rest.post_sin_acceso('https://wscomercialqa.ieduca.pe/seguridad/oauth2/token', data)
-        .then(((response: any) => {
-          ////console.log('login auth');
-          console.log(response);
-          resolve(response);
-          this.waiting = false;
-        }).bind(this))
-        .catch((e) => {
-          console.log(e);
-          this.waiting = false;
-          reject(e);
-        });
-    }));
-    
+
   }
 
   public cleanSession() {
@@ -156,7 +150,7 @@ export class AuthService {
         } else {
           reject(response);
         }
-       
+
       }).bind(this)).catch((error) => {
 
         reject(error);
@@ -164,17 +158,7 @@ export class AuthService {
     }).bind(this));
   }
 
-  public listar_Eventos_publicos_filtros(filtros: any):Promise<boolean>{
-    return new Promise<boolean>(((resolve, reject) => {
 
-      this.rest.getConsulta('eventos/listar_Eventos_Publicos_filtro/' + filtros.categoria+'/'+ filtros.evento+'/'+filtros.Ubicacion+'/'+ filtros.horaInicioFin+'/'+ filtros.fecha+'/'+ filtros.busqueda).then(((response: any) => {
-        resolve(response);
-      }).bind(this)).catch((error) => {
-        console.log(error)
-        reject(error);
-      });
-    }).bind(this));
-  }
 
   public listar_Eventos_Publicos (filtros: any):Promise<boolean>{
     return new Promise<boolean>(((resolve, reject) => {
@@ -203,11 +187,6 @@ export class AuthService {
       });
     }).bind(this));
   }
-
- 
-  
-
-
   public logout(): void {
     this.waiting = true;
     this.cookieService.delete('_currentUser', '/');
@@ -258,7 +237,7 @@ export class AuthService {
       });
     }).bind(this));
   }
- 
+
   validarToken(token): Promise<boolean> {
 
 
@@ -269,17 +248,36 @@ export class AuthService {
         } else {
           reject(false);
         }
-       
+
 
       }).bind(this)).catch((error) => {
 
         reject(false);
       });
     }).bind(this));
-
-
-
-
-
   }
+  listar_mis__eventos(filtros: any) {
+    return new Promise<boolean>(((resolve, reject) => {
+      this.rest.get('eventos/list_my_event/'+ filtros.busqueda+'/'+ filtros.cantPage+'/'+ filtros.nroPagina).then(((response: any) => {
+        resolve(response);
+      }).bind(this)).catch((error) => {
+        console.log(error)
+        reject(error);
+      });
+    }).bind(this));
+  }
+  public listar_Eventos_publicos_filtros(filtros: any):Promise<boolean>{
+
+    return new Promise<boolean>(((resolve, reject) => {
+      this.cacheStore.byFiltro = { categoria :filtros.categoria,evento:filtros.evento,FechaDesde:filtros.fecha,HoraDesde:filtros.horaInicioFin,ubicacion:filtros.Ubicacion,page:filtros.nroPagina,pageSize: filtros.cantPage,busqueda:filtros.busqueda}
+      this.rest.getConsulta('eventos/listar_Eventos_Publicos_filtro/' + filtros.categoria+'/'+ filtros.evento+'/'+filtros.Ubicacion+'/'+ filtros.horaInicioFin+'/'+ filtros.fecha+'/'+ filtros.busqueda+'/'+ filtros.cantPage+'/'+ filtros.nroPagina).then(((response: any) => {
+        resolve(response);
+      }).bind(this)).catch((error) => {
+        console.log(error)
+        reject(error);
+      });
+    }).bind(this));
+  }
+
+
 }

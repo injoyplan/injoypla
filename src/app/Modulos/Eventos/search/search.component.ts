@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RestService } from '../../../shared/utilitario/rest.service';
 import { UtilsService } from '../../../shared/utilitario/util.service';
@@ -10,12 +10,13 @@ import { FechaEvento } from 'src/app/shared/model/FechaEvento.model';
 import { StorageService } from 'src/app/shared/Service/storage.service';
 import { favorito } from 'src/app/shared/model/Favoritos.model';
 import { Meta } from '@angular/platform-browser';
+import { HttpParams } from '@angular/common/http';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
-export class SearchComponent {
+export class SearchComponent implements OnInit {
   public slug: any;
   public Distrito: any = [];
   public filter_distrito = '';
@@ -29,47 +30,76 @@ export class SearchComponent {
   public filter_modo_hora='-1';
   public filter_modo_fecha = this.pd.transform(new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()),"yyyy-MM-dd");
   public load_data = true;
-  public page = 1;
+  public page = 0;
   public pageSize = 12;
   public user_data: any = null;
   public _fechaStrMinima = "";
   public FechaEvento :FechaEvento | undefined;
   public user_favoritos: any = null;
+  public activoVerMasEventos=true;
+  public load_data_add= false;
+  public eventos_clone_scroll: Array<any>=[]
   constructor(private rest: RestService,private metaService:Meta, private storageService: StorageService,    private _router:Router, private cookieService: CookieService,    private util: UtilsService,private _clienteService: AuthService,    private _route: ActivatedRoute, private pd: DatePipe) {
    // this.listar_Eventos();
+   console.log('segundo');
     this.leerDistrito();
     console.log(screen.width);
     console.log(screen.height);
-
+    let params = new HttpParams();
+    params = params.append('newOrdNum','123');
     this._fechaStrMinima = "" + this.pd.transform(new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()), "yyyy-MM-dd");
    // this.filter_modo_fecha = this.pd.transform(new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()), "yyyy-MM-dd");
-    this._route.params.subscribe(
-      params => {
-        this.slug = params['slug'];
-        //console.log('------------------->',this.slug);
-        switch (this.slug) {
-          case 'musica':
-            this.filter_modo_categoria = '1';
-            break;
-          case 'Cultura':
-            this.filter_modo_categoria = '3';
-            break;
-          case 'Teatro':
-            this.filter_modo_categoria = '4';
-            break;
-          case 'entretenimiento':
-              this.filter_modo_categoria = '2';
+   this.filter_modo_categoria = this._clienteService.cacheStore.byFiltro.categoria;
+   console.log(this.filter_modo_categoria);
+   console.log('parametro');
+   console.log(this.filter_modo_categoria);
+    if(this.filter_modo_categoria==""){
+      this._route.params.subscribe(
+        params => {
+          this.slug = params['slug'];
+          //console.log('------------------->',this.slug);
+          switch (this.slug) {
+            case 'musica':
+              this.filter_modo_categoria = '1';
               break;
-          case 'Todos':
+            case 'Cultura':
+              this.filter_modo_categoria = '3';
+              break;
+            case 'Teatro':
+              this.filter_modo_categoria = '4';
+              break;
+            case 'entretenimiento':
+                this.filter_modo_categoria = '2';
+                break;
+            case 'Todos':
+                this.filter_modo_categoria = '0';
+                break;
+            default:
               this.filter_modo_categoria = '0';
               break;
-          default:
-            this.filter_modo_categoria = '0';
-            break;
+          }
+          this.Filtro_eventos(0,0);
         }
-        this.Filtro_eventos(0);
-      }
-    );
+      );
+    } else {
+
+       this.filter_modo_eventos= this._clienteService.cacheStore.byFiltro.evento;
+       this.filter_modo_fecha= this._clienteService.cacheStore.byFiltro.FechaDesde;
+       this.filter_modo_ubicacion= this._clienteService.cacheStore.byFiltro.ubicacion;
+      this.filter_modo_hora= this._clienteService.cacheStore.byFiltro.HoraDesde;
+       this.filter_busqueda= this._clienteService.cacheStore.byFiltro.busqueda=='0' ? '':this._clienteService.cacheStore.byFiltro.busqueda;
+       this.pageSize= this._clienteService.cacheStore.byFiltro.pageSize;
+      this.page= this._clienteService.cacheStore.byFiltro.page;
+      this.Filtro_eventos(0,0);
+    }
+
+  }
+  ngOnInit(): void {
+    console.log('primero');
+    let params = new HttpParams();
+    params = params.append('newOrdNum','123');
+    this.user_data= this._clienteService.getCurrentUser();
+    this.user_favoritos= this.storageService.getFavorito();
   }
   leerDistrito(){
     var datos =   this.util.GetDistrito(14,"01").sort();
@@ -129,22 +159,25 @@ export class SearchComponent {
     element.classList.remove("show");
 
   }
-  ngOnInit(): void {
-    this.user_data= this._clienteService.getCurrentUser();
-    this.user_favoritos= this.storageService.getFavorito();
+  buscar_mis_eventos(){
+
+      this.Filtro_eventos(1,0)
   }
-  Filtro_eventos(Tipo:number) {
-    console.log(this.filter_busqueda=""?"0":this.filter_busqueda);
-    this.eventos_clone=[];
-    this.eventos=[];
-    this.load_data = true;
+  Filtro_eventos(Tipo:number,Page:number,vieneFiltro:boolean=true,CargarLoad_Data:boolean=false) {
+
+
+    this.load_data = (vieneFiltro?true:false);
+    this.load_data_add =CargarLoad_Data;
+    this.page = Page;
     var filter_productos = {
       evento: this.filter_modo_eventos,
       fecha: this.filter_modo_fecha,
       categoria: this.filter_modo_categoria,
       Ubicacion: this.filter_modo_ubicacion,
       horaInicioFin:this.filter_modo_hora,
-      busqueda:this.filter_busqueda==""?"0":this.filter_busqueda
+      busqueda:this.filter_busqueda==""?"0":this.filter_busqueda,
+      cantPage:this.pageSize,
+      nroPagina:this.page
     }
     console.log(filter_productos);
     this._clienteService.listar_Eventos_publicos_filtros(filter_productos).then(
@@ -152,50 +185,71 @@ export class SearchComponent {
         //console.log('listar_Eventos_publicos_filtros');
 
         if (response.message == 'OK') {
-          this.eventos_clone=[];
-          this.eventos=[];
-          console.log('----------------------------------Response filtro------------------------------------------------------------>')
-          console.log(response.data[0])
-
-          response.data[0].forEach(e => {
-            var incluyeVeinte:favorito = new favorito();
-            if (this.user_favoritos.length>0) {
-              incluyeVeinte =  this.user_favoritos.find(t=>t.idEvento == e.ideventos && t.idfecha == e.idfecha);
-              if ((incluyeVeinte!=undefined)) {
-                incluyeVeinte.incluye=(incluyeVeinte!=undefined) ? true: false;
+          if(response.data[0].length>0){
+            this.eventos_clone=[];
+            this.eventos=[];
+            response.data[0].forEach(e => {
+              var incluyeVeinte:favorito = new favorito();
+              if (this.user_favoritos.length>0) {
+                incluyeVeinte =  this.user_favoritos.find(t=>t.idEvento == e.ideventos && t.idfecha == e.idfecha);
+                if ((incluyeVeinte!=undefined)) {
+                  incluyeVeinte.incluye=(incluyeVeinte!=undefined) ? true: false;
+                } else {
+                  incluyeVeinte= new favorito();
+                  incluyeVeinte.incluye=false;
+                }
               } else {
-                incluyeVeinte= new favorito();
                 incluyeVeinte.incluye=false;
               }
-            } else {
-              incluyeVeinte.incluye=false;
+              this.FechaEvento = new  FechaEvento(e.estado,incluyeVeinte,e.idUsuario,e.HoraFinal,e.HoraInicio,
+                e.FechaInicio,e.Monto,e.NombreLocal,e.url, e.urlFuente,e.titulo,e.ideventos,e.idfecha
+                );
+                if(vieneFiltro){
+                  this.eventos_clone.push(this.FechaEvento);
+                  this.page = this.eventos_clone.length;
+                } else {
+                  if(this.eventos_clone_scroll.length>0){
+                    this.eventos_clone= this.eventos_clone_scroll;
+                    this.eventos_clone.push(this.FechaEvento);
+                    this.page = this.eventos_clone.length;
+                  }else {
+                    this.eventos_clone.push(this.FechaEvento);
+                    this.page = this.eventos_clone.length;
+                  }
+                }
+
+
+            });
+            if(CargarLoad_Data){
+              this.load_data_add = false;
             }
+            this.load_data = false;
+            this.eventos = this.eventos_clone;
+          }
+          else {
+            this.load_data = false;
+            this.eventos = this.eventos_clone_scroll;
+            this.activoVerMasEventos=false;
+          }
 
-
-
-            this.FechaEvento = new  FechaEvento(e.estado,incluyeVeinte,e.idUsuario,e.HoraFinal,e.HoraInicio,
-              e.FechaInicio,e.Monto,e.NombreLocal,e.url, e.urlFuente,e.titulo,e.ideventos,e.idfecha
-              );
-            this.eventos_clone.push(this.FechaEvento);
-          });
-
-          this.load_data = false;
-          this.eventos = this.eventos_clone;
-          console.log('---------------------------------------------------------------------------------------------->')
-          console.log('-----------------------------------Inicio----------------------------------------------------------->')
-          console.log(this.eventos)
         }
       },
       error => {
-
         this.util.openSnackBar('Ups! Error en el filtro', 'error');
       }
     );
   }
+  onScroll(): void {
 
+
+
+    console.log(this.page);
+    this.eventos_clone_scroll= this.eventos_clone;
+    this.Filtro_eventos(1,this.page,false,true);
+  }
   eliminarDatos(){
     this.filter_busqueda = '';
-    this.Filtro_eventos(0);
+    this.Filtro_eventos(0,0);
   }
 
   guardarFavoritos(e: any, idfecha: any){

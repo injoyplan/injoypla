@@ -6,22 +6,24 @@
                 <span class="hide-tablet">Perfil</span>
             </a>
         </li>
-       
+
         <li>
             <a class="link--text"  [ngClass]="{'active': isActive}"  [routerLink]="['/cuenta/favoritos']" routerLinkActive="active" [attr.routerLinkActiveOptions]="{exact: true}"  style="cursor: pointer;" >
-                                                 
+
 
                 <i class="fa fa-heart icon--sm"></i>
                 <span class="hide-tablet">Favoritos</span>
                 <span class="hide-tablet"></span>
             </a>
         </li>
-        <!--<li>
-            <a class="link--text " href="/user/following">
-                <i class="fas fa-close"></i>
-                <span class="hide-tablet">Siguiendo</span>
-                <span class="hide-tablet"></span>
-            </a>
-        </li>-->
+        <li>
+          <a class="link--text"  [ngClass]="{'active': isActiveEventos}"  [routerLink]="['/cuenta/mis-eventos']" routerLinkActive="active" [attr.routerLinkActiveOptions]="{exact: true}"  style="cursor: pointer;" >
+
+
+            <i class="far fa-calendar-alt fa-sm"></i>
+              <span class="hide-tablet">Mis Eventos</span>
+              <span class="hide-tablet"></span>
+          </a>
+        </li>
     </ul>
 </nav>

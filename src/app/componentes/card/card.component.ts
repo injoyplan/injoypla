@@ -8,9 +8,11 @@ import { EventoService } from 'src/app/shared/Service/Eventos.service';
 import { AuthService } from 'src/app/shared/Service/Usuario.service';
 import { RouterLink } from '@angular/router';
 import { HeartComponent } from 'src/app/componentes/heart/heart.component';
+import { LazyImageComponent } from '../lazy-image/lazy-image.component';
+
 @Component({
   standalone:true,
-  imports: [CommonModule,FormsModule,SharedModule,NgOptimizedImage,RouterLink,NgIf,HeartComponent],
+  imports: [CommonModule,FormsModule,SharedModule,NgOptimizedImage,RouterLink,NgIf,HeartComponent,LazyImageComponent],
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css']

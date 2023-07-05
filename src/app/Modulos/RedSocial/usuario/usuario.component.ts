@@ -13,7 +13,7 @@ export class UsuarioComponent {
     nombre: '',
     Apellido: '',
     email: '',
-    telefono: '',    
+    telefono: '',
     genero: '',
   };
   public _fechaStrMinima = "";
@@ -24,13 +24,15 @@ export class UsuarioComponent {
     private util: UtilsService,
     private elem: ElementRef,
     private route: ActivatedRoute,private _clienteService: AuthService) {
-    //console.log('home');    
+    //console.log('home');
   }
   ngOnInit(): void {
     this.user_data= this._clienteService.getCurrentUser();
     //console.log(this.user_data);
     if (this.user_data) {
       this.ObtenerUsuario();
+    }else {
+      this.router.navigate(['/']);
     }
   }
   ObtenerUsuario() {
@@ -49,8 +51,8 @@ export class UsuarioComponent {
         } else {
           this.utils.openSnackBar(error.message, 'error');
         }
-       
-       
+
+
       }
     );
   }

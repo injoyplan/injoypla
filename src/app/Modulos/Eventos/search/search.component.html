@@ -2,10 +2,10 @@
 <div style="height: 128px;background: #007FA4;">
 
 
-  <input placeholder="Ingresa tu búsqueda" name="focus" required  [(ngModel)]="filter_busqueda" (ngModelChange)="Filtro_eventos(1)" class="buscarEvento"  type="text" />
+  <input placeholder="Ingresa tu búsqueda" name="focus" required  [(ngModel)]="filter_busqueda" (ngModelChange)="Filtro_eventos(1,0)" class="buscarEvento"  type="text" />
   <button class="close-icon" type="reset" (click)="eliminarDatos()"></button>
-  <button type="button" id="btnBuscarDesktop" class="btn btn-outline-primary " style="margin-left: 10px;border: 3px solid #FFFFFF; border-radius: 30px;color:#FFFFFF;width: 150px;" (click)="Filtro_eventos(1)" >Buscar</button>
-  <button type="reset" id="btnBuscarMobil" class="card-evento-he1art ISDesktop" style="margin-left: 10px;color: #FFFFFF;background-color: transparent;border: none;font-size: 30px;" (click)="Filtro_eventos(1)" >
+  <button type="button" id="btnBuscarDesktop" class="btn btn-outline-primary " style="margin-left: 10px;border: 3px solid #FFFFFF; border-radius: 30px;color:#FFFFFF;width: 150px;" (click)="Filtro_eventos(1,0)" >Buscar</button>
+  <button type="reset" id="btnBuscarMobil" class="card-evento-he1art ISDesktop" style="margin-left: 10px;color: #FFFFFF;background-color: transparent;border: none;font-size: 30px;" (click)="Filtro_eventos(1,0)" >
       <i class="cxi-search" style="cursor: pointer;"></i>
     </button>
 </div>
@@ -114,7 +114,7 @@
                                 <div class="simplebar-content" style="padding: 0px 16px 0px 6px;">
                                   <li class="filter-item">
                                     <div class="form-check">
-                                      <input type="radio" (change)="Filtro_eventos(1)"
+                                      <input type="radio" (change)="Filtro_eventos(1,0)"
                                          name="groupModo-0"
                                         class="form-check-input" id="groupModo-0" value="0"
                                         [(ngModel)]="filter_modo_eventos">
@@ -125,7 +125,7 @@
                                   </li>
                                   <li class="filter-item">
                                     <div class="form-check">
-                                      <input type="radio" (change)="Filtro_eventos(1)"
+                                      <input type="radio" (change)="Filtro_eventos(1,0)"
                                          name="groupModo"
                                         class="form-check-input" id="groupModo-1" value="1"
                                         [(ngModel)]="filter_modo_eventos">
@@ -136,7 +136,7 @@
                                   </li>
                                   <li class="filter-item">
                                     <div class="form-check">
-                                      <input type="radio" (change)="Filtro_eventos(1)"
+                                      <input type="radio" (change)="Filtro_eventos(1,0)"
                                          name="groupModo-2"
                                         class="form-check-input" id="groupModo-2" value="2"
                                         [(ngModel)]="filter_modo_eventos">
@@ -189,7 +189,7 @@
                                 <div class="simplebar-content" style="padding: 0px 16px 0px 6px;">
                                   <li class="filter-item">
                                     <div class="form-check">
-                                      <input type="radio" (change)="Filtro_eventos(2)"
+                                      <input type="radio" (change)="Filtro_eventos(2,0)"
                                        name="groupCategoria-2"
                                         class="form-check-input" id="groupCategoria-2" value="0"
                                         [(ngModel)]="filter_modo_categoria">
@@ -200,7 +200,7 @@
                                   </li>
                                   <li class="filter-item">
                                     <div class="form-check">
-                                      <input type="radio" (change)="Filtro_eventos(2)" class="form-check-input"
+                                      <input type="radio" (change)="Filtro_eventos(2,0)" class="form-check-input"
                                          name="groupCategoria-1"  id="groupCategoria-1" value="1"
                                         [(ngModel)]="filter_modo_categoria">
                                       <label for="groupCategoria-1" class="form-check-label">
@@ -210,7 +210,7 @@
                                   </li>
                                   <li class="filter-item">
                                     <div class="form-check">
-                                      <input type="radio" (change)="Filtro_eventos(2)" class="form-check-input"
+                                      <input type="radio" (change)="Filtro_eventos(2,0)" class="form-check-input"
                                          name="groupCategoria-3"
                                         id="groupCategoria-3" value="3"
                                         [(ngModel)]="filter_modo_categoria">
@@ -221,7 +221,7 @@
                                   </li>
                                   <li class="filter-item">
                                     <div class="form-check">
-                                      <input type="radio" (change)="Filtro_eventos(2)" class="form-check-input"
+                                      <input type="radio" (change)="Filtro_eventos(2,0)" class="form-check-input"
                                         name="groupCategoria-4"
                                         id="groupCategoria-4" value="4"
                                         [(ngModel)]="filter_modo_categoria">
@@ -232,7 +232,7 @@
                                   </li>
                                   <li class="filter-item">
                                     <div class="form-check">
-                                      <input type="radio" (change)="Filtro_eventos(2)" class="form-check-input"
+                                      <input type="radio" (change)="Filtro_eventos(2,0)" class="form-check-input"
                                          name="groupCategoria-2"
                                         id="groupCategoria-2" value="2"
                                         [(ngModel)]="filter_modo_categoria">
@@ -274,7 +274,7 @@
                     <div class="position-relative mb-3">
 
                       <input class="form-control form-control-sm " type="date"
-                        (change)="Filtro_eventos(3)" [(ngModel)]="filter_modo_fecha" placeholder="Search the material" [min]="_fechaStrMinima">
+                        (change)="Filtro_eventos(3,0)" [(ngModel)]="filter_modo_fecha" placeholder="Search the material" [min]="_fechaStrMinima">
                       <i class="ci-search fs-sm position-absolute top-50 end-0 translate-middle-y me-3 zindex-5"></i>
                     </div>
                   </li>
@@ -299,7 +299,7 @@
                   data-simplebar-auto-hide="false">
                   <li class="cs-filter-item">
                     <div class="position-relative mb-3">
-                      <select name="cars" id="cars" class="form-select" [(ngModel)]="filter_modo_hora" aria-label="Default select example"  (change)="Filtro_eventos(3)">
+                      <select name="cars" id="cars" class="form-select" [(ngModel)]="filter_modo_hora" aria-label="Default select example"  (change)="Filtro_eventos(3,0)">
                         <option value="-1">Seleccionar</option>
                         <option value="09">09:00</option>
                         <option value="10">10:00</option>
@@ -343,7 +343,7 @@
                   data-simplebar-auto-hide="false">
                   <li class="filter-item" >
                     <div class="form-check">
-                      <input type="radio" (change)="Filtro_eventos(4)"
+                      <input type="radio" (change)="Filtro_eventos(4,0)"
                         name="groupModo" class="form-check-input" id="groupModo-0"
                         value="0" [(ngModel)]="filter_modo_ubicacion">
                       <label for="groupModo-00" class="form-check-label">
@@ -353,7 +353,7 @@
                   </li>
                   <li class="filter-item" *ngFor="let distrito of Distrito">
                     <div class="form-check">
-                      <input type="radio" (change)="Filtro_eventos(4)"
+                      <input type="radio" (change)="Filtro_eventos(4,0)"
                         name="groupModo" class="form-check-input" id="groupModo-{{distrito.codigo}}"
                         value="{{distrito.codigo}}" [(ngModel)]="filter_modo_ubicacion">
                       <label for="groupModo-{{distrito.codigo}}" class="form-check-label">
@@ -391,48 +391,64 @@
 
         <ng-container *ngIf="eventos.length>=1">
 
-          <div class="course" *ngFor="let evento of eventos">
+              <div class="course" *ngFor="let evento of eventos">
 
-            <a class="ps-product__title" [routerLink]="['/show/'+evento.evento+'/'+evento.idfecha] ">
-              <div class="course-date">
+                <a class="ps-product__title" [routerLink]="['/show/'+evento.evento+'/'+evento.idfecha] ">
+                  <div class="course-date">
 
-                <h2>{{ evento.FechaInicio | formatDateDia}} </h2>
-                <h4>{{ evento.FechaInicio | FormatDateMes }}</h4>
-              </div>
-
-              <div class="course-info" id="evento">
-                <img [src]="evento.url" alt="Imágen x" class="card__img-top img-fluid"
-                  style="border-radius: 0px;">
-              </div>
-            </a>
-            <div class="course-progress">
-
-              <div class="progress-container" style="z-index: 1000;">
-                <app-heart [id_fecha]="evento.idfecha" [pantalla]="2"  [id_evento]="evento.evento" [user_data]="user_data"   [favoritos]="evento.favorito"   ></app-heart>
-
-              </div>
-              <a class="ps-product__title" [routerLink]="['/show/'+evento.ideventos+'/'+evento.idfecha]"
-                style="text-decoration: none;">
-                <h6 class="evento_FechaHora">
-                  {{ evento.FechaInicio | formatDateDia }} {{ evento.FechaInicio | FormatDateMes }}
-                  {{evento.HoraInicio}} - {{evento.HoraFinal}}</h6>
-                <h3 class="mt-2 evento_TituloEvento">{{evento.titulo}}</h3>
-                <h5 class="mt-2 evento_SubTituloEvento"> {{evento.NombreLocal}}</h5>
-                <div class="card-price-event">
-                  <div class="card__price_filtro">
-                    <span class="card__price_filtro_desde" *ngIf="evento.Monto!=0">DESDE</span>
-
-                    <span class="card-price" *ngIf="evento.Monto!=0">{{evento.Monto | formatMoney}}</span>
-                    <span class="card-price" *ngIf="evento.Monto==0">¡Gratis!</span>
+                    <h2>{{ evento.FechaInicio | formatDateDia}} </h2>
+                    <h4>{{ evento.FechaInicio | FormatDateMes }}</h4>
                   </div>
-                 <!--<div class="card-text">
-                    Visto 0 <span class="fwb">veces</span>
-                  </div>-->
-                </div>
-              </a>
-            </div>
 
-          </div>
+                  <div class="course-info" id="evento">
+                    <img [src]="evento.url" alt="Imágen x" class="card__img-top img-fluid"
+                      style="border-radius: 0px;">
+                  </div>
+                </a>
+                <div class="course-progress">
+
+                  <div class="progress-container" style="z-index: 1000;">
+                    <app-heart [id_fecha]="evento.idfecha" [pantalla]="2"  [id_evento]="evento.evento" [user_data]="user_data"   [favoritos]="evento.favorito"   ></app-heart>
+
+                  </div>
+                  <a class="ps-product__title" [routerLink]="['/show/'+evento.ideventos+'/'+evento.idfecha]"
+                    style="text-decoration: none;">
+                    <h6 class="evento_FechaHora">
+                      {{ evento.FechaInicio | formatDateDia }} {{ evento.FechaInicio | FormatDateMes }}
+                      {{evento.HoraInicio}} - {{evento.HoraFinal}}</h6>
+                    <h3 class="mt-2 evento_TituloEvento">{{evento.titulo}}</h3>
+                    <h5 class="mt-2 evento_SubTituloEvento"> {{evento.NombreLocal}}</h5>
+                    <div class="card-price-event">
+                      <div class="card__price_filtro">
+                        <span class="card__price_filtro_desde" *ngIf="evento.Monto!=0">DESDE</span>
+
+                        <span class="card-price" *ngIf="evento.Monto!=0">{{evento.Monto | formatMoney}}</span>
+                        <span class="card-price" *ngIf="evento.Monto==0">¡Gratis!</span>
+                      </div>
+                    <!--<div class="card-text">
+                        Visto 0 <span class="fwb">veces</span>
+                      </div>-->
+                    </div>
+                  </a>
+                </div>
+
+              </div>
+              <ng-container *ngIf="activoVerMasEventos">
+                <div class="row" *ngIf="load_data_add">
+                  <div class="col-lg-12" style="text-align: center;">
+                    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                      <span class="visually-hidden">Cargando mas Información</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-box" style="margin-top: 1%;margin-bottom: 64px;display: flex;justify-content: center;">
+                  <button class="btn btn-white btn-animate btnEvento" (click)="onScroll()">
+                    VER MÁS EVENTOS
+                  </button>
+
+                </div>
+              </ng-container>
+
         </ng-container>
         <ng-container *ngIf="eventos.length==0">
           <div class="col-lg-12  col-md-5">

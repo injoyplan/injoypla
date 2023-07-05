@@ -23,7 +23,7 @@ export class HeartComponent {
   public _favoritos:any=[];
   constructor(private utils: UtilsService,private _EventoService: EventoService,private _clienteService: AuthService,private rest: RestService,
      private storageService: StorageService){
-  
+
   }
   guardarFavoritos(idevento:any,idFecha:any){
     var _idEvento = idevento ;
@@ -60,7 +60,7 @@ export class HeartComponent {
   EliminarFavoritos(id_evento:any,id_fecha:any){
     var id_evento= id_evento;
     var id_fecha= id_fecha;
-    var idUsuario = this.user_data.sub;    
+    var idUsuario = this.user_data.sub;
     if (!this.user_data) {
       this.utils.openSnackBar('Ups! Inicia sesión para agregarlo a tus favoritos', 'warning');
     } else {
@@ -79,12 +79,12 @@ export class HeartComponent {
       });
     }
   }
-  verFavoritosUsuario(token:any) { 
-   
+  verFavoritosUsuario(token:any) {
+
     this._clienteService.consultar_favoritos_guest(
       token
     ).then(logged => {
-      
+
       var datos = JSON.stringify(logged);
       var informacion = JSON.parse(datos)
       var favoritos: any = [];
@@ -102,11 +102,5 @@ export class HeartComponent {
     });
   }
 
-  consultarServicioExpress(){
-    this._clienteService.consultarServicioExpress().then(logged => {
-     console.log(logged);
-    }).catch((error) => {
-      console.log(error);
-    });
-  }
+
 }

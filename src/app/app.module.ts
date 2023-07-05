@@ -6,12 +6,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { SharedModule } from 'src/app/shared/shared.modules';
+import { NarbarComponent } from './Modulos/RedSocial/Eventos/componentes/narbar/narbar.component';
+
+
+
 
 
 
 @NgModule({
     declarations: [
         AppComponent,
+        NarbarComponent,
+
 
     ],
     providers: [],

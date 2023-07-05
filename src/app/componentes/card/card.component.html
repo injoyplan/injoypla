@@ -1,6 +1,6 @@
 <div class="card card_normal">
   <ng-container *ngIf="pantalla==1">
-   
+
     <app-heart [id_fecha]="evento.idfecha" [id_evento]="evento.evento" [user_data]="user_data" [pantalla]="1"  [favoritos]="evento.favorito"  ></app-heart>
     <ng-container *ngIf="compararEntreFechas( evento.FechaInicio,evento.HoraInicio,evento.HoraFinal)">
       <div class="card__img-vivo-actions parpadea" >
@@ -13,8 +13,9 @@
   </ng-container>
   <a [routerLink]="['/show/'+evento.evento+'/'+evento.idfecha ]" style="text-decoration: none" >
     <div class="card-header">
-     
-      <img [ngSrc]="evento.url" class="img-fluid" width="4000"      height="3000"   alt="rover">
+
+      <app-lazy-image [url]="evento.url"></app-lazy-image>
+
 
     </div>
     <div class="card-body">
@@ -37,7 +38,7 @@
         <div class="user-info" >
           <small>Desde </small>
           <h5 class="tag-monto">{{evento.Monto | formatMoney}}</h5>
-        </div>     
+        </div>
       </div>
     </div>
   </a>

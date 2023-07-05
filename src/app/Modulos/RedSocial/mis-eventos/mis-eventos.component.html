@@ -1,0 +1,99 @@
+<app-header></app-header>
+<app-nav-bar [isActivePerfil]="false" [isActive]="false" [isActiveEventos]="true"></app-nav-bar>
+<div style="height: 128px;background: #007FA4;">
+
+
+  <input placeholder="Ingresa tu búsqueda" name="focus" required  [(ngModel)]="filter_busqueda" (ngModelChange)="buscar_mis_eventos()"  class="buscarEvento"  type="text" />
+  <button type="button" id="btnBuscarDesktop" class="btn btn-outline-primary " (click)="buscar_mis_eventos()" style="margin-left: 10px;border: 3px solid #FFFFFF; border-radius: 30px;color:#FFFFFF;width: 150px;"  >Buscar</button>
+</div>
+<div class="container">
+  <div class="row align-items-left mb-4">
+    <ng-container *ngIf="eventos.length<=0">
+      <div style="width: 100%;    padding-bottom: 30px;">
+        <div class="contentFavorito">
+          <img src="https://res.cloudinary.com/do4rokki9/image/upload/v1644672060/InjoyPlan/event.png"
+            alt="blog" />
+        </div>
+
+        <p class="tituloNofavorito">No se ha encontrado el evento buscado</p>
+
+        <p style="
+            font-family: Open Sans;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 14px;
+            line-height: 24px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #212121;
+            justify-content: center;
+          ">
+        Desea ingresar el evento
+        </p>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="eventos.length>0" >
+
+
+
+      <div class="card card_normal tarjeta" [ngClass]="getClass(evento.estado)"  *ngFor="let evento of eventos; let indice = index">
+
+
+          <div class="card-header">
+            <img [src]="evento.url" class="img-fluid" width="4000"
+            height="3000"   alt="rover">
+          </div>
+
+          <div class="card-body">
+            <h4 class="tag-titulo">
+              {{evento.titulo}}
+            </h4>
+            <p class="tag-lugar">
+              {{evento.NombreLocal}}
+            </p>
+          </div>
+          <div class="card-footer" style="background-color: white;border-top: 0px solid #e5e8ed !important;">
+            <div class="user">
+              <div class="user-info" >
+                <small>Desde </small>
+                <h5 class="tag-monto">{{evento.Monto | formatMoney}}</h5>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+           <div class="div_footer_">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button class="btn me-md-2" [ngClass]="getClass(evento.estado)" (click)="activarDesactivar(evento.ideventos,evento.estado)" type="button">
+                {{ evento.estado == 1 ? 'Desactivar' : 'Activar' }}
+              </button>
+
+              <a class="btn btn-primary" [routerLink]="['/cuenta/Eventos/editar-eventos/'+evento.ideventos]" routerLinkActive="active" [attr.routerLinkActiveOptions]="{exact: true}" style="text-decoration: none" >Editar</a>
+            </div>
+           </div>
+          </div>
+
+      </div>
+
+      <ng-container *ngIf="activoVerMasEventos">
+        <div class="row" *ngIf="load_data_add">
+          <div class="col-lg-12" style="text-align: center;">
+            <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+              <span class="visually-hidden">Cargando mas Información</span>
+            </div>
+          </div>
+        </div>
+        <div class="text-box" style="margin-top: 1%;margin-bottom: 64px;display: flex;justify-content: center;">
+          <button class="btn btn-white btn-animate btnEvento" (click)="onScroll()">
+            VER MÁS EVENTOS
+          </button>
+        </div>
+      </ng-container>
+
+
+    </ng-container>
+  </div>
+</div>
+
+
+<app-footer></app-footer>

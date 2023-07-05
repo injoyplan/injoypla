@@ -26,17 +26,19 @@ export class FavoritosComponent {
     private route: ActivatedRoute, private cookieService: CookieService,
     private storageService: StorageService
   ){
-    
+
   }
   ngOnInit(): void {
     debugger;
     this.user_data= this.auth.getCurrentUser();
     //console.log(this.user_data);
-    if (this.user_data) {   
+    if (this.user_data) {
       this.consultar_favoritos_guest2();
+    } else {
+      this.router.navigate(['/']);
     }
   }
-  verFavoritosUsuario(token:any) { 
+  verFavoritosUsuario(token:any) {
     //console.log('--verFavoritosUsuario');
     this.auth.consultar_favoritos_guest(
       token
@@ -100,22 +102,22 @@ export class FavoritosComponent {
       } else {
         this.utils.openSnackBar('Ups!Todavia hay eventos', 'success');
         this.router.navigate(['/show-favoritos/'+idEvento]);
-      }     
+      }
     }).catch((error: any) => {
       return [];
     });
-  
+
     /*if(datos.length>0){
       this.router.navigate(['/show-favoritos/'+idEvento]);
       //console.log(idEvento)
     } else {
       this.utils.openSnackBar('Ups!Error de consultar eventos', 'error');
     }*/
- 
+
   }
   validarSiTieneFechasActivas(idEvento: any) {
-    
+
   }
- 
+
 
 }

@@ -1,0 +1,2 @@
+<img [src]="url"  [ngStyle]="{display: hasloaded?'': 'none'}" class="card-img-top img-fluid animate__animated animate__fadeIn" alt="rover" width="4000"   (load)="onload()"   style="height: 200px;">
+<img src="../../../assets/img/loader.svg" *ngIf="!hasloaded"  alt="rover" width="35" style="height: 200px;background-color: #861F21;width:100%"     height="35">

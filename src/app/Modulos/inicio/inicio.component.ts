@@ -32,7 +32,7 @@ declare var $: any;
   styleUrls: ['./inicio.component.css']
 })
 export class InicioComponent {
-  
+
   public lista_eventos: Array<any> = [];
   public lista_eventosv2: Array<any> = [];
   public FechaEvento :FechaEvento | undefined;
@@ -63,7 +63,7 @@ export class InicioComponent {
   ngOnInit(): void {
     this.user_data= this._clienteService.getCurrentUser();
     this.user_favoritos= this.storageService.getFavorito();
-  
+
     this.consultar_total_eventos();
     const gtmTag = {
       event: 'inicio web',
@@ -82,7 +82,7 @@ export class InicioComponent {
     }else
     if(this.nroPagina>=0 && this.nroPagina<23){
       this.Listar_eventos_infinito();
-    }  
+    }
   }
   consultar_total_eventos() {
     this.isloading = true;
@@ -110,7 +110,7 @@ export class InicioComponent {
             break;
         }
       });
-      this.isloading = false;
+
     }).catch((error: any) => {
       this.isloading = false;
       this.util.openSnackBar('Ups! algo ocurrio', 'error');
@@ -120,13 +120,12 @@ export class InicioComponent {
 
 
   Listar_eventos_infinito() {
-   
     this.rest.getConsulta(`eventos/listarEventosxPaginate/`+this.EventosXPagina+`/`+this.nroPagina).then((response: any) => {
         //console.log(response);
         var cantidadTotalEventos =  response.data.length;
         console.log('Listar_eventos_infinito',response.data);
         if(response.estado = 1){
-      
+
           response.data.forEach((e:any) => {
             console.log('Listar_eventos_infinito',e);
             var incluyeVeinte:favorito = new favorito();
@@ -145,18 +144,19 @@ export class InicioComponent {
             this.FechaEvento = new  FechaEvento(e.estado,incluyeVeinte,e.idUsuario,e.HoraFinal,e.HoraInicio,
                                                 e.FechaInicio,e.Monto,e.NombreLocal,e.url, e.urlFuente,e.titulo,e.ideventos,e.idfecha
                                                 );
-          
+
             this.lista_eventos.push(this.FechaEvento);
           });
-          this.isloading = false;
-          cantidadTotalEventos = this.lista_eventos.length;  
+
+          cantidadTotalEventos = this.lista_eventos.length;
           this.TotalEventos = response.TotalEventos;
           if (cantidadTotalEventos <= 24) {
             this.activoVerMasEventos  =  true;
           } else {
             this.activoVerMasEventos  =  false;
-          }  
+          }
           this.nroPagina += cantidadTotalEventos;
+          this.isloading = false;
         }
 
     }).catch((error: any) => {
@@ -174,11 +174,11 @@ export class InicioComponent {
     if(idFavorito){
       this.EventosXPagina = 12;
       this.nroPagina = 0;
-      
+
       this.lista_eventosv2 = this.lista_eventos;
       //console.log(this.lista_eventosv2);
       this.Listar_eventos_infinitov_copy();
-     
+
     }
   }
   Listar_eventos_infinitov_copy() {
@@ -188,9 +188,9 @@ export class InicioComponent {
       this.lista_eventos = [];
       var cantidadTotalEventos =  this.lista_eventosv2.length;
       if(cantidadTotalEventos > 1){
-    
+
         this.lista_eventosv2.forEach((e:any) => {
-         
+
           var incluyeVeinte:favorito = new favorito();
           debugger;
           if (this.user_favoritos.length>0) {
@@ -212,13 +212,13 @@ export class InicioComponent {
           this.lista_eventos.push(this.FechaEvento);
         });
         this.isloading = false;
-        cantidadTotalEventos = this.lista_eventos.length;  
+        cantidadTotalEventos = this.lista_eventos.length;
         this.TotalEventos = cantidadTotalEventos;
         if (cantidadTotalEventos <= 24) {
           this.activoVerMasEventos  =  true;
         } else {
           this.activoVerMasEventos  =  false;
-        }  
+        }
         this.nroPagina += cantidadTotalEventos;
       }
   }

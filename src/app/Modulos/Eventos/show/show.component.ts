@@ -206,10 +206,10 @@ export class ShowComponent {
 
       var cliente = {
         evento: idEvento,
-        fecha: idFecha,
-        usuario: this.user_data.sub
+        idFecha: idFecha,
+        usuario: this.user_data.token
       }
-
+      console.log(this.user_data);
       this._EventoService.registrar_cliente_favorito(cliente).then(
         (response: any) => {
           ////console.log(response);

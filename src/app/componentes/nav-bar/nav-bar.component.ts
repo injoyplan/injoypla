@@ -14,6 +14,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class NavBarComponent {
   @Input() isActivePerfil:any=false;
   @Input() isActive:any=false;
+  @Input() isActiveEventos:any=false;
 
   public usuario ="";
   public constructor(private cookieService: CookieService,){
@@ -22,11 +23,11 @@ export class NavBarComponent {
     JSON.parse(this.cookieService.get('_currentUser')) : null;
 
     if (_parseCurrent) {
-     
+
       this.usuario =  _parseCurrent.sub
-     
+
     } else {
       this.usuario = "";
     }
   }
-} 
+}
