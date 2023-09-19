@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  endpoint: 'https://squid-app-bfky7.ondigitalocean.app/api/',
-  //endpoint: 'http://localhost:4201/api/',
+  //endpoint: 'https://squid-app-bfky7.ondigitalocean.app/api/',
+  endpoint: 'http://localhost:4201/api/',
   endpointLocalImg: 'http://localhost:4200',
   AH_url: '',
   AH_token: '',

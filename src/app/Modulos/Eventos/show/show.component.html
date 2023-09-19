@@ -175,9 +175,8 @@
 
             <h3 style="    font-family: 'Quicksand';"> Entradas desde</h3>
 
-            <p class="t-big">
-              {{evento.Monto | formatMoney }}
-            </p>
+            <p  class="t-big" *ngIf="evento.Monto==0">¡Gratis!</p>
+            <p  class="t-big" *ngIf="evento.Monto!=0">{{evento.Monto | formatMoney}}</p>
           </div>
           <div>
             <h3>Consigue tus entradas aquí</h3>
@@ -216,7 +215,7 @@
                     <img [src]="entradas.iconos" width="20"  style="margin-right: 7px; margin-top: 2px;"/>
 
                     <h3 style="color: white; width: 134%">
-                    a {{entradas.nombreEntrada}}
+                     {{entradas.nombreEntrada}}
                     </h3>
                   </span>
                 </a>
@@ -362,18 +361,16 @@
         <div>
 
           <h3 class="subTitulosShowEventos"> Entradas desde</h3>
-
-          <p class="t-big">
-            {{evento.Monto | formatMoney }}
-          </p>
+          <p  class="t-big" *ngIf="evento.Monto==0">¡Gratis!</p>
+          <p  class="t-big" *ngIf="evento.Monto!=0">{{evento.Monto | formatMoney}}</p>
         </div>
         <div>
           <h3 class="subTitulosShowEventos">Consigue tus entradas aquí</h3>
           <div  *ngFor="let entradas of lista_plataformas; let indice = index"  >
             <ng-container *ngIf="entradas.nombreEntrada=='En Boletería' || entradas.nombreEntrada=='En Puerta'">
-                  <a
+                  <span
 
-                  [href]="'#'"
+
                   class="btn btn--primary btn--block"
                   >
                   <span style="display: inline-flex;display: inline-flex;
@@ -384,10 +381,10 @@
                     <img [src]="entradas.iconos" width="20"  style="margin-right: 7px; margin-top: 2px;"/>
 
                     <h3 style="color: white; width: 134%">
-                   b {{entradas.nombreEntrada}}
+                      {{entradas.nombreEntrada}}
                     </h3>
                   </span>
-                </a>
+                </span>
             </ng-container>
             <ng-container *ngIf="entradas.nombreEntrada!='En Boletería' || entradas.nombreEntrada!='En Puerta'">
               <a
@@ -403,7 +400,7 @@
                   <img [src]="entradas.iconos" width="20"  style="margin-right: 7px; margin-top: 2px;"/>
 
                   <h3 style="color: white; width: 134%">
-                  a {{entradas.nombreEntrada}}
+                   {{entradas.nombreEntrada}}
                   </h3>
                 </span>
               </a>

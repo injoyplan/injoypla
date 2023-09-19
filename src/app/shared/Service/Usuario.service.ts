@@ -87,9 +87,9 @@ export class AuthService {
             ////console.log(token);
             if (token) {
               this._currentUser = response.data;
-              //const {nombre,Apellido,genero,notifNewsletter,NroDocumento,TipoDocumento,email,imagenPerfil} =  response.dataMemory;
-              //this.usuario =  new Usuario(nombre,Apellido,"",email,"",imagenPerfil,false,genero,"",TipoDocumento,NroDocumento,true,notifNewsletter);
-              this._currentUser['menu_rol'] = 'user';
+              console.log('**********************|************************');
+              console.log(response.data);
+              this._currentUser['menu_rol'] = response.menu_rol;
               this._currentUser['token'] = token;
               this._currentUser['exp_time'] = response.exp;
               this._currentUser['img_Perfil'] = response.imagenPerfil;

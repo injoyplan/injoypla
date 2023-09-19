@@ -11,6 +11,8 @@ import { StorageService } from 'src/app/shared/Service/storage.service';
 import { favorito } from 'src/app/shared/model/Favoritos.model';
 import { Meta } from '@angular/platform-browser';
 import { HttpParams } from '@angular/common/http';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -39,20 +41,24 @@ export class SearchComponent implements OnInit {
   public activoVerMasEventos=true;
   public load_data_add= false;
   public eventos_clone_scroll: Array<any>=[]
+
+  private searchTerms = new Subject<string>();
+
+
   constructor(private rest: RestService,private metaService:Meta, private storageService: StorageService,    private _router:Router, private cookieService: CookieService,    private util: UtilsService,private _clienteService: AuthService,    private _route: ActivatedRoute, private pd: DatePipe) {
    // this.listar_Eventos();
-   console.log('segundo');
     this.leerDistrito();
-    console.log(screen.width);
-    console.log(screen.height);
     let params = new HttpParams();
     params = params.append('newOrdNum','123');
     this._fechaStrMinima = "" + this.pd.transform(new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()), "yyyy-MM-dd");
    // this.filter_modo_fecha = this.pd.transform(new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()), "yyyy-MM-dd");
    this.filter_modo_categoria = this._clienteService.cacheStore.byFiltro.categoria;
-   console.log(this.filter_modo_categoria);
-   console.log('parametro');
-   console.log(this.filter_modo_categoria);
+    this.searchTerms.pipe(
+      debounceTime(300), // Retrasa la búsqueda 300 ms después de que el usuario deje de escribir
+      distinctUntilChanged() // Asegura que solo se realice una búsqueda si el término de búsqueda cambió
+    ).subscribe(() => {
+      this.Filtro_eventos(0,0);
+    });
     if(this.filter_modo_categoria==""){
       this._route.params.subscribe(
         params => {
@@ -87,6 +93,8 @@ export class SearchComponent implements OnInit {
        this.filter_modo_fecha= this._clienteService.cacheStore.byFiltro.FechaDesde;
        this.filter_modo_ubicacion= this._clienteService.cacheStore.byFiltro.ubicacion;
       this.filter_modo_hora= this._clienteService.cacheStore.byFiltro.HoraDesde;
+
+
        this.filter_busqueda= this._clienteService.cacheStore.byFiltro.busqueda=='0' ? '':this._clienteService.cacheStore.byFiltro.busqueda;
        this.pageSize= this._clienteService.cacheStore.byFiltro.pageSize;
       this.page= this._clienteService.cacheStore.byFiltro.page;

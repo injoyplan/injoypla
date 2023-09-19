@@ -28,9 +28,6 @@
             </a>
           </div>
         </article>
-
-
-
       </a>
       <article class="categorie" [routerLink]="['/search-eventos/entretenimiento']" style="cursor: pointer;">
         <div class="categorie__icon-container">
@@ -71,7 +68,12 @@
           </a>
         </div>
       </article>
+
     </div>
+    <div class="irBuscador">
+      <span  (click)="verMas()">Ir al buscador ></span>
+    </div>
+
   </div>
 </section>
 <ng-container *ngIf="lista_eventos_Destacados.length>0">
@@ -124,8 +126,8 @@ justify-content: space-between;">
   </ng-container>
   <ng-container *ngIf="activoVerMasEventos">
     <div class="text-box" style="margin-top: 1%;margin-bottom: 64px;">
-      <button class="btn btn-white btn-animate btnEvento" (click)="verMas(12,nroPagina)">
-        VER MÁS EVENTOS
+      <button class="btn btn-white btn-animate btnEvento" (click)="verMas()">
+        Ir al buscador
       </button>
 
     </div>

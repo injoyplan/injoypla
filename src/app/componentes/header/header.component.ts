@@ -12,8 +12,9 @@ import { UtilsService } from 'src/app/shared/utilitario/util.service';
 import { StorageService } from './../../shared/Service/storage.service';
 import { FechaEvento } from 'src/app/shared/model/FechaEvento.model';
 import { favorito } from 'src/app/shared/model/Favoritos.model';
-import { Subject, debounceTime } from 'rxjs';
+import { Subject, debounceTime,distinctUntilChanged } from 'rxjs';
 import { __values } from 'tslib';
+
 declare var iziToast: any;
 declare var $: any;
 @Component({
@@ -26,24 +27,21 @@ declare var $: any;
 export class HeaderComponent implements OnInit {
   @Output() contactChange:EventEmitter<boolean> =new EventEmitter<boolean>();
 
-  private debouncer:Subject<string> = new Subject<string>();
-
-  @Output()
-  public onDebounce = new EventEmitter<string>();
-
-
+  private searchEvents = new Subject<string>();
+  private searchEventsMobil = new Subject<string>();
   public id: any;
   public token = localStorage.getItem('token')
   public user: any = undefined;
   public cliente: any = {};
   public eventos: Array<any> = [];
   public isloading = false;
-  public src: string = '';
   public data: any = [];
   public dataDesktop: any = [];
   public searchOpen = false;
   public user_data: any = null;
   public imgUrl = '';
+  public searchEvent: string = '';
+  public searchEventMobil: string = '';
   public idUsuario = '';
   public loadingRecordar = false;
   public loading = false;
@@ -107,12 +105,20 @@ export class HeaderComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.debouncer
-      .pipe(debounceTime(100))
-      .subscribe(value=>{
-        console.log(value);
-        this.onDebounce.emit(value);
+    this.searchEvents.pipe(
+      debounceTime(300), // Retrasa la búsqueda 300 ms después de que el usuario deje de escribir
+      distinctUntilChanged() // Asegura que solo se realice una búsqueda si el término de búsqueda cambió
+    ).subscribe(() => {
+      this.searchEvento();
     });
+
+    this.searchEventsMobil.pipe(
+      debounceTime(300), // Retrasa la búsqueda 300 ms después de que el usuario deje de escribir
+      distinctUntilChanged() // Asegura que solo se realice una búsqueda si el término de búsqueda cambió
+    ).subscribe(() => {
+      this.searchMobil();
+    });
+
     this.user_data= this._clienteService.getCurrentUser();
       if(this.user_data!=null){
 
@@ -120,8 +126,13 @@ export class HeaderComponent implements OnInit {
       }
 
   }
-  onKeyPress(searchTerm:string){
-    this.debouncer.next(searchTerm);
+
+
+  onKeyPress(){
+    this.searchEvents.next(this.searchEvent);
+  }
+  onKeyPressMobil(){
+    this.searchEventsMobil.next(this.searchEventMobil);
   }
   validarSesion() {
     console.log('validarSesion');
@@ -208,22 +219,20 @@ export class HeaderComponent implements OnInit {
       $('#modalSearchMobil').removeClass('active');
     }
   }
-  onKeyUpEvent(e: any) {
-    ////console.log(e.target.value);
-  }
   CloseSearch() {
     this.searchOpen = false;
   }
-  searchText(e: any) {
+  searchEvento() {
    try {
-    console.log('ssssssssssssssssssssssss------------------>')
-    if (e == "") {
+    if (this.searchEvent == "") {
       this.searchOpen = false;
       this.isloading = true;
     } else {
       this.searchOpen = true;
       this.isloading = true;
-      this.rest.getConsulta("eventos/listar_eventos_filtro_letras/" + e).then((response: any) => {
+      console.log('*****************');
+      console.log(this.searchEvent);
+      this.rest.getConsulta("eventos/listar_eventos_filtro_letras/" + this.searchEvent).then((response: any) => {
         //console.log(response.data);
         if (response.message == 'OK') {
           this.dataDesktop =  response.data;
@@ -243,14 +252,14 @@ export class HeaderComponent implements OnInit {
 
 
   }
-  search(value: any) {
-    console.log('ssssssssssssssssssssssssssssssssssssssss');
+  searchMobil() {
+
     this.isloading = true;
-    if (value) {
-      this.rest.getConsulta("eventos/listar_eventos_filtro_letras/" + value).then((response: any) => {
+    if (this.searchEventMobil != "") {
+      this.rest.getConsulta("eventos/listar_eventos_filtro_letras/" + this.searchEventMobil ).then((response: any) => {
         //console.log(response);
         if (response.message == 'OK') {
-          if (value == null || value == "") {
+          if (this.searchEventMobil == null || this.searchEventMobil == "") {
             this.data = [];
           } else {
             this.dataDesktop = response.data;
@@ -269,9 +278,6 @@ export class HeaderComponent implements OnInit {
       this.data = [];
 
     }
-
-
-
   }
   onLogin(event: any){
     if(event.keyCode==13){

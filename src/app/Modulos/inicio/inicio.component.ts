@@ -38,7 +38,7 @@ export class InicioComponent {
   public FechaEvento :FechaEvento | undefined;
   public lista_eventos_Destacados: Array<any> = [];
   public desde = 0;
-  public EventosXPagina = 12;
+  public EventosXPagina = 24;
   public nroPagina = 0;
   public isloading = false;
   public Categoria_musica = 0;
@@ -54,6 +54,7 @@ export class InicioComponent {
     private util: UtilsService,
     private elem: ElementRef,private _eventoService: EventoService, private  ngZone:NgZone,
     private route: ActivatedRoute,private _clienteService: AuthService, private storageService: StorageService,
+
     ) {
 
     //console.log('home');
@@ -61,6 +62,7 @@ export class InicioComponent {
   }
 
   ngOnInit(): void {
+
     this.user_data= this._clienteService.getCurrentUser();
     this.user_favoritos= this.storageService.getFavorito();
 
@@ -73,39 +75,31 @@ export class InicioComponent {
   //  this.gtmService.pushTag(gtmTag);
   }
 
-  verMas(valor:number,tipo:number) {
-    this.isloading = true;
-    this.nroPagina = this.nroPagina;
-    debugger;
-    if(this.nroPagina== 36){
-      this.router.navigate(['/search-eventos/0']);
-    }else
-    if(this.nroPagina>=0 && this.nroPagina<23){
-      this.Listar_eventos_infinito();
-    }
+  verMas() {
+    this.router.navigate(['/search-eventos/0']);
   }
   consultar_total_eventos() {
     this.isloading = true;
     this.rest.getConsulta(`eventos/getCantEventXCategoria`).then((response: any) => {
-      //console.log(response);
+      console.log(response);
       response.data.forEach((e:any) => {
 
         switch (e.categoria_id) {
           case 1:
-            this.Categoria_musica = e.cantidad;
+            this.Categoria_musica += e.cantidad;
 
             break;
           case 2:
-            this.Categoria_entretenimiento = e.cantidad;
+            this.Categoria_entretenimiento += e.cantidad;
 
             break;
           case 3:
 
-            this.Categoria_Cultura = e.cantidad;
+            this.Categoria_Cultura += e.cantidad;
             break;
           case 4:
 
-            this.Categoria_Teatro = e.cantidad;
+            this.Categoria_Teatro += e.cantidad;
 
             break;
         }
@@ -123,14 +117,11 @@ export class InicioComponent {
     this.rest.getConsulta(`eventos/listarEventosxPaginate/`+this.EventosXPagina+`/`+this.nroPagina).then((response: any) => {
         //console.log(response);
         var cantidadTotalEventos =  response.data.length;
-        console.log('Listar_eventos_infinito',response.data);
         if(response.estado = 1){
 
           response.data.forEach((e:any) => {
-            console.log('Listar_eventos_infinito',e);
             var incluyeVeinte:favorito = new favorito();
             if (this.user_favoritos.length>0) {
-              console.log('Listar_eventos_infinito',e);
               incluyeVeinte =  this.user_favoritos.find(t=>t.idEvento == e.ideventos && t.idfecha == e.idfecha);
               if ((incluyeVeinte!=undefined)) {
                 incluyeVeinte.incluye=(incluyeVeinte!=undefined) ? true: false;
@@ -184,7 +175,6 @@ export class InicioComponent {
   Listar_eventos_infinitov_copy() {
     debugger;
     this.user_favoritos= this.storageService.getFavorito();
-      console.log('Listar_eventos_infinitov_copy',this.lista_eventosv2)
       this.lista_eventos = [];
       var cantidadTotalEventos =  this.lista_eventosv2.length;
       if(cantidadTotalEventos > 1){

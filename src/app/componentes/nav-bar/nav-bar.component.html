@@ -16,7 +16,7 @@
                 <span class="hide-tablet"></span>
             </a>
         </li>
-        <li>
+        <li *ngIf="this.perfil=='Admin'">
           <a class="link--text"  [ngClass]="{'active': isActiveEventos}"  [routerLink]="['/cuenta/mis-eventos']" routerLinkActive="active" [attr.routerLinkActiveOptions]="{exact: true}"  style="cursor: pointer;" >
 
 

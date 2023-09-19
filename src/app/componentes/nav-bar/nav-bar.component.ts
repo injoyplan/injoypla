@@ -17,16 +17,20 @@ export class NavBarComponent {
   @Input() isActiveEventos:any=false;
 
   public usuario ="";
+  public perfil ="";
   public constructor(private cookieService: CookieService,){
     const _current = this.cookieService.get('_currentUser');
     const _parseCurrent = (_current && JSON.parse(this.cookieService.get('_currentUser'))) ?
     JSON.parse(this.cookieService.get('_currentUser')) : null;
 
     if (_parseCurrent) {
-
-      this.usuario =  _parseCurrent.sub
+      console.log('**********************************************');
+      console.log(_parseCurrent);
+      this.usuario =  _parseCurrent.nombre;
+      this.perfil =  _parseCurrent.menu_rol;
 
     } else {
+      console.log(_parseCurrent);
       this.usuario = "";
     }
   }

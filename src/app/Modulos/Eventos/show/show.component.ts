@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { RestService } from '../../../shared/utilitario/rest.service';
 import { UtilsService } from '../../../shared/utilitario/util.service';
 import { AuthService } from '../../../shared/Service/Usuario.service';
@@ -44,7 +44,7 @@ export class ShowComponent {
     draggable: false
   };
   markerPositions: google.maps.LatLngLiteral[] = [];
-  constructor(private rest: RestService,    private _router:Router, private cookieService: CookieService, private storageService: StorageService,    private util: UtilsService,private _EventoService: EventoService,private _clienteService: AuthService,    private _route: ActivatedRoute) {
+  constructor(private rest: RestService,      private _activedRoute:ActivatedRoute,  private _router:Router, private cookieService: CookieService, private storageService: StorageService,    private util: UtilsService,private _EventoService: EventoService,private _clienteService: AuthService,    private _route: ActivatedRoute) {
     ////console.log('1');
     this.leerDistrito();
     this.user_favoritos= this.storageService.getFavorito();
@@ -69,8 +69,11 @@ export class ShowComponent {
     });
   }
   ngOnInit(): void {
-    this.user_data= this._clienteService.getCurrentUser();
-    this.search_Evento();
+    this._activedRoute.paramMap.subscribe((params:ParamMap)=>{
+      this.user_data= this._clienteService.getCurrentUser();
+      this.search_Evento();
+    });
+
   }
   search_Evento(){
     this._EventoService.consultar_evento_seleccionado(this.idevento, this.idfechaEvento).then(
@@ -78,7 +81,7 @@ export class ShowComponent {
         this.evento =  response.data[0];
         this.fecha =  response.dataFecha;
         this.lista_plataformas =  response.dataPlataformaVenta;
-
+        console.log(this.Distrito);
         this.nombreDistrit = this.Distrito.filter(item => item.codigo == this.evento.Distrito)[0].nombre;
         var datos = { lat: parseFloat(this.evento.latitud_longitud.split(',')[0]), lng: parseFloat(this.evento.latitud_longitud.split(',')[1]) }
         this.LugarEvento = "" + this.evento.direccion + " " + this.evento.Numero + ", " + this.nombreDistrit + " ,Lima, Perú"
@@ -87,6 +90,8 @@ export class ShowComponent {
           lat: parseFloat(this.evento.latitud_longitud.split(',')[0]),
           lng: parseFloat(this.evento.latitud_longitud.split(',')[1]),
         }
+        console.log('this.center');
+        console.log(this.center);
         this.validarSiEsFavorito(this.evento.evento_id);
         /*this.fecha =  response.data._evento[0];
         this.evento =  response.data._evento[0].evento;

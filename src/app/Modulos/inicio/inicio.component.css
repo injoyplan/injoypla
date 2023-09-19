@@ -14,7 +14,7 @@
     padding-right: 0px;
     padding-left: 0px;
     display: block;
-    justify-content: space-between;
+    justify-content:flex-start;
     margin-top: 4%;
   }
 
@@ -37,6 +37,13 @@
 
   .cards_Destacado {
     grid-template-columns: repeat(1, 1fr);
+  }
+
+
+  .irBuscador{
+
+      text-align: center;
+
   }
 }
 
@@ -62,7 +69,7 @@
     padding-right: 0px;
     padding-left: 0px;
     display: block;
-    justify-content: space-between;
+    justify-content: flex-start;
     /*margin-top: 4%;*/
     margin-top: 0%;
   }
@@ -72,7 +79,7 @@
     overflow: auto;
     display: flex;
     flex-wrap: nowrap;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: center;
   }
 
@@ -89,17 +96,22 @@
   .cards_Destacado {
     grid-template-columns: repeat(1, 1fr);
   }
+  .irBuscador{
+    text-align: center;
+  }
 }
 
 /* Smartphones (portrait) ----------- */
 @media only screen and (max-width: 320px) {
-
+  .irBuscador{
+    text-align: center;
+  }
   .web {
     width: 100%;
     padding-right: 0px;
     padding-left: 0px;
     display: block;
-    justify-content: space-between;
+    justify-content: flex-start;
     margin-top: 4%;
   }
 
@@ -131,7 +143,9 @@
     display: flex;justify-content: flex-start;flex-wrap: wrap;
   }
 
-
+  .irBuscador{
+    text-align: right;
+  }
   .web {
     width: 70%;
     padding-right: 0px;
@@ -185,7 +199,9 @@
 
 /* iPads (landscape) ----------- */
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
-
+  .irBuscador{
+    text-align: right;
+  }
   .cards-start{
     display: flex;justify-content: flex-start;flex-wrap: wrap;
   }.web {
@@ -243,7 +259,9 @@
   .cards-start{
     display: flex;justify-content: flex-start;flex-wrap: wrap;
   }
-
+  .irBuscador{
+    text-align: right;
+  }
   .web {
     width: 70%;
     padding-right: 0px;
@@ -357,6 +375,9 @@
   }
 }
 @media only screen and (min-device-width: 1024px) and (max-device-width: 1024px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+  .irBuscador{
+    text-align: right;
+  }
   .card__img-vivo-actions {
     top: 1rem;
     right: 10rem;
@@ -512,7 +533,9 @@
 /* Desktops and laptops ----------- */
 @media only screen and (min-device-width: 1025px) and  (min-width: 1440px) {
 
-
+  .irBuscador{
+    text-align: right;
+  }
 
 
   .cards-start{
@@ -567,6 +590,9 @@
 
 /* Large screens ----------- */
 @media only screen and (min-width: 1824px) {
+  .irBuscador{
+    text-align: right;
+  }
   .cards-start{
     display: flex;justify-content: flex-start;flex-wrap: wrap;
     max-width: 1322px;
@@ -680,6 +706,9 @@
   .cards_Destacado {
     grid-template-columns: repeat(1, 1fr);
   }
+  .irBuscador{
+    text-align: center;
+  }
 }
 
 @media only screen and (min-device-width: 322px) and (max-device-width: 480px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
@@ -744,6 +773,9 @@
 
   .cards_Destacado {
     grid-template-columns: repeat(1, 1fr);
+  }
+  .irBuscador{
+    text-align: center;
   }
 }
 
@@ -815,6 +847,9 @@
   .cards_Destacado {
     grid-template-columns: repeat(1, 1fr);
   }
+  .irBuscador{
+    text-align: center;
+  }
 }
 
 @media only screen and (min-device-width: 322px) and (max-device-height: 568px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2) {
@@ -880,6 +915,9 @@
 
   .cards_Destacado {
     grid-template-columns: repeat(3, 1fr);
+  }
+  .irBuscador{
+    text-align: center;
   }
 }
 
@@ -949,6 +987,9 @@
   .cards_Destacado {
     grid-template-columns: repeat(3, 1fr);
   }
+  .irBuscador{
+    text-align: center;
+  }
 }
 
 @media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2) {
@@ -1017,10 +1058,16 @@
   .cards_Destacado {
     grid-template-columns: repeat(3, 1fr);
   }
+  .irBuscador{
+    text-align: center;
+  }
 }
 
 /* iPhone 6+ ----------- */
 @media only screen and (min-device-width: 414px) and (max-device-height: 768px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2) {
+  .irBuscador{
+    text-align: center;
+  }
   .web {
     width: 80%;
     padding-right: 0px;
@@ -1084,9 +1131,7 @@
 .categorie__link  a:hover{
   text-decoration: none;
 }
-.categorie__link  a{
 
-}
 a{
   text-decoration: none;
 }
@@ -1127,7 +1172,7 @@ a{
 
 .top-categories__end .top-categories__grid>* {
   flex-shrink: 0;
-  width: 230px
+  width: 200px
 }
 
 .top-categories__end .top-categories__grid>*:not(:first-child):not(:last-child) {
@@ -1242,3 +1287,14 @@ a{
   flex-grow: 0;
 }
 
+.irBuscador{
+  color: #007FA4;
+    margin-right: 35px;
+
+    font-family: Open Sans;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 10px;
+    line-height: 16px;
+    letter-spacing: 0.6000000238418579px;
+}

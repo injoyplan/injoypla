@@ -17,8 +17,8 @@
           <span class="input-group-text"><i class="cxi-search lead align-middle"></i></span>
         </div>
         <input class="form-control appended-form-control rounded-3 border-3" type="text"
-          [ngClass]="{'loading': isloading}" [spellcheck]="false" (keyup)="searchText(this.src)"  [(ngModel)]="src"
-          placeholder="Evento, equipo o artista ss" id="BusquedaInformacion" #txtInputBusquedaInformacion>
+          [ngClass]="{'loading': isloading}" [spellcheck]="false" (input)="onKeyPress()" [(ngModel)]="searchEvent"
+          placeholder="Evento, equipo o artista" id="BusquedaInformacion" #txtInputBusquedaInformacion>
 
       </div>
 
@@ -75,8 +75,8 @@
       <nav class="collapse navbar-collapse order-lg-2" id="navbarCollapse">
         <!-- Search mobile -->
         <div class="input-group-overlay form-group mb-0 d-lg-none d-block">
-          <input type="text" class="form-control prepended-form-control rounded-3 border-3" (keyup)="searchText(this.src)"
-            [ngClass]="{'loading': isloading}" [spellcheck]="false"  [(ngModel)]="src"
+          <input type="text" class="form-control prepended-form-control rounded-3 border-3"
+            [ngClass]="{'loading': isloading}" [spellcheck]="false" (input)="onKeyPress()" [(ngModel)]="searchEvent"
             placeholder="Search for products..." #txtInputBusquedaInformacion>
           <div class="input-group-prepend-overlay">
             <span class="input-group-text">
@@ -192,7 +192,7 @@
               color: #212121;
               justify-content: center;
             ">
-            Inicia sesión para verlos aquí
+           Guárdalos para verlos aquí
           </p>
         </div>
       </div>
@@ -210,7 +210,7 @@
         <span class="input-group-text"><i class="cxi-search lead align-middle"></i></span>
       </div>
       <input class="form-control appended-form-control rounded-3 border-3" type="text"
-        [ngClass]="{'loading': isloading}" [spellcheck]="false" (ngModelChange)="search($event)" [(ngModel)]="src"
+        [ngClass]="{'loading': isloading}" [spellcheck]="false" (input)="onKeyPressMobil()" [(ngModel)]="searchEventMobil"
         placeholder="Evento, equipo o artistas" id="BusquedaInformacion">
 
     </div>

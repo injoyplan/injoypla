@@ -36,8 +36,9 @@
     <div class="card-footer" style="background-color: white;border-top: 0px solid #e5e8ed !important;">
       <div class="user">
         <div class="user-info" >
-          <small>Desde </small>
-          <h5 class="tag-monto">{{evento.Monto | formatMoney}}</h5>
+          <small  *ngIf="evento.Monto!=0">DESDE</small>
+          <h5 class="tag-monto" *ngIf="evento.Monto!=0">{{evento.Monto | formatMoney}}</h5>
+          <h5 class="tag-monto" *ngIf="evento.Monto==0">¡Gratis! </h5>
         </div>
       </div>
     </div>
