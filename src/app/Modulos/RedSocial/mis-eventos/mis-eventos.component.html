@@ -2,9 +2,10 @@
 <app-nav-bar [isActivePerfil]="false" [isActive]="false" [isActiveEventos]="true"></app-nav-bar>
 <div style="height: 128px;background: #007FA4;">
 
-
+{{enProceso}}
   <input placeholder="Ingresa tu búsqueda" name="focus" required  [(ngModel)]="filter_busqueda" (ngModelChange)="buscar_mis_eventos()"  class="buscarEvento"  type="text" />
   <button type="button" id="btnBuscarDesktop" class="btn btn-outline-primary " (click)="buscar_mis_eventos()" style="margin-left: 10px;border: 3px solid #FFFFFF; border-radius: 30px;color:#FFFFFF;width: 150px;"  >Buscar</button>
+  <button type="button" [disabled]="enProceso" id="btnActualizarExcel" class="btn btn-outline-primary " (click)="RegistrarEventosdelExcel()" style="margin-left: 10px;border: 3px solid #FFFFFF; border-radius: 30px;color:#FFFFFF;width: 150px;"  ><i style="margin-right: 2%;" class="fa-solid fa-cloud-arrow-up"></i>{{NombreBottonXProceso}}</button>
 </div>
 <div class="container">
   <div class="row align-items-left mb-4">

@@ -154,6 +154,9 @@ export class HeaderComponent implements OnInit {
       if (error.status == 401) {
         this.util.openSnackBar('Ups! Su Sesion se ha terminado', 'error');
         this._clienteService.logout();
+      } if (error.status == 404) {
+        this.util.openSnackBar('Ups! error de conexión de servidor', 'error');
+        this._clienteService.logout();
       } else {
         this.util.openSnackBar('Ups! No se ha Agregado el evento en tus favoritos', 'error');
       }
@@ -470,7 +473,7 @@ export class HeaderComponent implements OnInit {
         this.util.openSnackBar('Ups! Su Sesion se ha terminado', 'error');
         this._clienteService.logout();
       } else {
-        this.util.openSnackBar('Ups! No se ha Agregado el evento en tus favoritos', 'error');
+        this.util.openSnackBar('Upsxx! No se ha Agregado el evento en tus favoritos', 'error');
       }
     });
   }

@@ -15,6 +15,7 @@ export class NavBarComponent {
   @Input() isActivePerfil:any=false;
   @Input() isActive:any=false;
   @Input() isActiveEventos:any=false;
+  @Input() isActiveEventosMasivos:any=false;
 
   public usuario ="";
   public perfil ="";

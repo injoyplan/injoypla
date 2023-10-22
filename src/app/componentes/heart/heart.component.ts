@@ -51,7 +51,7 @@ export class HeartComponent {
             this.utils.openSnackBar('Ups! Su Sesion se ha terminado', 'error');
             this._clienteService.logout();
            } else {
-            this.utils.openSnackBar('Ups! No se ha Agregado el evento en tus favoritos', 'error');
+            this.utils.openSnackBar('Upsxxx! No se ha Agregado el evento en tus favoritos', 'error');
            }
 
         })

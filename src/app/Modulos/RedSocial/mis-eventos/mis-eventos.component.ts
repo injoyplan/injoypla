@@ -21,7 +21,10 @@ export class MisEventosComponent implements OnInit {
   public pageSize = 12;
   public CantEventmios:any =  null;
   public activoVerMasEventos= true;
+
   public load_data_add= false;
+  public NombreBottonXProceso= "Procesar";
+  public enProceso:boolean = false;
   public eventos_clone_scroll: Array<any>=[]
   constructor(private auth: AuthService,
     private router: Router, private utils: UtilsService,
@@ -85,6 +88,22 @@ export class MisEventosComponent implements OnInit {
     console.log(this.page);
     this.eventos_clone_scroll= this.eventos;
     this.consultar_mis_eventos(this.page,false,true);
+  }
+
+  RegistrarEventosdelExcel(){
+    this.NombreBottonXProceso = "Procesando...";
+    this.enProceso =  true;
+    this._clienteService.descargarEventosExcel().then(
+      (response: any) => {
+        console.log(response);
+        this.enProceso =  false;
+        this.NombreBottonXProceso= "Procesar";
+      },
+      error => {
+        this.enProceso =  false;
+        this.NombreBottonXProceso= "Procesar";
+      }
+    );
   }
   buscar_mis_eventos(){
     this.page = 0;

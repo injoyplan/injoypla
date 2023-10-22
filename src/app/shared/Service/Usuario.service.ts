@@ -266,6 +266,19 @@ export class AuthService {
       });
     }).bind(this));
   }
+  descargarEventosExcel(){
+    var valor:any
+    return new Promise<boolean>(((resolve, reject) => {
+    
+      this.rest.post('eventos/RegistrarEventosMasivos',valor).then(((response: any) => {
+        resolve(response);
+      }).bind(this)).catch((error) => {
+        console.log(error)
+        reject(error);
+      });
+    }).bind(this));
+
+  }
   public listar_Eventos_publicos_filtros(filtros: any):Promise<boolean>{
 
     return new Promise<boolean>(((resolve, reject) => {

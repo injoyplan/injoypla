@@ -16,8 +16,10 @@ const routes: Routes = [
   { path: 'cuenta/perfil' ,canActivate:[AuthGuard], loadChildren: () => import('./Modulos/RedSocial/usuario/usuario.module').then(m => m.UsuarioModule) },
   { path: 'cuenta/favoritos',canActivate:[AuthGuard], loadChildren: () => import('./Modulos/RedSocial/favoritos/Favoritos.module').then(m => m.FavoritosModule) },
   { path: 'cuenta/mis-eventos',canActivate:[AuthGuard], loadChildren: () => import('./Modulos/RedSocial/mis-eventos/mis-eventos.module').then(m => m.MisEventosModule) },
+  { path: 'cuenta/subir-eventos-masivo',canActivate:[AuthGuard], loadChildren: () => import('./Modulos/RedSocial/subir-evento-masivo/subir-evento-masivo.module').then(m => m.SubirEventoMasivoModule) },
   { path: 'cuenta/Eventos/editar-eventos/:idEvento',canActivate:[AuthGuard], loadChildren: () => import('./Modulos/RedSocial/Eventos/editar-evento/editar.module').then(m => m.EditarEventoModule) },
   { path: 'cuenta/Eventos/nuevo-eventos',canActivate:[AuthGuard], loadChildren: () => import('./Modulos/RedSocial/Eventos/nuevo-evento/nuevo.module').then(m => m.NuevoEventoModule) },
+  
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '****', redirectTo: 'home', pathMatch: 'full' },
   { path: 'Acerca-nosostros', component: AcercaNosotrosComponent},

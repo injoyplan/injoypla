@@ -79,8 +79,8 @@
     overflow: auto;
     display: flex;
     flex-wrap: nowrap;
-    justify-content: flex-start;
     align-items: center;
+    justify-content: center;
   }
 
   .top-categories__end {

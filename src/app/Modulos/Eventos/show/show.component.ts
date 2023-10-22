@@ -227,7 +227,7 @@ export class ShowComponent {
             this.util.openSnackBar('Ups! Su Sesion se ha terminado', 'error');
             this._clienteService.logout();
            } else {
-            this.util.openSnackBar('Ups! No se ha Agregado el evento en tus favoritos', 'error');
+            this.util.openSnackBar('Upssss! No se ha Agregado el evento en tus favoritos', 'error');
            }
 
         })

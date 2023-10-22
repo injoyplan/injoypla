@@ -13,10 +13,12 @@ import { NarbarComponent } from './Modulos/RedSocial/Eventos/componentes/narbar/
 
 
 
+
 @NgModule({
     declarations: [
         AppComponent,
         NarbarComponent,
+
 
 
     ],
